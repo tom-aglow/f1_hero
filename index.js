@@ -5,13 +5,13 @@ const session = require('express-session');
 const bodyParser = require('body-parser');
 const cookieParser = require('cookie-parser');
 
-const { MONGO_URI, COOKIE_SECRET } = require('./config/keys');
+const { MONGODB_URI, COOKIE_SECRET } = require('./config/keys');
 require('./models/User');
 require('./services/passport');
 
 //	DB CONNECTION
 mongoose.Promise = global.Promise;
-mongoose.connect(MONGO_URI);
+mongoose.connect(MONGODB_URI);
 
 const app = express();
 
