@@ -1,10 +1,24 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 
-const App = () => {
-  return <div>
-		<h1>test</h1>
-	</div>;
-};
+import Home from './pages/Home';
+import Leaderboard from './pages/Leaderboard';
+import Header from './components/Header';
+
+const FourOhFour = () => <h1>404</h1>;
+
+const App = () => (
+  <BrowserRouter>
+    <div>
+			<Header />
+      <Switch>
+        <Route exact path="/" component={Home} />
+        <Route path="/leaderboard" component={Leaderboard} />
+        <Route component={FourOhFour} />
+      </Switch>
+    </div>
+  </BrowserRouter>
+);
 
 render(<App />, document.getElementById('app'));

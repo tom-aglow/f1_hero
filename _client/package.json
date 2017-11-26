@@ -5,7 +5,8 @@
 	"main": "server.js",
 	"scripts": {
 		"build": "webpack",
-		"watch": "webpack --watch"
+		"watch": "webpack --watch",
+		"dev": "webpack-dev-server"
 	},
 	"author": "tom_aglow",
 	"license": "MIT",
