@@ -3,46 +3,44 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const session = require('express-session');
 const bodyParser = require('body-parser');
+const cookieParser = require('cookie-parser');
 
-const keys = require('./config/keys');
+const { MONGO_URI, COOKIE_SECRET } = require('./config/keys');
 require('./models/User');
 require('./services/passport');
 
-
 //	DB CONNECTION
 mongoose.Promise = global.Promise;
-mongoose.connect(keys.MONGO_URI);
-
+mongoose.connect(MONGO_URI);
 
 const app = express();
 
 
-//rest API requirements
-app.use(bodyParser.urlencoded({
-	extended: true
-}));
-app.use(bodyParser.json());
-
-
 //	MIDDLEWARE
-app.use(session({
-	secret: 'keyboard cat',
-	resave: true,
-	saveUninitialized: true,
-}));
-app.use(passport.initialize());
-// app.use(passport.session());
 
+// Use application-level middleware for common functionality, including
+// logging, parsing, and session handling.
+app.use(require('cookie-parser')());
+app.use(bodyParser.urlencoded({ extended: true }));
+app.use(bodyParser.json());
+app.use(
+  require('express-session')({
+    secret: COOKIE_SECRET,
+    resave: true,
+    saveUninitialized: true
+  })
+);
+
+app.use(passport.initialize());
+app.use(passport.session());
 
 // 	ROUTES
 require('./routes/routes')(app);
 require('./routes/authRoutes')(app);
 
-
-
 //	PORT
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-	console.log(`server is running at ${PORT}`);
+  console.log(`server is running at ${PORT}`);
 });

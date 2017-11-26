@@ -13,7 +13,10 @@ module.exports = app => {
 		passport.authenticate('twitter', { failureRedirect: '/login' }),
 		(req, res) => {
 			res.redirect('/');
-			console.log(req);
 		}
 	);
+	
+	app.get('/profile', (req, res) => {
+		res.send(req.user);
+	})
 };
