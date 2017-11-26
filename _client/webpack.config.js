@@ -5,7 +5,7 @@ module.exports = {
   entry: './src/ClientApp.jsx',
   devtool: 'cheap-eval-source-map',
   output: {
-    path: path.join(__dirname, 'public'),
+    path: path.join(__dirname, 'public/assets'),
     filename: 'bundle.js'
   },
   resolve: {
@@ -41,7 +41,7 @@ module.exports = {
 				secure: false
 			}
 		},
-		publicPath: '/public/',
+		publicPath: '/assets/',
 		historyApiFallback: true
   }
 };

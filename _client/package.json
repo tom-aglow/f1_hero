@@ -6,7 +6,7 @@
 	"scripts": {
 		"build": "webpack",
 		"watch": "webpack --watch",
-		"dev": "webpack-dev-server"
+		"dev": "webpack-dev-server --content-base public/"
 	},
 	"author": "tom_aglow",
 	"license": "MIT",
