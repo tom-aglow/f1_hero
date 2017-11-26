@@ -36,7 +36,6 @@ app.use(passport.session());
 
 
 // 	ROUTES
-require('./routes/routes')(app);
 require('./routes/authRoutes')(app);
 
 //	production routes
