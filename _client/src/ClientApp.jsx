@@ -15,6 +15,7 @@ const App = () => (
       <Switch>
         <Route exact path="/" component={Home} />
         <Route path="/leaderboard" component={Leaderboard} />
+        {/*<Route path="/auth/twitter" />*/}
         <Route component={FourOhFour} />
       </Switch>
     </div>

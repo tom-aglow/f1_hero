@@ -12,6 +12,9 @@ class Header extends Component {
 					<li>
 						<Link to={'/leaderboard'}>Leaderboard</Link>
 					</li>
+					<li>
+						<a href="/auth/twitter">Twitter</a>
+					</li>
 				</ul>
 			</nav>
 		)

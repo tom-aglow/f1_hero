@@ -25,7 +25,13 @@ module.exports = {
     ]
   },
   devServer: {
-    publicPath: '/public/',
+		proxy: {
+    	'/auth/twitter': {
+    		target: 'http://localhost:5000',
+				secure: false
+			}
+		},
+		publicPath: '/public/',
 		historyApiFallback: true
   }
 };

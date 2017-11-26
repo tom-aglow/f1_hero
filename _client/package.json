@@ -11,7 +11,7 @@
 	"author": "tom_aglow",
 	"license": "MIT",
 	"proxy": {
-		"/auth/google": {
+		"/auth/twitter": {
 			"target": "http://localhost:5000"
 		},
 		"/api/*": {

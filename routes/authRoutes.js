@@ -1,13 +1,13 @@
 const passport = require('passport');
 
 module.exports = app => {
-	//	route handler to kick user to twitter authentication
+	//	route handler to kick user to Twitter authentication
 	app.get(
 		'/auth/twitter',
 		passport.authenticate('twitter')
 	);
 
-	//	route handler for Google OAUTH callback
+	//	route handler for Twitter callback
 	app.get(
 		'/auth/twitter/callback',
 		passport.authenticate('twitter', { failureRedirect: '/login' }),

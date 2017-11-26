@@ -24,8 +24,6 @@ passport.use(
     },
 		//	handle the callback from Twitter OAUTH
 		async (accessToken, refreshToken, profile, done) => {
-    	console.log(profile);
-    	
 			const user =
 				(await User.findOne({ twitterID: profile.id })) ||
 				(await new User({ twitterID: profile.id }).save());

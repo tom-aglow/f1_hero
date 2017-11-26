@@ -34,9 +34,11 @@ app.use(
 app.use(passport.initialize());
 app.use(passport.session());
 
+
 // 	ROUTES
 require('./routes/routes')(app);
 require('./routes/authRoutes')(app);
+
 
 //	PORT
 const PORT = process.env.PORT || 5000;
