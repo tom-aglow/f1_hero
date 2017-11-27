@@ -12,7 +12,7 @@ import axios from 'axios';
 window.axios = axios;
 
 //	css styles
-import './../styles/main.scss';
+import './styles/main.scss';
 
 //	app state store
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));

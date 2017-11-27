@@ -6,7 +6,7 @@ class Header extends Component {
 	renderUsername() {
 		if (this.props.auth) {
 			return (
-				<div>{this.props.auth.username}</div>
+				<li className="btn btn-secondary username"><i className="fa fa-user" aria-hidden="true"></i>{this.props.auth.username}</li>
 			)
 		}
 	}
@@ -14,17 +14,20 @@ class Header extends Component {
   render() {
   	console.log(this.props.auth);
     return (
-      <nav>
-        <ul>
-          <li>
-            <Link to={'/'}>My Picks</Link>
-          </li>
-          <li>
-            <Link to={'/leaderboard'}>Leaderboard</Link>
-          </li>
-        </ul>
-				{this.renderUsername()}
-      </nav>
+    	<header className="page-header">
+				<h1 className="page-title">F1 Hero</h1>
+				<nav className="navbar">
+					<ul>
+						<li>
+							<Link to={'/'} className="btn btn-primary">My Picks</Link>
+						</li>
+						<li>
+							<Link to={'/leaderboard'} className="btn btn-primary">Leaderboard</Link>
+						</li>
+						{this.renderUsername()}
+					</ul>
+				</nav>
+			</header>
     );
   }
 }
