@@ -1,25 +1,32 @@
 import React from 'react';
 import { render } from 'react-dom';
-import { BrowserRouter, Route, Switch } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Provider, connect } from 'react-redux';
+import { createStore, applyMiddleware } from 'redux';
+import reduxThunk from 'redux-thunk';
 
-import Home from './pages/Home';
-import Leaderboard from './pages/Leaderboard';
-import Header from './components/Header';
+import App from './App';
+import reducers from './reducers';
+
+import axios from 'axios';
+window.axios = axios;
+
+//	css styles
 import './../styles/main.scss';
 
-const FourOhFour = () => <h1>404</h1>;
+//	app state store
+const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
-const App = () => (
-  <BrowserRouter>
-    <div>
-			<Header />
-      <Switch>
-        <Route exact path="/" component={Home} />
-        <Route path="/leaderboard" component={Leaderboard} />
-        <Route component={FourOhFour} />
-      </Switch>
-    </div>
-  </BrowserRouter>
-);
 
-render(<App />, document.getElementById('app'));
+const renderApp = () => {
+  render(
+    <BrowserRouter>
+			<Provider store={store}>
+				<App />
+			</Provider>
+    </BrowserRouter>,
+    document.getElementById('app')
+  );
+};
+
+renderApp();

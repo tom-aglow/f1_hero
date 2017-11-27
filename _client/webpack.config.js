@@ -2,7 +2,7 @@ const path = require('path');
 
 module.exports = {
   context: __dirname,
-  entry: './src/ClientApp.jsx',
+  entry: ['babel-polyfill', './src/ClientApp.jsx'],
   devtool: 'cheap-eval-source-map',
   output: {
     path: path.join(__dirname, 'public/assets'),
@@ -38,6 +38,10 @@ module.exports = {
 		proxy: {
     	'/auth/twitter': {
     		target: 'http://localhost:5000',
+				secure: false
+			},
+			'/api/*': {
+				target: 'http://localhost:5000',
 				secure: false
 			}
 		},
