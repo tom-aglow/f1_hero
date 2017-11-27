@@ -18,7 +18,7 @@ class Header extends Component {
 				<nav className="navbar">
 					<ul>
 						<li>
-							<Link to={'/'} className="btn btn-primary">My Picks</Link>
+							<Link to={'/picks'} className="btn btn-primary">My Picks</Link>
 						</li>
 						<li>
 							<Link to={'/leaderboard'} className="btn btn-primary">Leaderboard</Link>

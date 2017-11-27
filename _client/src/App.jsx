@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 
 
 import Login from './components/Login';
-import Dashboard from './components/Dashboard';
+import Master from './components/Master';
 import * as actions from './actions';
 
 
@@ -24,7 +24,7 @@ class App extends Component {
 		let content = '';
 		
 		if (this.state.isAuth === true) {
-			content = <Dashboard />;
+			content = <Master />;
 		} else if (this.state.isAuth === false) {
 			if (window.location.pathname !== '/login') {
 				window.location.replace('/login');

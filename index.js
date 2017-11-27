@@ -7,6 +7,7 @@ const cookieParser = require('cookie-parser');
 
 const { MONGODB_URI, COOKIE_SECRET } = require('./config/keys');
 require('./models/User');
+require('./models/Race');
 require('./services/passport');
 
 
@@ -42,6 +43,7 @@ app.use(passport.session());
 
 // 	ROUTES
 require('./routes/authRoutes')(app);
+require('./routes/serviceRoutes')(app);
 
 //	production routes
 if (process.env.NODE_ENV === 'production') {

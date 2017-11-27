@@ -1,9 +1,9 @@
 import React from 'react';
+import RacesHolder from './RacesHolder';
 
 const Home = () => (
 	<div>
-		<h1>Home</h1>
-		<a href="/auth/twitter">Twitter</a>
+		<RacesHolder />
 	</div>
 );
 

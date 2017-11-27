@@ -1,8 +1,8 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 
-import Home from '../pages/Home';
-import Leaderboard from '../pages/Leaderboard';
+import Picks from './picks/_Picks';
+import Leaderboard from './leaderboard/_Leaderboard';
 import Header from './Header';
 
 //	404 component placeholder
@@ -12,7 +12,8 @@ const Dashboard = () => (
 	<div>
 		<Header />
 		<Switch>
-			<Route exact path="/" component={Home} />
+			<Route exact path="/" component={Picks} />
+			<Route exact path="/picks" component={Picks} />
 			<Route path="/leaderboard" component={Leaderboard} />
 			<Route component={FourOhFour} />
 		</Switch>
