@@ -12,7 +12,6 @@ class Header extends Component {
 	}
 	
   render() {
-  	console.log(this.props.auth);
     return (
     	<header className="page-header">
 				<h1 className="page-title">F1 Hero</h1>

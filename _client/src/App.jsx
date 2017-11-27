@@ -1,32 +1,56 @@
 import React, { Component } from 'react';
-import { Route, Switch } from 'react-router-dom';
+import { BrowserRouter, Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
 
-import Home from './pages/Home';
-import Leaderboard from './pages/Leaderboard';
-import Header from './components/Header';
+
+import Login from './components/Login';
+import Dashboard from './components/Dashboard';
 import * as actions from './actions';
 
-//	404 component placeholder
-const FourOhFour = () => <h1>404</h1>;
 
 class App extends Component {
-  componentDidMount() {
-  	this.props.fetchUser();
+	constructor() {
+		super();
+		this.state = { isAuth: null };
 	}
 
+  async componentWillMount() {
+    const res = await axios.get('/api/current_user');
+    this.setState({ isAuth: !!res.data });
+		console.log(res.data);
+
+	}
+
+  componentDidMount() {
+    this.props.fetchUser();
+  }
+
   render() {
+		let content;
+		
+		if (this.state.isAuth === true) {
+			content = <Dashboard />;
+		} else if (this.state.isAuth === false) {
+			if (window.location.pathname !== '/login') {
+				content = <Redirect to="/login"/>
+			} else {
+				content = <Login />
+			}
+		}
+
     return (
+      <BrowserRouter>
         <div className="app">
-          <Header />
-          <Switch>
-            <Route exact path="/" component={Home} />
-            <Route path="/leaderboard" component={Leaderboard} />
-            <Route component={FourOhFour} />
-          </Switch>
+          {content}
+          
         </div>
+      </BrowserRouter>
     );
   }
 }
 
-export default connect(null, actions)(App);
+function mapStateToProps({ auth }) {
+  return { auth };
+}
+
+export default connect(mapStateToProps, actions)(App);
