@@ -8,11 +8,11 @@ const {
 } = require('../config/keys');
 
 passport.serializeUser((user, done) => {
-	done(null, user.id);
+  done(null, user.id);
 });
 
 passport.deserializeUser((id, done) => {
-	User.findById(id).then(user => done(null, user));
+  User.findById(id).then(user => done(null, user));
 });
 
 passport.use(
@@ -20,15 +20,22 @@ passport.use(
     {
       consumerKey: TWITTER_CONSUMER_KEY,
       consumerSecret: TWITTER_CONSUMER_SECRET,
-			callbackURL: '/auth/twitter/callback'
+      callbackURL: '/auth/twitter/callback',
+			proxy: true
     },
-		//	handle the callback from Twitter OAUTH
-		async (accessToken, refreshToken, profile, done) => {
-			const user =
-				(await User.findOne({ twitterID: profile.id })) ||
-				(await new User({ twitterID: profile.id }).save());
+    //	handle the callback from Twitter OAUTH
+    async (accessToken, refreshToken, profile, done) => {
+      const user =
+        (await User.findOne({
+          twitterID: profile.id
+        })) ||
+        (await new User({
+          twitterID: profile.id,
+          username: profile.username
+        }).save());
 
-			done(null, user);
-		}
+      done(null, user);
+			
+    }
   )
 );

@@ -9,6 +9,7 @@ const { MONGODB_URI, COOKIE_SECRET } = require('./config/keys');
 require('./models/User');
 require('./services/passport');
 
+
 //	DB CONNECTION
 mongoose.Promise = global.Promise;
 mongoose.connect(MONGODB_URI);
@@ -27,12 +28,16 @@ app.use(
   require('express-session')({
     secret: COOKIE_SECRET,
     resave: true,
-    saveUninitialized: true
+    saveUninitialized: true,
+		cookie: {
+    	maxAge: 30 * 24 * 60 * 60 * 1000
+		}
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
+
 
 
 // 	ROUTES
