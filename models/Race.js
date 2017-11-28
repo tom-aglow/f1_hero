@@ -18,6 +18,10 @@ const raceSchema = new Schema({
 		minlength: 1
 	},
 	date: {
+		type: Date,
+		required: true
+	},
+	flagUrl: {
 		type: String,
 		required: true,
 		minlength: 1
