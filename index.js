@@ -9,6 +9,7 @@ const { MONGODB_URI, COOKIE_SECRET } = require('./config/keys');
 require('./models/User');
 require('./models/Race');
 require('./models/Driver');
+require('./models/Pick');
 require('./services/passport');
 
 

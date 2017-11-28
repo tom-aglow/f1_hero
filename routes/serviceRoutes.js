@@ -1,6 +1,7 @@
 const axios = require('axios');
 const Race = require('mongoose').model('race');
 const Driver = require('mongoose').model('driver');
+const Pick = require('mongoose').model('pick');
 const { BASETRIP_SECRET } = require('../config/keys');
 const isAdmin = require('../middlewares/isAdmin');
 
@@ -83,4 +84,29 @@ module.exports = app => {
 
 		res.status(200).send('');
 	});
+	
+	//	*** current user (admin) picks table seeder
+	app.get('/api/current-user/seed/:round', async (req, res) => {
+		// const _user = req.user._id;
+		const _user = await Race.findOne({}).select('_id');
+		const _race = await Race.findOne({round: req.params.round}).select('_id');
+		const drivers = await Driver.find({}).select('_id');
+		let forecast = [];
+
+		//	populate forecast array
+		for (let i = 0; i < 10; i++) {
+			const index = Math.floor(Math.random() * drivers.length);
+			
+			forecast.push({
+				position: i + 1,
+				_driver: drivers[index]
+			});
+
+			drivers.splice(index, 1);
+		}
+		
+		(await new Pick({_user, _race, forecast})).save();
+		
+		res.status(200).send('');
+	})
 };
