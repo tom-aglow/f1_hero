@@ -44,6 +44,7 @@ app.use(passport.session());
 // 	ROUTES
 require('./routes/authRoutes')(app);
 require('./routes/serviceRoutes')(app);
+require('./routes/racesRoutes')(app);
 
 //	production routes
 if (process.env.NODE_ENV === 'production') {

@@ -15,7 +15,7 @@ class App extends Component {
 	}
 
   async componentDidMount() {
-		const user = await axios.get('/api/current_user');
+		const user = await axios.get('/api/current-user');
 		this.setState({ isAuth: !!user.data });
     this.props.setUser(user);
   }

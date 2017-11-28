@@ -25,6 +25,11 @@ const raceSchema = new Schema({
 		type: String,
 		required: true,
 		minlength: 1
+	},
+	alpha3code: {
+		type: String,
+		required: true,
+		length: 3
 	}
 });
 
