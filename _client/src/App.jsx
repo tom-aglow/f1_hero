@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { BrowserRouter, Redirect, withRouter } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 
