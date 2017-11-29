@@ -15,6 +15,6 @@ module.exports = app => {
 		const race = await Race.findOne({round: req.params.round}).select();
 		const pick = await Pick.find({_race: race._id}).populate('forecast._driver').select();	//TODO add filter by current user
 
-		res.send(pick);
+		res.send(pick[0]);
 	})
 };

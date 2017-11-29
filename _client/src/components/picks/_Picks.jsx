@@ -1,10 +1,10 @@
 import React from 'react';
 import RacesHolder from './RacesHolder';
 
-const Home = () => (
+const Picks = () => (
 	<div>
 		<RacesHolder />
 	</div>
 );
 
-export default Home;
+export default Picks;
