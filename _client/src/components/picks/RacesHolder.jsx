@@ -15,12 +15,12 @@ class RacesHolder extends Component {
 		if (this.props.races) {
 			raceList = this.props.races.map((race) => {
 				return (
-					<Race race={race} key={race.round}/>
+					<Race race={race} holderNode={this.refs.raceHolder} key={race.round}/>
 				)
 			});
 		}
 		
-		return <div className="race-holder">{raceList}</div>
+		return <div className="race-holder" ref="raceHolder">{raceList}</div>
 	}
 }
 
