@@ -1,21 +1,30 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
 import Standing from './Standing';
+import * as actions from './../../actions';
 
 class Race extends Component {
 
   async fetchPick() {
     const pick = (await axios.get(`/api/pick/${this.props.race.round}`)).data;
     this.setState({ pick });
+    this.props.selectRace(this.props.race.round);
   }
 
   displayPick() {
-    if (this.state && this.state.hasOwnProperty('pick') && this.state.pick) {
+  	const isPickSet = this.state && this.state.hasOwnProperty('pick') && this.state.pick;
+  	const isRaceSelected = this.props.selectedRace === this.props.race.round;
+  	
+    if (isPickSet && isRaceSelected) {
       const standings = this.state.pick.forecast.map(standing => {
         return <Standing standing={standing} key={standing.position} />;
       });
 
       return <div className="picks">{standings}</div>;
     }
+
+		return '';
   }
 
   render() {
@@ -35,4 +44,8 @@ class Race extends Component {
   }
 }
 
-export default Race;
+function mapStateToProps({ selectedRace }) {
+	return { selectedRace };
+}
+
+export default connect(mapStateToProps, actions)(Race);
