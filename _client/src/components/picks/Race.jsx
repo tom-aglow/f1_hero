@@ -5,49 +5,64 @@ import Standing from './Standing';
 import * as actions from './../../actions';
 
 class Race extends Component {
-
   async fetchPick() {
     const pick = (await axios.get(`/api/pick/${this.props.race.round}`)).data;
     if (pick) {
-    	this.setState({ pick });
-		} else {
-			const drivers = (await axios.get('/api/drivers')).data;
-			this.setState({ drivers });
-		}
+      this.setState({ pick });
+    } else {
+      const drivers = (await axios.get('/api/drivers')).data;
+      this.setState({ drivers });
+    }
     this.selectRace();
   }
 
   selectRace() {
     //	dispatch action and save number of selected race to the store
     this.props.selectRace(this.props.race.round);
-    
+
     //	get position class name for Picks component
-		this.setState({pickPos: this.computePickPosition()});
+    const {pickPos, stemPos} = this.computePickPosition();
+    this.setState({ pickPos, stemPos });
   }
 
   computePickPosition() {
+    const racesNum = this.props.races.length;
+    const round = this.props.race.round;
+
     const picksWidth = this.refs.picks ? this.refs.picks.offsetWidth : 0;
-		
+    const stemWidth = this.refs.stem ? this.refs.stem.offsetWidth : 0;
+
     const raceWidth = this.refs.race.offsetWidth;
     const holderWidth = this.props.holderNode.offsetWidth;
     const holderPadding = Race.getNodePadding(this.props.holderNode);
+
     const gutter =
-      (holderWidth - holderPadding - raceWidth * this.props.races.length) /
-      (this.props.races.length - 1);
+      (holderWidth - holderPadding - raceWidth * racesNum) /
+      (racesNum - 1);
+
 
     const offset =
       holderPadding / 2 +
-      raceWidth * this.props.race.round -
+      raceWidth * round -
       raceWidth / 2 +
-      gutter * (this.props.race.round - 1) -
+      gutter * (round - 1) -
       picksWidth / 2;
 
     if (offset < 0) {
-      return 0;
+      return {
+        pickPos: 0,
+        stemPos: holderPadding / 2 + raceWidth / 2 + (raceWidth + gutter) * (round - 1) - stemWidth / 2 * 1.41
+      };
     } else if (offset + picksWidth > holderWidth) {
-      return holderWidth - picksWidth;
+      return {
+        pickPos: holderWidth - picksWidth,
+        stemPos: picksWidth - stemWidth / 2 * 1.41 - raceWidth / 2 - holderPadding / 2 - (raceWidth + gutter) * (racesNum - round)
+      };
     } else {
-      return offset;
+      return {
+        pickPos: offset,
+        stemPos: picksWidth / 2 - stemWidth / 2
+      };
     }
   }
 
@@ -60,41 +75,54 @@ class Race extends Component {
   }
 
   static async fetchAllDrivers() {
-  	return await axios.get('/api/drivers');
-	}
-  
-	displayPick() {
-		const isPickSet = this.state && this.state.hasOwnProperty('pick') && this.state.pick;
-		const isDriversSet = this.state && this.state.hasOwnProperty('drivers');
-		const isRaceSelected = this.props.selectedRace === this.props.race.round;
+    return await axios.get('/api/drivers');
+  }
 
-		if (isPickSet && isRaceSelected) {
-			const standings = this.state.pick.forecast.map(standing => {
-				return <Standing standing={standing} key={standing.position} />;
-			});
+  displayPick() {
+    const isPickSet =
+      this.state && this.state.hasOwnProperty('pick') && this.state.pick;
+    const isDriversSet = this.state && this.state.hasOwnProperty('drivers');
+    const isRaceSelected = this.props.selectedRace === this.props.race.round;
 
-			return (
-				<div className="picks" style={{left: this.state.pickPos + 'px'}} ref="picks">
-					{standings}
-				</div>
-			);
-		} else if(isDriversSet && isRaceSelected) {
-			let i = 0;
-			const standings = this.state.drivers.map(driver => {
-				i+=1;
-				return <Standing standing={{_driver: driver, position: i}} key={i} />;
-			});
+    if (isPickSet && isRaceSelected) {
+      const standings = this.state.pick.forecast.map(standing => {
+        return <Standing standing={standing} key={standing.position} />;
+      });
 
-			return (
-				<div className="picks" style={{left: this.state.pickPos + 'px'}} ref="picks">
-					<div className="standings-container">{standings}</div>
-					<div className="btn btn-submit"><i className="fa fa-check" aria-hidden="true"></i> Submit</div>
-				</div>
-			);
-		}
+      return (
+        <div
+          className="picks"
+          style={{ left: this.state.pickPos + 'px' }}
+          ref="picks"
+        >
+          <div className="stem" style={{ left: this.state.stemPos + 'px' }} ref="stem" />
+          {standings}
+        </div>
+      );
+    } else if (isDriversSet && isRaceSelected) {
+      let i = 0;
+      const standings = this.state.drivers.map(driver => {
+        i += 1;
+        return <Standing standing={{ _driver: driver, position: i }} key={i} />;
+      });
 
-		return '';
-	}
+      return (
+        <div
+          className="picks"
+          style={{ left: this.state.pickPos + 'px' }}
+          ref="picks"
+        >
+          <div className="stem" style={{ left: this.state.stemPos + 'px' }} ref="stem" />
+          <div className="standings-container">{standings}</div>
+          <div className="btn btn-submit">
+            <i className="fa fa-check" aria-hidden="true" /> Submit
+          </div>
+        </div>
+      );
+    }
+
+    return '';
+  }
 
   render() {
     return (
