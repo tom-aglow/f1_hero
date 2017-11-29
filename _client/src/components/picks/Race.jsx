@@ -8,7 +8,12 @@ class Race extends Component {
 
   async fetchPick() {
     const pick = (await axios.get(`/api/pick/${this.props.race.round}`)).data;
-    this.setState({ pick });
+    if (pick) {
+    	this.setState({ pick });
+		} else {
+			const drivers = (await axios.get('/api/drivers')).data;
+			this.setState({ drivers });
+		}
     this.selectRace();
   }
 
@@ -54,9 +59,13 @@ class Race extends Component {
     );
   }
 
+  static async fetchAllDrivers() {
+  	return await axios.get('/api/drivers');
+	}
+  
 	displayPick() {
-		const isPickSet =
-			this.state && this.state.hasOwnProperty('pick') && this.state.pick;
+		const isPickSet = this.state && this.state.hasOwnProperty('pick') && this.state.pick;
+		const isDriversSet = this.state && this.state.hasOwnProperty('drivers');
 		const isRaceSelected = this.props.selectedRace === this.props.race.round;
 
 		if (isPickSet && isRaceSelected) {
@@ -67,6 +76,19 @@ class Race extends Component {
 			return (
 				<div className="picks" style={{left: this.state.pickPos + 'px'}} ref="picks">
 					{standings}
+				</div>
+			);
+		} else if(isDriversSet && isRaceSelected) {
+			let i = 0;
+			const standings = this.state.drivers.map(driver => {
+				i+=1;
+				return <Standing standing={{_driver: driver, position: i}} key={i} />;
+			});
+
+			return (
+				<div className="picks" style={{left: this.state.pickPos + 'px'}} ref="picks">
+					<div className="standings-container">{standings}</div>
+					<div className="btn btn-submit"><i className="fa fa-check" aria-hidden="true"></i> Submit</div>
 				</div>
 			);
 		}

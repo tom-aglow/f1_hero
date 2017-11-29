@@ -1,9 +1,7 @@
-.race-container
-	//position: relative
-	
 .race
 	text-align: center
 	font-size: 14px
+	cursor: pointer
 	
 	.fa
 		margin-bottom: 10px
@@ -28,9 +26,20 @@
 		
 .picks
 	position: absolute
-	width: 300px
+	width: 350px
 	background-color: $color-black
 	color: white
 	top: calc(100% + 30px)
-	left: -125px
+
+	.standings-container
+		overflow-y: scroll
+		max-height: 540px
+		color: grey
+	
+		.standing:nth-child(-n+10)
+			color: white
+			
+	.btn-submit
+		text-align: center
+		border-top: 2px solid white
 	

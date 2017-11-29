@@ -15,6 +15,6 @@ export const fetchRaces = () => async dispatch => {
 	dispatch({ type: FETCH_RACES, payload: res });
 };
 
-export const selectRace = (round) => (dispatch, getState, payload) => {
+export const selectRace = (round) => (dispatch) => {
 	dispatch({ type: SELECT_RACE, payload: round });
 };

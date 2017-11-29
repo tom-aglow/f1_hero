@@ -1,5 +1,6 @@
 const Race = require('mongoose').model('race');
 const Pick = require('mongoose').model('pick');
+const Driver = require('mongoose').model('driver');
 
 module.exports = app => {
 	
@@ -8,6 +9,13 @@ module.exports = app => {
 		const races = await Race.find({}).sort({round: 1}).select('alpha3code flagUrl round');
 		
 		res.send(races);
+	});
+
+	//	return list of all drivers
+	app.get('/api/drivers', async (req, res) => {
+		const drivers = await Driver.find({}).sort({number: 1}).select('code name');
+
+		res.send(drivers);
 	});
 	
 	//	return user's picks for the particular race
