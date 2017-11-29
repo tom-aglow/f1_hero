@@ -6,7 +6,9 @@ class Standing extends Component {
 		
 		return (
 			<div className="standing">
-				standing
+				<div className="position">{this.props.standing.position}.</div>
+				<div className="driver-name">{this.props.standing._driver.name}</div>
+				<div className="driver-code">{this.props.standing._driver.code}</div>
 			</div>
 		)
 	}
