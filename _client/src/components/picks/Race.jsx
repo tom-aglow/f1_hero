@@ -14,7 +14,7 @@ class Race extends Component {
 		if (this.state && this.state.hasOwnProperty('pick')) {
 			return (
 				<div className="picks">
-					<div>yes</div>
+					<div>no</div>
 				</div>
 			)
 		}

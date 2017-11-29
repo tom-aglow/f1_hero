@@ -16,14 +16,19 @@ import './styles/main.scss';
 //	app state store
 const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
 
-
 const renderApp = () => {
   render(
-			<Provider store={store}>
-				<App />
-			</Provider>,
+    <Provider store={store}>
+      <App />
+    </Provider>,
     document.getElementById('app')
   );
 };
 
 renderApp();
+
+if (module.hot) {
+  module.hot.accept('./App', () => {
+    renderApp();
+  });
+}

@@ -1,12 +1,20 @@
 const path = require('path');
+const webpack = require('webpack');
 
 module.exports = {
   context: __dirname,
-  entry: ['babel-polyfill', './src/ClientApp.jsx'],
+  entry: [
+    'react-hot-loader/patch',
+    'webpack-dev-server/client?http://localhost:8080',
+		'webpack/hot/only-dev-server',
+    'babel-polyfill',
+    './src/ClientApp.jsx'
+  ],
   devtool: 'cheap-eval-source-map',
   output: {
     path: path.join(__dirname, 'public/assets'),
-    filename: 'bundle.js'
+    filename: 'bundle.js',
+		publicPath: '/assets/'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json']
@@ -16,36 +24,45 @@ module.exports = {
     reasons: true,
     chunks: false
   },
+	plugins: [
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NamedModulesPlugin()
+	],
   module: {
     rules: [
       {
         test: /\.jsx?$/,
         loader: 'babel-loader'
       },
-			{
-				test: /\.scss$/,
-				use: [{
-					loader: "style-loader"
-				}, {
-					loader: "css-loader"
-				}, {
-					loader: "sass-loader"
-				}]
-			}
+      {
+        test: /\.scss$/,
+        use: [
+          {
+            loader: 'style-loader'
+          },
+          {
+            loader: 'css-loader'
+          },
+          {
+            loader: 'sass-loader'
+          }
+        ]
+      }
     ]
   },
   devServer: {
-		proxy: {
-    	'/auth/twitter': {
-    		target: 'http://localhost:5000',
-				secure: false
-			},
-			'/api/*': {
-				target: 'http://localhost:5000',
-				secure: false
-			}
-		},
-		publicPath: '/assets/',
-		historyApiFallback: true
+  	hot: true,
+    proxy: {
+      '/auth/twitter': {
+        target: 'http://localhost:5000',
+        secure: false
+      },
+      '/api/*': {
+        target: 'http://localhost:5000',
+        secure: false
+      }
+    },
+    publicPath: '/assets/',
+    historyApiFallback: true
   }
 };
