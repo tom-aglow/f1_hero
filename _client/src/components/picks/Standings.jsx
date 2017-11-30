@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
 
 import Standing from './Standing';
 import * as actions from './../../actions';
@@ -7,7 +8,7 @@ import * as actions from './../../actions';
 class Standings extends Component {
   constructor(props){
     super(props);
-    this.state = {pickPos: 0, stemPos: 0};
+    this.state = {pickPos: 0, stemPos: 0, list: props.list};
   }
 
   componentDidMount() {
@@ -81,10 +82,43 @@ class Standings extends Component {
     );
   }
 
-  render() {
-    const standings = this.props.list.map(standing => {
-      return <Standing standing={standing} key={standing.position} />;
+  onSortEnd({oldIndex, newIndex}) {
+    this.setState({
+      list: arrayMove(this.state.list, oldIndex, newIndex),
     });
+  };
+
+  render() {
+    let Standings;
+
+    if (this.props.status === 'new') {
+      const SortableItem = SortableElement(({standing}) =>
+        <Standing standing={standing}/>
+      );
+
+      Standings = SortableContainer(({items}) => {
+        return (
+          <div className="standings-container">
+            {items.map((value, index) => (
+              <SortableItem key={`item-${index}`} index={index} standing={value}/>
+            ))}
+          </div>
+        );
+      });
+    } else {
+      Standings = ({items}) => {
+        return (
+          <div className="standings-container">
+            {items.map((item) => (
+              <Standing key={item.position} standing={item}/>
+            ))}
+          </div>
+        )
+      }
+    }
+    // const standings = this.props.list.map(standing => {
+    //   return <Standing standing={standing} key={standing.position} />;
+    // });
 
     return (
       <div
@@ -97,7 +131,8 @@ class Standings extends Component {
           style={{ left: this.state.stemPos + 'px' }}
           ref="stem"
         />
-        <div className="standings-container">{standings}</div>
+        {/*<div className="standings-container">{standings}</div>*/}
+        <Standings items={this.state.list} onSortEnd={this.onSortEnd.bind(this)} lockToContainerEdges={true} helperClass={'draggable'} lockAxis={'y'}/>
         {this.displayButton()}
       </div>
     );
