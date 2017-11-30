@@ -24,5 +24,18 @@ module.exports = app => {
 		const pick = await Pick.find({_race: race._id}).populate('forecast._driver').select();	//TODO add filter by current user
 
 		res.send(pick[0]);
-	})
+	});
+
+	app.post('/api/pick/:round', async (req, res) => {
+    const {round, _user, forecast} = req.body;
+    const _race = await Race.findOne({round}).select('_id');
+
+    try {
+      (await Pick.create({_user, _race, forecast}));
+      const pick = await Pick.findOne({_race}).populate('forecast._driver').select();	//TODO add filter by current user
+      res.status(200).send(pick);
+    } catch (err) {
+      res.status(500).send(err.message);
+    }
+  })
 };

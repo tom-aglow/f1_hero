@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+import axios from 'axios';
 
 import Standing from './Standing';
 import * as actions from './../../actions';
@@ -8,7 +9,7 @@ import * as actions from './../../actions';
 class Standings extends Component {
   constructor(props){
     super(props);
-    this.state = {pickPos: 0, stemPos: 0, list: props.list};
+    this.state = {pickPos: 0, stemPos: 0, list: props.list, status: props.status};
   }
 
   componentDidMount() {
@@ -72,9 +73,23 @@ class Standings extends Component {
     );
   }
 
+  async submitPick() {
+    try {
+      const pick = await axios.post(`/api/pick/${this.props.data.round}`, {
+        _user: this.props.auth._id,
+        round: this.props.data.round,
+        forecast: this.state.list.slice(0, 10)
+      });
+
+      this.setState({status: 'submitted', list: pick.data.forecast});
+    } catch (err) {
+      console.log('error: unable to save pick');
+    }
+  }
+
   displayButton() {
-    return this.props.status === 'new' ? (
-      <div className="btn btn-submit">
+    return this.state.status === 'new' ? (
+      <div className="btn btn-submit"  onClick={this.submitPick.bind(this)}>
         <i className="fa fa-check" aria-hidden="true" /> Submit
       </div>
     ) : (
@@ -97,7 +112,7 @@ class Standings extends Component {
   render() {
     let Standings;
 
-    if (this.props.status === 'new') {
+    if (this.state.status === 'new') {
       const SortableItem = SortableElement(({standing}) =>
         <Standing standing={standing}/>
       );
@@ -142,8 +157,8 @@ class Standings extends Component {
   }
 }
 
-function mapStateToProps({ selectedRace, races }) {
-  return { selectedRace, races };
+function mapStateToProps({ selectedRace, races, auth }) {
+  return { selectedRace, races, auth };
 }
 
 export default connect(mapStateToProps, actions)(Standings);
