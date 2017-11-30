@@ -83,8 +83,14 @@ class Standings extends Component {
   }
 
   onSortEnd({oldIndex, newIndex}) {
+    const newList = arrayMove(this.state.list, oldIndex, newIndex);
+    newList.map((value, index) => {
+      value.position = index + 1;
+      return value;
+    });
+
     this.setState({
-      list: arrayMove(this.state.list, oldIndex, newIndex),
+      list: newList,
     });
   };
 
@@ -116,9 +122,6 @@ class Standings extends Component {
         )
       }
     }
-    // const standings = this.props.list.map(standing => {
-    //   return <Standing standing={standing} key={standing.position} />;
-    // });
 
     return (
       <div
