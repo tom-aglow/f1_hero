@@ -1,4 +1,5 @@
 const axios = require('axios');
+const User = require('mongoose').model('user');
 const Race = require('mongoose').model('race');
 const Driver = require('mongoose').model('driver');
 const Pick = require('mongoose').model('pick');
@@ -85,11 +86,11 @@ module.exports = app => {
 		res.status(200).send('');
 	});
 	
-	//	*** current user (admin) picks table seeder
-	app.get('/api/current-user/seed/:round', async (req, res) => {
-		// const _user = req.user._id;
-		const _user = await Race.findOne({}).select('_id');
-		const _race = await Race.findOne({round: req.params.round}).select('_id');
+	//	*** user picks table seeder	//TODO add isAdmin middleware later
+	app.get('/api/:username/seed/:round', async (req, res) => {
+		const {username, round} = req.params;
+		const _user = await User.findOne({username}).select('_id');
+		const _race = await Race.findOne({round}).select('_id');
 		const drivers = await Driver.find({}).select('_id');
 		let forecast = [];
 
@@ -104,9 +105,9 @@ module.exports = app => {
 
 			drivers.splice(index, 1);
 		}
+
+		const pick = await Pick.create({_user, _race, forecast});
 		
-		(await new Pick({_user, _race, forecast})).save();
-		
-		res.status(200).send('');
+		res.status(200).send(pick);
 	})
 };
