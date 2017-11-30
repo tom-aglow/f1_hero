@@ -7,3 +7,5 @@ const Leaderboard = () => (
 );
 
 export default Leaderboard;
+
+//TODO reset selected race when this component is mounted
