@@ -7,7 +7,7 @@ const SearchBar = props => {
         type="text"
         placeholder="Search..."
         onChange={props.onChange}
-        // value={props.searchTerm}
+        value={props.searchTerm}
       />
       <i className="fa fa-search" aria-hidden="true"></i>
     </div>
