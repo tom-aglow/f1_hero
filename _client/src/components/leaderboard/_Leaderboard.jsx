@@ -5,7 +5,6 @@ import * as actions from './../../actions';
 
 class Leaderboard extends Component {
   componentDidMount() {
-    this.props.selectRace(0);
   }
 
 	render() {

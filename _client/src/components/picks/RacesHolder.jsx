@@ -9,7 +9,10 @@ class RacesHolder extends Component {
 	componentDidMount() {
 		this.props.fetchRaces();
 	}
-	
+  componentWillUnmount(){
+    this.props.selectRace(0);
+	}
+
 	render() {
 		let raceList;
 		if (this.props.races) {

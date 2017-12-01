@@ -70,11 +70,6 @@ const getForecastScore = (results, forecast) => {
 
     standing.score = score;
     return standing;
-    // console.log(
-    //   'forecast: ' + standing.position,
-    //   'result: ' + (driverResult ? driverResult.position : 0),
-    //   'score: ' + score
-    // );
   });
 };
 
@@ -172,6 +167,7 @@ module.exports = app => {
         (sum, value) => sum + value.score,
         0
       );
+
       await pick
         .set({
           forecast: updatedForecast,
