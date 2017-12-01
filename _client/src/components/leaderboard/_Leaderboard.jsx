@@ -1,19 +1,28 @@
-import React, {Component} from 'react';
-import { connect } from 'react-redux';
+import React, { Component } from 'react';
+import axios from 'axios';
 
-import * as actions from './../../actions';
+import UserResult from './UserResult';
 
 class Leaderboard extends Component {
-  componentDidMount() {
+  async componentDidMount() {
+    const scores = (await axios.get('/api/leaderboard')).data;
+    this.setState({ scores });
   }
 
-	render() {
-		return (
-      <div>
-        <h1>Leaderboard</h1>
+  render() {
+    const content =
+      this.state && this.state.scores
+        ? this.state.scores.map((score, index) => (
+            <UserResult score={{ score, index }} key={score.user} />
+          ))
+        : '';
+
+    return (
+      <div className="leaderboard">
+        <div className="results">{content}</div>
       </div>
-    )
-	}
+    );
+  }
 }
 
-export default connect(null, actions)(Leaderboard);
+export default Leaderboard;
