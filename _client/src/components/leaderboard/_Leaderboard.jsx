@@ -1,11 +1,20 @@
-import React from 'react';
+import React, {Component} from 'react';
+import { connect } from 'react-redux';
 
-const Leaderboard = () => (
-	<div>
-		<h1>Leaderboard</h1>
-	</div>
-);
+import * as actions from './../../actions';
 
-export default Leaderboard;
+class Leaderboard extends Component {
+  componentDidMount() {
+    this.props.selectRace(0);
+  }
 
-//TODO reset selected race when this component is mounted
+	render() {
+		return (
+      <div>
+        <h1>Leaderboard</h1>
+      </div>
+    )
+	}
+}
+
+export default connect(null, actions)(Leaderboard);
