@@ -82,6 +82,7 @@ class Standings extends Component {
       });
 
       this.setState({status: 'submitted', list: pick.data.forecast});
+      this.props.onSubmit(pick);
     } catch (err) {
       console.log('error: unable to save pick');
     }

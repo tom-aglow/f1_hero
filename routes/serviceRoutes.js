@@ -151,6 +151,7 @@ module.exports = app => {
     res.status(200).send(pick);
   });
 
+  //	*** result calculation route	//TODO add isAdmin middleware later
   app.get('/api/calculate/round/:round', async (req, res) => {
     const { round } = req.params;
 

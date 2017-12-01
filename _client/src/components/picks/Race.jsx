@@ -26,6 +26,10 @@ class Race extends Component {
     }
   }
 
+  submitRace(pick) {
+    this.setState({pick});
+  }
+
   fetchPick() {
     //	dispatch action and save number of selected race to the store
     this.props.selectRace(this.props.race.round);
@@ -54,7 +58,7 @@ class Race extends Component {
         );
       } else if (isDriversSet) {
         return (
-          <Standings list={this.state.drivers} status={'new'} data={data} />
+          <Standings list={this.state.drivers} status={'new'} data={data} onSubmit={this.submitRace.bind(this)}/>
         );
       }
     }
