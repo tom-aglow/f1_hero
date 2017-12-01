@@ -28,8 +28,8 @@ class Leaderboard extends Component {
                 .toLowerCase()
                 .indexOf(this.state.searchTerm.toLowerCase()) >= 0;
             })
-            .map((score, index) => (
-              <UserResult score={{ score, index }} key={score.user} />
+            .map(score => (
+              <UserResult score={{ score }} key={score.index} />
             ))
         : '';
 

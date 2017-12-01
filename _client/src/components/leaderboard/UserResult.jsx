@@ -1,11 +1,12 @@
 import React from 'react';
 
 const UserResult = (props) =>  {
+  const {index, user, scores} = props.score.score;
   return (
     <div className="user-result">
-      <div>{props.score.index + 1}.</div>
-      <div className="username">{props.score.score.user}</div>
-      <div>{props.score.score.scores}pt</div>
+      <div>{index}.</div>
+      <div className="username">{user}</div>
+      <div>{scores}pt</div>
     </div>
   );
 }

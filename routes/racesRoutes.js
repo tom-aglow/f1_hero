@@ -29,11 +29,11 @@ module.exports = app => {
   //	return user's picks for the particular race
   app.get('/api/pick/:round', async (req, res) => {
     const race = await Race.findOne({ round: req.params.round }).select();
-    const pick = await Pick.find({ _race: race._id, _user: req.user._id })
+    const pick = await Pick.findOne({ _race: race._id, _user: req.user._id })
       .populate('forecast._driver')
       .select();
 
-    res.send(pick[0]);
+    res.send(pick);
   });
 
   //	submit user's picks for the particular race
@@ -77,8 +77,13 @@ module.exports = app => {
         return result;
       });
 
+      console.log(results);
       //  sort results array by score value
-      results.sort((a, b) => a.scores < b.scores);
+      results.sort((a, b) => b.scores - a.scores);
+      results.map((result, index) => {
+        result.index = index + 1;
+        return result;
+      })
 
       //  return result array
       res.status(200).send(results);

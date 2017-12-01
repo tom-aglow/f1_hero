@@ -1,4 +1,6 @@
 const axios = require('axios');
+const faker = require('faker');
+
 const User = require('mongoose').model('user');
 const Race = require('mongoose').model('race');
 const Driver = require('mongoose').model('driver');
@@ -73,6 +75,27 @@ const getForecastScore = (results, forecast) => {
   });
 };
 
+const seedPicksTable = async (username, round) => {
+  const _user = await User.findOne({ username }).select('_id');
+  const _race = await Race.findOne({ round }).select('_id');
+  const drivers = await Driver.find({}).select('_id');
+  let forecast = [];
+
+  //	populate forecast array
+  for (let i = 0; i < 10; i++) {
+    const index = Math.floor(Math.random() * drivers.length);
+
+    forecast.push({
+      position: i + 1,
+      _driver: drivers[index]
+    });
+
+    drivers.splice(index, 1);
+  }
+
+  return await Pick.create({ _user, _race, forecast });
+};
+
 module.exports = app => {
   //	*** populating races table ***
   app.get('/api/get-race-list', isAdmin, async (req, res) => {
@@ -121,33 +144,8 @@ module.exports = app => {
     res.status(200).send('');
   });
 
-  //	*** user picks table seeder	//TODO add isAdmin middleware later
-  app.get('/api/:username/seed/:round', async (req, res) => {
-    const { username, round } = req.params;
-    const _user = await User.findOne({ username }).select('_id');
-    const _race = await Race.findOne({ round }).select('_id');
-    const drivers = await Driver.find({}).select('_id');
-    let forecast = [];
-
-    //	populate forecast array
-    for (let i = 0; i < 10; i++) {
-      const index = Math.floor(Math.random() * drivers.length);
-
-      forecast.push({
-        position: i + 1,
-        _driver: drivers[index]
-      });
-
-      drivers.splice(index, 1);
-    }
-
-    const pick = await Pick.create({ _user, _race, forecast });
-
-    res.status(200).send(pick);
-  });
-
-  //	*** result calculation route	//TODO add isAdmin middleware later
-  app.get('/api/calculate/round/:round', async (req, res) => {
+  //	*** result calculation route
+  app.get('/api/calculate/round/:round', isAdmin, async (req, res) => {
     const { round } = req.params;
 
     //	fetch actual result from public API
@@ -179,4 +177,18 @@ module.exports = app => {
 
     res.status(200).send('');
   });
+
+  app.get('/api/seed', isAdmin, async (req, res) => {
+
+    for (let i = 0; i < 20; i+=1) {
+      const fakeName = faker.internet.userName();
+      const user = await User.create({twitterID: `0000${i}`, username: fakeName});
+
+      for (let j = 1; j <= 10; j++) {
+        await seedPicksTable(user.username, j);
+      }
+    }
+
+    res.status(200).send('result');
+  })
 };
