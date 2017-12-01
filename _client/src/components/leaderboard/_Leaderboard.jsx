@@ -2,11 +2,16 @@ import React, { Component } from 'react';
 import axios from 'axios';
 
 import UserResult from './UserResult';
+import SearchBar from './SearchBar';
 
 class Leaderboard extends Component {
   async componentDidMount() {
     const scores = (await axios.get('/api/leaderboard')).data;
     this.setState({ scores });
+  }
+
+  handleSearchTermChange() {
+
   }
 
   render() {
@@ -19,6 +24,7 @@ class Leaderboard extends Component {
 
     return (
       <div className="leaderboard">
+        <SearchBar onChange={this.handleSearchTermChange} searchTerm={'s'} />
         <div className="results">{content}</div>
       </div>
     );
