@@ -29,9 +29,9 @@ module.exports = app => {
   //	return user's picks for the particular race
   app.get('/api/pick/:round', async (req, res) => {
     const race = await Race.findOne({ round: req.params.round }).select();
-    const pick = await Pick.find({ _race: race._id })
+    const pick = await Pick.find({ _race: race._id, _user: req.user._id })
       .populate('forecast._driver')
-      .select(); //TODO add filter by current user
+      .select();
 
     res.send(pick[0]);
   });
@@ -58,7 +58,6 @@ module.exports = app => {
     const users = await User.find().select();
 
     Promise.all(
-
       //  for every user fetch all pick with 'calculated' status
       users.map(async user => {
         const picks = await Pick.find({
@@ -69,7 +68,6 @@ module.exports = app => {
         return { user: user.username, scores };
       })
     ).then(results => {
-
       //  get top-5 element of scores array and calculate their sum
       results.map(result => {
         result.scores = getMaxFiveElements(result.scores).reduce(
