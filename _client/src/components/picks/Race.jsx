@@ -56,6 +56,8 @@ class Race extends Component {
             data={data}
           />
         );
+      } else if (this.props.race.isPassed) {
+          return <Standings status={'passed'} data={data}/>
       } else if (isDriversSet) {
         return (
           <Standings list={this.state.drivers} status={'new'} data={data} onSubmit={this.submitRace.bind(this)}/>
@@ -67,8 +69,8 @@ class Race extends Component {
   }
 
   displayStatus() {
-    if (this.state && this.state.pick) {
-      if (this.state.pick.status === 'calculated') {
+    if ((this.state && this.state.pick) || this.props.race.isPassed) {
+      if (this.props.race.isPassed) {
         return <i className="fa fa-check" aria-hidden="true" />;
       } else {
         return <i className="fa fa-circle" aria-hidden="true" />;
@@ -79,7 +81,7 @@ class Race extends Component {
   }
 
   displayScore() {
-    if (this.state && this.state.pick && this.state.pick.status === 'calculated') {
+    if (this.state && this.state.pick && this.props.race.isPassed) {
       return <p className="score">{`${this.state.pick.score}pt`}</p>
     } else {
       return <p className="score">-</p>
@@ -103,8 +105,8 @@ class Race extends Component {
   }
 }
 
-function mapStateToProps({ selectedRace }) {
-  return { selectedRace };
+function mapStateToProps({ selectedRace, races }) {
+  return { selectedRace, races };
 }
 
 export default connect(mapStateToProps, actions)(Race);

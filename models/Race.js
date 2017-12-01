@@ -30,6 +30,10 @@ const raceSchema = new Schema({
 		type: String,
 		required: true,
 		length: 3
+	},
+	isPassed: {
+  	type: Boolean,
+		default: false
 	}
 });
 

@@ -1,20 +1,29 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import {SortableContainer, SortableElement, arrayMove} from 'react-sortable-hoc';
+import {
+  SortableContainer,
+  SortableElement,
+  arrayMove
+} from 'react-sortable-hoc';
 import axios from 'axios';
 
 import Standing from './Standing';
 import * as actions from './../../actions';
 
 class Standings extends Component {
-  constructor(props){
+  constructor(props) {
     super(props);
-    this.state = {pickPos: 0, stemPos: 0, list: props.list, status: props.status};
+    this.state = {
+      pickPos: 0,
+      stemPos: 0,
+      list: props.list,
+      status: props.status
+    };
   }
 
   componentDidMount() {
     const { pickPos, stemPos } = this.computePickPosition();
-    this.setState({pickPos, stemPos});
+    this.setState({ pickPos, stemPos });
   }
 
   computePickPosition() {
@@ -81,7 +90,7 @@ class Standings extends Component {
         forecast: this.state.list.slice(0, 10)
       });
 
-      this.setState({status: 'submitted', list: pick.data.forecast});
+      this.setState({ status: 'submitted', list: pick.data.forecast });
       this.props.onSubmit(pick);
     } catch (err) {
       console.log('error: unable to save pick');
@@ -90,7 +99,7 @@ class Standings extends Component {
 
   displayButton() {
     return this.state.status === 'new' ? (
-      <div className="btn btn-submit"  onClick={this.submitPick.bind(this)}>
+      <div className="btn btn-submit" onClick={this.submitPick.bind(this)}>
         <i className="fa fa-check" aria-hidden="true" /> Submit
       </div>
     ) : (
@@ -98,7 +107,7 @@ class Standings extends Component {
     );
   }
 
-  onSortEnd({oldIndex, newIndex}) {
+  onSortEnd({ oldIndex, newIndex }) {
     const newList = arrayMove(this.state.list, oldIndex, newIndex);
     newList.map((value, index) => {
       value.position = index + 1;
@@ -106,37 +115,55 @@ class Standings extends Component {
     });
 
     this.setState({
-      list: newList,
+      list: newList
     });
-  };
+  }
 
   render() {
     let Standings;
 
-    if (this.state.status === 'new') {
-      const SortableItem = SortableElement(({standing}) =>
-        <Standing standing={standing}/>
-      );
+    switch (this.state.status) {
+      case 'new':
+        const SortableItem = SortableElement(({ standing }) => (
+          <Standing standing={standing} />
+        ));
 
-      Standings = SortableContainer(({items}) => {
-        return (
+        Standings = SortableContainer(({ items }) => {
+          return (
+            <div className="standings-container">
+              {items.map((value, index) => (
+                <SortableItem
+                  key={`item-${index}`}
+                  index={index}
+                  standing={value}
+                />
+              ))}
+            </div>
+          );
+        });
+
+        break;
+      case 'passed':
+        Standings = () => (
           <div className="standings-container">
-            {items.map((value, index) => (
-              <SortableItem key={`item-${index}`} index={index} standing={value}/>
-            ))}
+            <div className="standing">
+              You didn't submit your prediction on time. No results available
+              for you for this race.
+            </div>
           </div>
         );
-      });
-    } else {
-      Standings = ({items}) => {
-        return (
-          <div className="standings-container">
-            {items.map((item) => (
-              <Standing key={item.position} standing={item}/>
-            ))}
-          </div>
-        )
-      }
+
+        break;
+      default:
+        Standings = ({ items }) => {
+          return (
+            <div className="standings-container">
+              {items.map(item => (
+                <Standing key={item.position} standing={item} />
+              ))}
+            </div>
+          );
+        };
     }
 
     return (
@@ -150,8 +177,13 @@ class Standings extends Component {
           style={{ left: this.state.stemPos + 'px' }}
           ref="stem"
         />
-        {/*<div className="standings-container">{standings}</div>*/}
-        <Standings items={this.state.list} onSortEnd={this.onSortEnd.bind(this)} lockToContainerEdges={true} helperClass={'draggable'} lockAxis={'y'}/>
+        <Standings
+          items={this.state.list}
+          onSortEnd={this.onSortEnd.bind(this)}
+          lockToContainerEdges={true}
+          helperClass={'draggable'}
+          lockAxis={'y'}
+        />
         {this.displayButton()}
       </div>
     );

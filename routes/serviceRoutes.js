@@ -145,7 +145,7 @@ module.exports = app => {
   });
 
   //	*** result calculation route
-  app.get('/api/calculate/round/:round', isAdmin, async (req, res) => {
+  app.get('/api/calculate/round/:round', async (req, res) => {  //TODO add isAdmin middleware
     const { round } = req.params;
 
     //	fetch actual result from public API
@@ -174,6 +174,8 @@ module.exports = app => {
         })
         .save();
     });
+
+    await Race.findOneAndUpdate({_id: _race}, {$set: {isPassed: true}});
 
     res.status(200).send('');
   });

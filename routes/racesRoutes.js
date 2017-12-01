@@ -12,7 +12,7 @@ module.exports = app => {
   app.get('/api/races', async (req, res) => {
     const races = await Race.find({})
       .sort({ round: 1 })
-      .select('alpha3code flagUrl round');
+      .select('alpha3code flagUrl round isPassed');
 
     res.send(races);
   });
@@ -83,7 +83,7 @@ module.exports = app => {
       results.map((result, index) => {
         result.index = index + 1;
         return result;
-      })
+      });
 
       //  return result array
       res.status(200).send(results);
