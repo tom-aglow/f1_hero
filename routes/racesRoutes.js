@@ -43,9 +43,9 @@ module.exports = app => {
 
     try {
       await Pick.create({ _user, _race, forecast });
-      const pick = await Pick.findOne({ _race })
+      const pick = await Pick.findOne({ _race, _user })
         .populate('forecast._driver')
-        .select(); //TODO add filter by current user
+        .select();
       res.status(200).send(pick);
     } catch (err) {
       res.status(500).send(err.message);

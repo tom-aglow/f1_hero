@@ -145,7 +145,7 @@ module.exports = app => {
   });
 
   //	*** result calculation route
-  app.get('/api/calculate/round/:round', async (req, res) => {  //TODO add isAdmin middleware
+  app.get('/api/calculate/round/:round', isAdmin, async (req, res) => {
     const { round } = req.params;
 
     //	fetch actual result from public API
