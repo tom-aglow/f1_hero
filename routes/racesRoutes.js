@@ -14,7 +14,7 @@ module.exports = app => {
       .sort({ round: 1 })
       .select('alpha3code flagUrl round isPassed');
 
-    res.send(races);
+    setTimeout(() => res.send(races), 500);
   });
 
   //	return list of all drivers

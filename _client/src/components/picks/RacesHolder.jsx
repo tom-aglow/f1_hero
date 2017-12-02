@@ -23,7 +23,9 @@ class RacesHolder extends Component {
 					<Race race={race} holderNode={this.refs.raceHolder} key={race.round}/>
 				)
 			});
-		}
+		} else {
+		  raceList = <div className="loader"></div>
+    }
 		
 		return <div className="race-holder" ref="raceHolder">{raceList}</div>
 	}
