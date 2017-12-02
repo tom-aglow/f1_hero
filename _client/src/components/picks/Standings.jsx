@@ -46,7 +46,7 @@ class Standings extends Component {
       raceWidth / 2 +
       gutter * (round - 1) -
       picksWidth / 2;
-
+    
     if (offset < 0) {
       return {
         pickPos: 0,

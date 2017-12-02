@@ -7,8 +7,15 @@ import Race from './Race';
 class RacesHolder extends Component {
 	
 	componentDidMount() {
-		this.props.fetchRaces();
+	  if (!this.props.races) {
+		  this.props.fetchRaces();
+    }
+
+    if (!this.props.drivers) {
+      this.props.fetchDrivers();
+    }
 	}
+
   componentWillUnmount(){
     this.props.selectRace(0);
 	}
@@ -27,8 +34,8 @@ class RacesHolder extends Component {
 	}
 }
 
-function mapStateToProps({ races }) {
-	return { races };
+function mapStateToProps({ races, drivers }) {
+	return { races, drivers };
 }
 
 export default connect(mapStateToProps, actions)(RacesHolder);

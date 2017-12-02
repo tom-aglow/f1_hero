@@ -12,22 +12,11 @@ class Race extends Component {
 
     if (pick) {
       this.setState({ pick });
-    } else {
-      const drivers = (await axios.get('/api/drivers')).data;
-
-      //  format drivers array similar to picks forecast array structure
-      let i = 0;
-      const formattedDrivers = drivers.map(driver => {
-        i += 1;
-        return { position: i, _driver: driver };
-      });
-
-      this.setState({ drivers: formattedDrivers });
     }
   }
 
   submitRace(pick) {
-    this.setState({pick});
+    this.setState({ pick });
   }
 
   fetchPick() {
@@ -38,7 +27,6 @@ class Race extends Component {
   displayPick() {
     const isPickSet =
       this.state && this.state.hasOwnProperty('pick') && this.state.pick;
-    const isDriversSet = this.state && this.state.hasOwnProperty('drivers');
     const isRaceSelected = this.props.selectedRace === this.props.race.round;
 
     if (isRaceSelected) {
@@ -57,10 +45,15 @@ class Race extends Component {
           />
         );
       } else if (this.props.race.isPassed) {
-          return <Standings status={'passed'} data={data}/>
-      } else if (isDriversSet) {
+        return <Standings status={'passed'} data={data} />;
+      } else {
         return (
-          <Standings list={this.state.drivers} status={'new'} data={data} onSubmit={this.submitRace.bind(this)}/>
+          <Standings
+            list={this.props.drivers}
+            status={'new'}
+            data={data}
+            onSubmit={this.submitRace.bind(this)}
+          />
         );
       }
     }
@@ -82,9 +75,9 @@ class Race extends Component {
 
   displayScore() {
     if (this.state && this.state.pick && this.props.race.isPassed) {
-      return <p className="score">{`${this.state.pick.score}pt`}</p>
+      return <p className="score">{`${this.state.pick.score}pt`}</p>;
     } else {
-      return <p className="score">-</p>
+      return <p className="score">-</p>;
     }
   }
 
@@ -105,8 +98,8 @@ class Race extends Component {
   }
 }
 
-function mapStateToProps({ selectedRace, races }) {
-  return { selectedRace, races };
+function mapStateToProps({ selectedRace, races, drivers }) {
+  return { selectedRace, races, drivers };
 }
 
 export default connect(mapStateToProps, actions)(Race);

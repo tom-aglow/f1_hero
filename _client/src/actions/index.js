@@ -1,5 +1,5 @@
 import axios from 'axios';
-import {FETCH_RACES, FETCH_USER, SELECT_RACE} from './types';
+import {FETCH_RACES, FETCH_USER, SELECT_RACE, FETCH_DRIVERS} from './types';
 
 export const fetchUser = () => async dispatch => {
   const res = await axios.get('/api/current-user');
@@ -17,4 +17,9 @@ export const fetchRaces = () => async dispatch => {
 
 export const selectRace = (round) => (dispatch) => {
 	dispatch({ type: SELECT_RACE, payload: round });
+};
+
+export const fetchDrivers = () => async dispatch => {
+  const res = await axios.get('/api/drivers');
+  dispatch({ type: FETCH_DRIVERS, payload: res });
 };
