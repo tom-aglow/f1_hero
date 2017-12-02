@@ -77,7 +77,6 @@ module.exports = app => {
         return result;
       });
 
-      console.log(results);
       //  sort results array by score value
       results.sort((a, b) => b.scores - a.scores);
       results.map((result, index) => {

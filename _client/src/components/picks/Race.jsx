@@ -15,14 +15,14 @@ class Race extends Component {
     }
   }
 
-  submitRace(pick) {
+  submitRace = pick => {
     this.setState({ pick });
-  }
+  };
 
-  fetchPick() {
+  fetchPick = () => {
     //	dispatch action and save number of selected race to the store
     this.props.selectRace(this.props.race.round);
-  }
+  };
 
   displayPick() {
     const isPickSet =
@@ -52,7 +52,7 @@ class Race extends Component {
             list={this.props.drivers}
             status={'new'}
             data={data}
-            onSubmit={this.submitRace.bind(this)}
+            onSubmit={this.submitRace}
           />
         );
       }
@@ -84,7 +84,7 @@ class Race extends Component {
   render() {
     return (
       <div className="race-container" ref="race">
-        <div className="race" onClick={this.fetchPick.bind(this)}>
+        <div className="race" onClick={this.fetchPick}>
           {this.displayStatus()}
           <div className="img-container">
             <img src={this.props.race.flagUrl} alt="" />

@@ -2,18 +2,19 @@ import React, { Component } from 'react';
 
 class Standing extends Component {
   render() {
+    const {score, position, _driver} = this.props.standing;
     const icon =
-      this.props.standing.score !== undefined ? (
-        <div className="score">{this.props.standing.score}pt</div>
+      score !== undefined ? (
+        <div className="score">{score}pt</div>
       ) : (
         <i className="fa fa-sort" aria-hidden="true" />
       );
 
     return (
       <div className="standing">
-        <div className="position">{this.props.standing.position}.</div>
-        <div className="driver-name">{this.props.standing._driver.name}</div>
-        <div className="driver-code">{this.props.standing._driver.code}</div>
+        <div className="position">{position}.</div>
+        <div className="driver-name">{_driver.name}</div>
+        <div className="driver-code">{_driver.code}</div>
         {icon}
       </div>
     );

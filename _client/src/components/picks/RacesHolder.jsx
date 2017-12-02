@@ -7,13 +7,8 @@ import Race from './Race';
 class RacesHolder extends Component {
 	
 	componentDidMount() {
-	  if (!this.props.races) {
-		  this.props.fetchRaces();
-    }
-
-    if (!this.props.drivers) {
-      this.props.fetchDrivers();
-    }
+    this.props.fetchRaces();
+    this.props.fetchDrivers();
 	}
 
   componentWillUnmount(){

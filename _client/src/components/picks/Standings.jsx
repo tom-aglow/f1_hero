@@ -11,15 +11,12 @@ import Standing from './Standing';
 import * as actions from './../../actions';
 
 class Standings extends Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      pickPos: 0,
-      stemPos: 0,
-      list: props.list,
-      status: props.status
-    };
-  }
+  state = {
+    pickPos: 0,
+    stemPos: 0,
+    list: this.props.list,
+    status: this.props.status
+  };
 
   componentDidMount() {
     const { pickPos, stemPos } = this.computePickPosition();
@@ -46,7 +43,7 @@ class Standings extends Component {
       raceWidth / 2 +
       gutter * (round - 1) -
       picksWidth / 2;
-    
+
     if (offset < 0) {
       return {
         pickPos: 0,
@@ -82,7 +79,7 @@ class Standings extends Component {
     );
   }
 
-  async submitPick() {
+  submitPick = async () => {
     try {
       const pick = await axios.post(`/api/pick/${this.props.data.round}`, {
         _user: this.props.auth._id,
@@ -99,7 +96,7 @@ class Standings extends Component {
 
   displayButton() {
     return this.state.status === 'new' ? (
-      <div className="btn btn-submit" onClick={this.submitPick.bind(this)}>
+      <div className="btn btn-submit" onClick={this.submitPick}>
         <i className="fa fa-check" aria-hidden="true" /> Submit
       </div>
     ) : (
@@ -107,7 +104,7 @@ class Standings extends Component {
     );
   }
 
-  onSortEnd({ oldIndex, newIndex }) {
+  onSortEnd = ({ oldIndex, newIndex }) => {
     const newList = arrayMove(this.state.list, oldIndex, newIndex);
     newList.map((value, index) => {
       value.position = index + 1;
@@ -179,7 +176,7 @@ class Standings extends Component {
         />
         <Standings
           items={this.state.list}
-          onSortEnd={this.onSortEnd.bind(this)}
+          onSortEnd={this.onSortEnd}
           lockToContainerEdges={true}
           helperClass={'draggable'}
           lockAxis={'y'}
