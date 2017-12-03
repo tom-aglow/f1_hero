@@ -175,16 +175,18 @@ module.exports = app => {
         .save();
     });
 
-    await Race.findOneAndUpdate({_id: _race}, {$set: {isPassed: true}});
+    await Race.findOneAndUpdate({ _id: _race }, { $set: { isPassed: true } });
 
     res.status(200).send('');
   });
 
   app.get('/api/seed', isAdmin, async (req, res) => {
-
-    for (let i = 0; i < 20; i+=1) {
+    for (let i = 0; i < 20; i += 1) {
       const fakeName = faker.internet.userName();
-      const user = await User.create({twitterID: `0000${i}`, username: fakeName});
+      const user = await User.create({
+        twitterID: `0000${i}`,
+        username: fakeName
+      });
 
       for (let j = 1; j <= 10; j++) {
         await seedPicksTable(user.username, j);
@@ -192,5 +194,5 @@ module.exports = app => {
     }
 
     res.status(200).send('result');
-  })
+  });
 };
