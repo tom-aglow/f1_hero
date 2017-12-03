@@ -1,16 +1,11 @@
 import React from 'react';
 import { render } from 'react-dom';
 import { BrowserRouter } from 'react-router-dom';
-import { Provider } from 'react-redux';
-import { createStore, applyMiddleware, compose } from 'redux';
-import reduxThunk from 'redux-thunk';
+import axios from 'axios';
 import Perf from 'react-addons-perf';
 
 import App from './App';
-import reducers from './reducers';
-
-import axios from 'axios';
-window.axios = axios;
+import Login from './components/Login';
 
 //  performance tools
 window.Perf = Perf;
@@ -19,23 +14,20 @@ Perf.start();
 //	css styles
 import './styles/main.scss';
 
-//	app state store
-const store = createStore(
-  reducers,
-  compose(
-    applyMiddleware(reduxThunk),
-    typeof window === 'object' &&
-    typeof window.devToolsExtension !== 'undefined'
-      ? window.devToolsExtension()
-      : f => f
-  )
-);
+const renderApp = async () => {
+  let content;
+  const user = (await axios.get('/api/current-user')).data;
 
-const renderApp = () => {
+  if (user) {
+    content = <App />;
+  } else if (window.location.pathname !== '/login') {
+    window.location.replace('/login');
+  } else {
+    content = <Login />;
+  }
+
   render(
-    <Provider store={store}>
-      <App />
-    </Provider>,
+    <BrowserRouter>{content}</BrowserRouter>,
     document.getElementById('app')
   );
 };

@@ -1,40 +1,53 @@
 import React, { Component } from 'react';
-import { BrowserRouter } from 'react-router-dom';
-import { connect } from 'react-redux';
+import { Route, Switch } from 'react-router-dom';
+import { Provider } from 'react-redux';
+import { applyMiddleware, compose, createStore } from 'redux';
+import reduxThunk from 'redux-thunk';
+import reducers from './reducers';
 
-import Login from './components/Login';
-import Master from './components/Master';
-import * as actions from './actions';
+import Leaderboard from "./components/leaderboard/_Leaderboard";
+import Picks from "./components/picks/_Picks";
+import Header from './components/Header';
+
+//	404 component placeholder
+const FourOhFour = () => <h1>404</h1>;
+
+
+//	app state store
+const store = createStore(
+  reducers,
+  compose(
+    applyMiddleware(reduxThunk),
+    typeof window === 'object' &&
+    typeof window.devToolsExtension !== 'undefined'
+      ? window.devToolsExtension()
+      : f => f
+  )
+);
+
+if (module.hot) {
+  module.hot.accept('./reducers', () => {
+    const nextRootReducer = require('./reducers/index');
+    store.replaceReducer(nextRootReducer);
+  });
+}
 
 class App extends Component {
-  state = { isAuth: null };
-
-  async componentDidMount() {
-    const user = await axios.get('/api/current-user');  //TODO move to redux
-    this.setState({ isAuth: !!user.data });
-    this.props.setUser(user);
-  }
-
   render() {
-    let content = '';
-
-    if (this.state.isAuth === true) {
-      content = <Master />;
-    } else if (this.state.isAuth === false) {
-      if (window.location.pathname !== '/login') {
-        // this.props.history.push('/login');
-        window.location.replace('/login');
-      } else {
-        content = <Login />;
-      }
-    }
-
     return (
-      <BrowserRouter>
-        <div className="app">{content}</div>
-      </BrowserRouter>
+      <Provider store={store}>
+        <div className="app">
+          <Header />
+          <Switch>
+            <Route exact path="/" component={Picks} />
+            <Route exact path="/picks" component={Picks} />
+            <Route path="/leaderboard" component={Leaderboard} />
+            <Route component={FourOhFour} />
+          </Switch>
+        </div>
+      </Provider>
     );
   }
 }
 
-export default connect(null, actions)(App);
+export default App;

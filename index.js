@@ -53,6 +53,7 @@ if (process.env.NODE_ENV === 'production') {
 	//	Express will serve up assets files (main.css, main.js)
 	app.use(express.static('_client/public'));
 
+
 	//	Express will serve up the index.html file if it doesn't recognize the route
 	const path = require('path');
 	app.get('*', (req, res) => {
