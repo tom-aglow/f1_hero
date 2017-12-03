@@ -1,11 +1,8 @@
 import { FETCH_RACES } from '../actions/types';
 
-export default function(state = null, action) {
-	switch (action.type) {
-		case FETCH_RACES:
-			return action.payload.data;
-		default:
-			return state;
-	}
+export default function(state = [], action) {
+  if (action.type === FETCH_RACES) {
+    return action.payload.data;
+  }
+  return state;
 }
-

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 
 class Standing extends Component {
   render() {
-    const {score, position, _driver} = this.props.standing;
+    const { score, position, _driver } = this.props.standing;
     const icon =
       score !== undefined ? (
         <div className="score">{score}pt</div>

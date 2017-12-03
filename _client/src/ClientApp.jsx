@@ -1,7 +1,8 @@
 import React from 'react';
 import { render } from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';
-import { createStore, applyMiddleware } from 'redux';
+import { createStore, applyMiddleware, compose } from 'redux';
 import reduxThunk from 'redux-thunk';
 import Perf from 'react-addons-perf';
 
@@ -19,7 +20,16 @@ Perf.start();
 import './styles/main.scss';
 
 //	app state store
-const store = createStore(reducers, {}, applyMiddleware(reduxThunk));
+const store = createStore(
+  reducers,
+  compose(
+    applyMiddleware(reduxThunk),
+    typeof window === 'object' &&
+    typeof window.devToolsExtension !== 'undefined'
+      ? window.devToolsExtension()
+      : f => f
+  )
+);
 
 const renderApp = () => {
   render(

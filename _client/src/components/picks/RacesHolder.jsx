@@ -5,34 +5,39 @@ import * as actions from './../../actions';
 import Race from './Race';
 
 class RacesHolder extends Component {
-	
-	componentDidMount() {
+  componentDidMount() {
     this.props.fetchRaces();
     this.props.fetchDrivers();
-	}
+  }
 
-  componentWillUnmount(){
+  componentWillUnmount() {
     this.props.selectRace(0);
-	}
+  }
 
-	render() {
-		let raceList;
-		if (this.props.races) {
-			raceList = this.props.races.map((race) => {
-				return (
-					<Race race={race} holderNode={this.refs.raceHolder} key={race.round}/>
-				)
-			});
-		} else {
-		  raceList = <div className="loader"></div>
+  render() {
+    let raceList;
+    if (this.props.races) {
+      raceList = this.props.races.map(race => {
+        return (
+          <Race
+            race={race}
+            holderNode={this.refs.raceHolder}
+            key={race.round}
+          />
+        );
+      });
+    } else {
+      raceList = <div className="loader" />;
     }
-		
-		return <div className="race-holder" ref="raceHolder">{raceList}</div>
-	}
+
+    return (
+      <div className="race-holder" ref="raceHolder">
+        {raceList}
+      </div>
+    );
+  }
 }
 
-function mapStateToProps({ races, drivers }) {
-	return { races, drivers };
-}
+const mapStateToProps = ({ races, drivers }) => ({ races, drivers });
 
 export default connect(mapStateToProps, actions)(RacesHolder);

@@ -87,7 +87,10 @@ class Race extends Component {
         <div className="race" onClick={this.fetchPick}>
           {this.displayStatus()}
           <div className="img-container">
-            <img src={this.props.race.flagUrl} alt={`flag of ${this.props.race.alpha3code}`} />
+            <img
+              src={this.props.race.flagUrl}
+              alt={`flag of ${this.props.race.alpha3code}`}
+            />
           </div>
           <p className="country-code">{this.props.race.alpha3code}</p>
           {this.displayScore()}
@@ -98,8 +101,10 @@ class Race extends Component {
   }
 }
 
-function mapStateToProps({ selectedRace, races, drivers }) {
-  return { selectedRace, races, drivers };
-}
+const mapStateToProps = ({ selectedRace, races, drivers }) => ({
+  selectedRace,
+  races,
+  drivers
+});
 
 export default connect(mapStateToProps, actions)(Race);

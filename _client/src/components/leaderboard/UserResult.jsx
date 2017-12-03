@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React, { Component } from 'react';
 
 class UserResult extends Component {
   shouldComponentUpdate() {
@@ -6,7 +6,7 @@ class UserResult extends Component {
   }
 
   render() {
-    const {index, user, scores} = this.props.score.score;
+    const { index, user, scores } = this.props.score.score;
 
     return (
       <div className="user-result">

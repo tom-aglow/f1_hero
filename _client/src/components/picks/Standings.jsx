@@ -92,7 +92,7 @@ class Standings extends Component {
     } catch (err) {
       console.log('error: unable to save pick');
     }
-  }
+  };
 
   displayButton() {
     return this.state.status === 'new' ? (
@@ -114,7 +114,7 @@ class Standings extends Component {
     this.setState({
       list: newList
     });
-  }
+  };
 
   render() {
     let Standings;
@@ -187,8 +187,10 @@ class Standings extends Component {
   }
 }
 
-function mapStateToProps({ selectedRace, races, auth }) {
-  return { selectedRace, races, auth };
-}
+const mapStateToProps = ({ selectedRace, races, auth }) => ({
+  selectedRace,
+  races,
+  auth
+});
 
 export default connect(mapStateToProps, actions)(Standings);
