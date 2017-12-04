@@ -5,6 +5,7 @@
 	"main": "server.js",
 	"scripts": {
 		"build": "webpack",
+		"prod": "NODE_ENV=production webpack -p",
 		"watch": "webpack --watch",
 		"dev": "webpack-dev-server --content-base public/"
 	},
