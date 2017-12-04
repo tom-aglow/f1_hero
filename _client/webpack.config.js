@@ -1,12 +1,12 @@
 const path = require('path');
 const webpack = require('webpack');
 
-module.exports = {
+const config = {
   context: __dirname,
   entry: [
     'react-hot-loader/patch',
     'webpack-dev-server/client?http://localhost:8080',
-		'webpack/hot/only-dev-server',
+    'webpack/hot/only-dev-server',
     'babel-polyfill',
     './src/ClientApp.jsx'
   ],
@@ -14,7 +14,7 @@ module.exports = {
   output: {
     path: path.join(__dirname, 'public/assets'),
     filename: 'bundle.js',
-		publicPath: '/assets/'
+    publicPath: '/assets/'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json']
@@ -24,10 +24,10 @@ module.exports = {
     reasons: true,
     chunks: false
   },
-	plugins: [
-		new webpack.HotModuleReplacementPlugin(),
-		new webpack.NamedModulesPlugin()
-	],
+  plugins: [
+    new webpack.HotModuleReplacementPlugin(),
+    new webpack.NamedModulesPlugin()
+  ],
   module: {
     rules: [
       {
@@ -51,7 +51,7 @@ module.exports = {
     ]
   },
   devServer: {
-  	hot: true,
+    hot: true,
     proxy: {
       '/auth/twitter': {
         target: 'http://localhost:5000',
@@ -66,3 +66,11 @@ module.exports = {
     historyApiFallback: true
   }
 };
+
+if (process.env.NODE_ENV === 'production') {
+  config.entry = './src/ClientApp.jsx';
+  config.devtool = false;
+  config.plugins = [];
+}
+
+module.exports = config;
