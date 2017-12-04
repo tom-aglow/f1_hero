@@ -1,9 +1,15 @@
+require('babel-register');
+require('babel-polyfill');
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
-const session = require('express-session');
 const bodyParser = require('body-parser');
-const cookieParser = require('cookie-parser');
+const React = require('react');
+const ReactDOMServer = require('react-dom/server');
+const ReactRouter = require('react-router-dom');
+const _ = require('lodash');
+const fs = require('fs');
+const ReactApp = require('./_client/src/App').default;
 
 const { MONGODB_URI, COOKIE_SECRET } = require('./config/keys');
 require('./models/User');
@@ -12,13 +18,11 @@ require('./models/Driver');
 require('./models/Pick');
 require('./services/passport');
 
-
 //	DB CONNECTION
 mongoose.Promise = global.Promise;
 mongoose.connect(MONGODB_URI);
 
 const app = express();
-
 
 //	MIDDLEWARE
 
@@ -32,16 +36,14 @@ app.use(
     secret: COOKIE_SECRET,
     resave: true,
     saveUninitialized: true,
-		cookie: {
-    	maxAge: 30 * 24 * 60 * 60 * 1000
-		}
+    cookie: {
+      maxAge: 30 * 24 * 60 * 60 * 1000
+    }
   })
 );
 
 app.use(passport.initialize());
 app.use(passport.session());
-
-
 
 // 	ROUTES
 require('./routes/authRoutes')(app);
@@ -50,18 +52,46 @@ require('./routes/racesRoutes')(app);
 
 //	production routes
 if (process.env.NODE_ENV === 'production') {
-	//	Express will serve up assets files (main.css, main.js)
-	app.use(express.static('_client/public'));
+  //	Express will serve up assets files (main.css, main.js)
+  app.use(express.static('_client/public'));
 
-
-	//	Express will serve up the index.html file if it doesn't recognize the route
-	const path = require('path');
-	app.get('*', (req, res) => {
-		res.sendFile(path.resolve(__dirname, '_client', 'public', 'index.html'));
-	});
+  //	Express will serve up the index.html file if it doesn't recognize the route
+  const path = require('path');
+  app.get('*', (req, res) => {
+    res.sendFile(path.resolve(__dirname, '_client', 'public', 'index.html'));
+  });
 }
 
+//  Server side rendering
+const StaticRouter = ReactRouter.StaticRouter;
+const baseTemplate = fs.readFileSync('./_client/public/index.html');
+const template = _.template(baseTemplate);
 
+app.use(express.static('_client/public'));
+
+app.use((req, res) => {
+  console.log(req.url);
+  const context = {};
+  const body = ReactDOMServer.renderToString(
+    React.createElement(
+      StaticRouter,
+      { location: req.url, context },
+      React.createElement(ReactApp)
+    )
+  );
+
+  if (context.url) {
+    res.redirect(context.url)
+  }
+
+  res.write(template({body}));
+  res.end();
+});
+
+const path = require('path');
+app.get('*', (req, res) => {
+  res.sendFile(path.resolve(__dirname, '_client', 'public', 'index.html'));
+});
 
 //	PORT
 const PORT = process.env.PORT || 5000;

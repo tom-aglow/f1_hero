@@ -14,7 +14,7 @@ const config = {
   output: {
     path: path.join(__dirname, 'public/assets'),
     filename: 'bundle.js',
-    publicPath: '/assets/'
+		publicPath: '/assets/'
   },
   resolve: {
     extensions: ['.js', '.jsx', '.json']
@@ -24,10 +24,10 @@ const config = {
     reasons: true,
     chunks: false
   },
-  plugins: [
-    new webpack.HotModuleReplacementPlugin(),
-    new webpack.NamedModulesPlugin()
-  ],
+	plugins: [
+		new webpack.HotModuleReplacementPlugin(),
+		new webpack.NamedModulesPlugin()
+	],
   module: {
     rules: [
       {
@@ -51,7 +51,7 @@ const config = {
     ]
   },
   devServer: {
-    hot: true,
+  	hot: true,
     proxy: {
       '/auth/twitter': {
         target: 'http://localhost:5000',
