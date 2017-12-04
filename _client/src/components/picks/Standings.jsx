@@ -79,19 +79,18 @@ class Standings extends Component {
     );
   }
 
-  submitPick = async () => {
-    try {
-      const pick = await axios.post(`/api/pick/${this.props.data.round}`, {
-        _user: this.props.auth._id,
+  submitPick = () => {
+    axios
+      .post(`/api/pick/${this.props.data.round}`, {
         round: this.props.data.round,
         forecast: this.state.list.slice(0, 10)
-      });
-
-      this.setState({ status: 'submitted', list: pick.data.forecast });
-      this.props.onSubmit(pick);
-    } catch (err) {
-      console.log('error: unable to save pick');
-    }
+      })
+      .then(pick => {
+        this.setState({ status: 'submitted', list: pick.data.forecast });
+        this.props.onSubmit(pick);
+        this.props.setPickStatus(this.props.data.round, true);
+      })
+      .catch(() => console.log('error: unable to save pick'));
   };
 
   displayButton() {

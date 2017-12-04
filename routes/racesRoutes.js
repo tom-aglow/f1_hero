@@ -3,13 +3,15 @@ const Race = require('mongoose').model('race');
 const Pick = require('mongoose').model('pick');
 const Driver = require('mongoose').model('driver');
 
+const isAuth = require('../middlewares/isAuth');
+
 const getMaxFiveElements = arr => {
   return arr.sort((a, b) => a < b).slice(0, 5);
 };
 
 module.exports = app => {
   //	return list of all races
-  app.get('/api/races', async (req, res) => {
+  app.get('/api/races', isAuth, async (req, res) => {
     const races = await Race.find({})
       .sort({ round: 1 })
       .lean()
@@ -34,7 +36,7 @@ module.exports = app => {
   });
 
   //	return list of all drivers
-  app.get('/api/drivers', async (req, res) => {
+  app.get('/api/drivers', isAuth, async (req, res) => {
     const drivers = await Driver.find({})
       .sort({ number: 1 })
       .select('code name');
@@ -43,7 +45,7 @@ module.exports = app => {
   });
 
   //	return user's picks for the particular race
-  app.get('/api/pick/:round', async (req, res) => {
+  app.get('/api/pick/:round', isAuth, async (req, res) => {
     const race = await Race.findOne({ round: req.params.round }).select();
     const pick = await Pick.findOne({ _race: race._id, _user: req.user._id })
       .populate('forecast._driver')
@@ -53,8 +55,9 @@ module.exports = app => {
   });
 
   //	submit user's picks for the particular race
-  app.post('/api/pick/:round', async (req, res) => {
-    const { round, _user, forecast } = req.body;
+  app.post('/api/pick/:round', isAuth, async (req, res) => {
+    const { round, forecast } = req.body;
+    const _user = req.user._id;
     const _race = await Race.findOne({ round }).select('_id');
 
     try {
@@ -69,7 +72,7 @@ module.exports = app => {
   });
 
   //  return leaderboard info
-  app.get('/api/leaderboard', async (req, res) => {
+  app.get('/api/leaderboard', isAuth, async (req, res) => {
     //  fetch all users
     const users = await User.find().select();
 
