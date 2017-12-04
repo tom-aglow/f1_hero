@@ -19,6 +19,11 @@ class Header extends Component {
                 Leaderboard
               </Link>
             </li>
+            <li>
+              <Link to={'/rules'} className="btn btn-primary">
+                Rules
+              </Link>
+            </li>
             <li className="btn btn-secondary username">
               <i className="fa fa-user" aria-hidden="true" />
               {this.props.user.username}

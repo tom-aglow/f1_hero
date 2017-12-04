@@ -11,7 +11,7 @@
 
   li
     list-style: none
-    &:first-child
+    &:not(:last-child)
       margin-right: 20px
 
 .btn,
@@ -34,13 +34,12 @@ a:visited.btn
 
 .username
   text-transform: lowercase
-  margin-left: 70px
+  margin-left: 50px
   .fa
     margin-right: 20px
 
 .page-title
   text-transform: uppercase
   color: white
-
   span
     color: $color-purple
