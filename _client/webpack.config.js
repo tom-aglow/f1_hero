@@ -68,7 +68,10 @@ const config = {
 };
 
 if (process.env.NODE_ENV === 'production') {
-  config.entry = './src/ClientApp.jsx';
+  config.entry = [
+    'babel-polyfill',
+    './src/ClientApp.jsx'
+  ];
   config.devtool = false;
   config.plugins = [];
 }
