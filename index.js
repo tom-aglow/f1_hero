@@ -10,6 +10,7 @@ const ReactRouter = require('react-router-dom');
 const _ = require('lodash');
 const fs = require('fs');
 const ReactApp = require('./_client/src/App').default;
+const path = require('path');
 
 const { MONGODB_URI, COOKIE_SECRET } = require('./config/keys');
 require('./models/User');
@@ -53,45 +54,34 @@ require('./routes/racesRoutes')(app);
 //	production routes
 if (process.env.NODE_ENV === 'production') {
   //	Express will serve up assets files (main.css, main.js)
-  app.use(express.static('_client/public'));
+  app.use('/assets', express.static('./_client/public/assets'));
+  app.use('/images', express.static('./_client/public/assets/images'));
 
-  //	Express will serve up the index.html file if it doesn't recognize the route
-  const path = require('path');
-  app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, '_client', 'public', 'index.html'));
+  //  Server side rendering
+  const StaticRouter = ReactRouter.StaticRouter;
+  const baseTemplate = fs.readFileSync('./_client/public/index.html');
+  const template = _.template(baseTemplate);
+
+  app.use((req, res) => {
+    const context = {};
+    const body = ReactDOMServer.renderToString(
+      React.createElement(
+        StaticRouter,
+        { location: req.url, context },
+        React.createElement(ReactApp)
+      )
+    );
+
+    if (context.url) {
+      res.redirect(context.url)
+    }
+
+    res.write(template({body}));
+    res.end();
   });
 }
 
-//  Server side rendering
-const StaticRouter = ReactRouter.StaticRouter;
-const baseTemplate = fs.readFileSync('./_client/public/index.html');
-const template = _.template(baseTemplate);
 
-app.use(express.static('_client/public'));
-
-app.use((req, res) => {
-  console.log(req.url);
-  const context = {};
-  const body = ReactDOMServer.renderToString(
-    React.createElement(
-      StaticRouter,
-      { location: req.url, context },
-      React.createElement(ReactApp)
-    )
-  );
-
-  if (context.url) {
-    res.redirect(context.url)
-  }
-
-  res.write(template({body}));
-  res.end();
-});
-
-const path = require('path');
-app.get('*', (req, res) => {
-  res.sendFile(path.resolve(__dirname, '_client', 'public', 'index.html'));
-});
 
 //	PORT
 const PORT = process.env.PORT || 5000;
