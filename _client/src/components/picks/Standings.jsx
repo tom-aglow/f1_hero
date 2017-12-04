@@ -90,7 +90,7 @@ class Standings extends Component {
         this.props.onSubmit(pick);
         this.props.setPickStatus(this.props.data.round, true);
       })
-      .catch(err => console.log('error: unable to save pick', err));
+      .catch(err => console.log('error: unable to save pick!!', err));
   };
 
   displayButton() {
