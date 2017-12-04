@@ -6,7 +6,7 @@ class Header extends Component {
   render() {
     return (
       <header className="page-header">
-        <h1 className="page-title">F1 Hero</h1>
+        <h1 className="page-title">F1 Hero <span>// {this.props.header}</span></h1>
         <nav className="navbar">
           <ul>
             <li>
@@ -30,8 +30,8 @@ class Header extends Component {
   }
 }
 
-function mapStateToProps({ auth }) {
-  return { auth };
+function mapStateToProps({ header }) {
+  return { header };
 }
 
 export default connect(mapStateToProps)(Header);

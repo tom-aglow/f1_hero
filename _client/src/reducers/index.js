@@ -1,12 +1,12 @@
 import { combineReducers } from 'redux';
-import auth from './authReducer';
 import races from './racesReducer';
 import selectedRace from './selectedRacesReducer';
 import drivers from './driversReducer';
+import header from './headerReducer';
 
 export default combineReducers({
-  auth,
   races,
   selectedRace,
-  drivers
+  drivers,
+  header
 });

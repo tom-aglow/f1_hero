@@ -1,8 +1,10 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
 import axios from 'axios';
 
 import UserResult from './UserResult';
 import SearchBar from './SearchBar';
+import * as actions from './../../actions';
 
 class Leaderboard extends Component {
   state = { searchTerm: '' };
@@ -10,6 +12,7 @@ class Leaderboard extends Component {
   async componentDidMount() {
     const scores = (await axios.get('/api/leaderboard')).data;
     this.setState({ scores });
+    this.props.setHeader('Leaderboard');
   }
 
   handleSearchTermChange = event => {
@@ -41,4 +44,4 @@ class Leaderboard extends Component {
   }
 }
 
-export default Leaderboard;
+export default connect(null, actions)(Leaderboard);

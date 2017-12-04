@@ -8,6 +8,7 @@ class RacesHolder extends Component {
   componentDidMount() {
     this.props.fetchRaces();
     this.props.fetchDrivers();
+    this.props.setHeader('My Picks');
   }
 
   componentWillUnmount() {
@@ -16,7 +17,7 @@ class RacesHolder extends Component {
 
   render() {
     let raceList;
-    if (this.props.races) {
+    if (this.props.races.length > 0) {
       raceList = this.props.races.map(race => {
         return (
           <Race
