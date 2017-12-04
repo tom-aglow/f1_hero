@@ -3,17 +3,6 @@ import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 class Header extends Component {
-  renderUsername() {
-    if (this.props.auth) {
-      return (
-        <li className="btn btn-secondary username">
-          <i className="fa fa-user" aria-hidden="true" />
-          {this.props.auth.username}
-        </li>
-      );
-    }
-  }
-
   render() {
     return (
       <header className="page-header">
@@ -30,7 +19,10 @@ class Header extends Component {
                 Leaderboard
               </Link>
             </li>
-            {this.renderUsername()}
+            <li className="btn btn-secondary username">
+              <i className="fa fa-user" aria-hidden="true" />
+              {this.props.user.username}
+            </li>
           </ul>
         </nav>
       </header>

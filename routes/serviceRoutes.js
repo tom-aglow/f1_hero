@@ -180,7 +180,9 @@ module.exports = app => {
     res.status(200).send('');
   });
 
-  app.get('/api/seed', isAdmin, async (req, res) => {
+  app.get('/api/seed',  async (req, res) => {
+    const races = await Race.find().select('_id');
+
     for (let i = 0; i < 20; i += 1) {
       const fakeName = faker.internet.userName();
       const user = await User.create({
@@ -188,11 +190,11 @@ module.exports = app => {
         username: fakeName
       });
 
-      for (let j = 1; j <= 10; j++) {
+      for (let j = 1; j <= races.length(); j++) {
         await seedPicksTable(user.username, j);
       }
     }
 
-    res.status(200).send('result');
+    res.status(200).send('');
   });
 };

@@ -37,7 +37,7 @@ class App extends Component {
     return (
       <Provider store={store}>
         <div className="app">
-          <Header />
+          <Header user={this.props.user} />
           <Switch>
             <Route exact path="/" component={Picks} />
             <Route exact path="/picks" component={Picks} />

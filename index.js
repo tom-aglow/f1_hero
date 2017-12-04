@@ -1,16 +1,7 @@
-require('babel-register');
-require('babel-polyfill');
 const express = require('express');
 const mongoose = require('mongoose');
 const passport = require('passport');
 const bodyParser = require('body-parser');
-const React = require('react');
-const ReactDOMServer = require('react-dom/server');
-const ReactRouter = require('react-router-dom');
-const _ = require('lodash');
-const fs = require('fs');
-const ReactApp = require('./_client/src/App').default;
-const path = require('path');
 
 const { MONGODB_URI, COOKIE_SECRET } = require('./config/keys');
 require('./models/User');
@@ -51,13 +42,25 @@ require('./routes/authRoutes')(app);
 require('./routes/serviceRoutes')(app);
 require('./routes/racesRoutes')(app);
 
+app.use('/assets', express.static('./_client/public/assets'));
+
 //	production routes
-if (process.env.NODE_ENV === 'production') {
+if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'server') {
   //	Express will serve up assets files (main.css, main.js)
   app.use('/assets', express.static('./_client/public/assets'));
   app.use('/images', express.static('./_client/public/assets/images'));
 
   //  Server side rendering
+  require('babel-register');
+  require('babel-polyfill');
+
+  const React = require('react');
+  const ReactDOMServer = require('react-dom/server');
+  const ReactRouter = require('react-router-dom');
+  const _ = require('lodash');
+  const fs = require('fs');
+  const ReactApp = require('./_client/src/App').default;
+
   const StaticRouter = ReactRouter.StaticRouter;
   const baseTemplate = fs.readFileSync('./_client/public/index.html');
   const template = _.template(baseTemplate);
