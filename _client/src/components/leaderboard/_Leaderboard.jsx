@@ -44,4 +44,5 @@ class Leaderboard extends Component {
   }
 }
 
+export const Unwrapped = Leaderboard;
 export default connect(null, actions)(Leaderboard);
