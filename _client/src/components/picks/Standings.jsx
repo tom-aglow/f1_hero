@@ -87,8 +87,9 @@ class Standings extends Component {
       })
       .then(pick => {
         this.setState({ status: 'submitted', list: pick.data.forecast });
-        this.props.onSubmit(pick);
+        this.props.onSubmit(pick.data);
         this.props.setPickStatus(this.props.data.round, true);
+        this.props.fetchDrivers();
       })
       .catch(err => console.log('error: unable to save pick!!', err));
   };
@@ -186,10 +187,9 @@ class Standings extends Component {
   }
 }
 
-const mapStateToProps = ({ selectedRace, races, auth }) => ({
+const mapStateToProps = ({ selectedRace, races }) => ({
   selectedRace,
-  races,
-  auth
+  races
 });
 
 export default connect(mapStateToProps, actions)(Standings);
