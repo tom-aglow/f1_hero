@@ -1,12 +1,10 @@
 const mongoose = require('mongoose');
 const getRaceSchema = require('../models/Race');
 const getPickSchema = require('../models/Pick');
+const getDriverSchema = require('../models/Driver');
 
 module.exports = () => {
-	const RaceSchema = getRaceSchema();
-	mongoose.model('race', RaceSchema);
-
-	const PickSchema = getPickSchema();
-	mongoose.model('pick', PickSchema);
+	mongoose.model('race', getRaceSchema());
+	mongoose.model('pick', getPickSchema());
+	mongoose.model('driver', getDriverSchema());
 };
-
