@@ -24,14 +24,14 @@ app.use(require('cookie-parser')());
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
 app.use(
-  require('express-session')({
-    secret: COOKIE_SECRET,
-    resave: true,
-    saveUninitialized: true,
-    cookie: {
-      maxAge: 30 * 24 * 60 * 60 * 1000
-    }
-  })
+	require('express-session')({
+		secret: COOKIE_SECRET,
+		resave: true,
+		saveUninitialized: true,
+		cookie: {
+			maxAge: 30 * 24 * 60 * 60 * 1000
+		}
+	})
 );
 
 app.use(passport.initialize());
@@ -45,52 +45,53 @@ require('./routes/racesRoutes')(app);
 app.use('/assets', express.static('./_client/public/assets'));
 
 //	production routes
-if (process.env.NODE_ENV === 'production' || process.env.NODE_ENV === 'server') {
-  //	Express will serve up assets files (main.css, main.js)
-  app.use('/assets', express.static('./_client/public/assets'));
-  app.use('/images', express.static('./_client/public/assets/images'));
+if (
+	process.env.NODE_ENV === 'production' ||
+	process.env.NODE_ENV === 'server'
+) {
+	//	Express will serve up assets files (main.css, main.js)
+	app.use('/assets', express.static('./_client/public/assets'));
+	app.use('/images', express.static('./_client/public/assets/images'));
 
-  //  Server side rendering
-  require('babel-register');
-  require('babel-polyfill');
+	//  Server side rendering
+	require('babel-register');
+	require('babel-polyfill');
 
-  const React = require('react');
-  const ReactDOMServer = require('react-dom/server');
-  const ReactRouter = require('react-router-dom');
-  const _ = require('lodash');
-  const fs = require('fs');
-  const ReactApp = require('./_client/src/App').default;
+	const React = require('react');
+	const ReactDOMServer = require('react-dom/server');
+	const ReactRouter = require('react-router-dom');
+	const _ = require('lodash');
+	const fs = require('fs');
+	const ReactApp = require('./_client/src/App').default;
 
-  const StaticRouter = ReactRouter.StaticRouter;
-  const baseTemplate = fs.readFileSync('./_client/public/index.html');
-  const template = _.template(baseTemplate);
+	const StaticRouter = ReactRouter.StaticRouter;
+	const baseTemplate = fs.readFileSync('./_client/public/index.html');
+	const template = _.template(baseTemplate);
 
-  app.use((req, res) => {
-    const context = {};
-    const body = ReactDOMServer.renderToString(
-      React.createElement(
-        StaticRouter,
-        { location: req.url, context },
-        React.createElement(ReactApp)
-      )
-    );
+	app.use((req, res) => {
+		const context = {};
+		const body = ReactDOMServer.renderToString(
+			React.createElement(
+				StaticRouter,
+				{ location: req.url, context },
+				React.createElement(ReactApp)
+			)
+		);
 
-    if (context.url) {
-      res.redirect(context.url)
-    }
+		if (context.url) {
+			res.redirect(context.url);
+		}
 
-    res.write(template({body}));
-    res.end();
-  });
+		res.write(template({ body }));
+		res.end();
+	});
 }
-
-
 
 //	PORT
 const PORT = process.env.PORT || 5000;
 
 app.listen(PORT, () => {
-  console.log(`server is running at ${PORT}`);
+	console.log(`server is running at ${PORT}`);
 });
 
-module.exports = {app};
+module.exports = { app };

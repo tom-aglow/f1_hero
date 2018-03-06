@@ -24,6 +24,5 @@ exports.index = async (req, res) => {
 		return race;
 	});
 
-	setTimeout(() => res.send({races}), 500);
+	setTimeout(() => res.send({ races }), 500);
 };
-

@@ -15,36 +15,36 @@ const FourOhFour = () => <h1>404</h1>;
 
 //	app state store
 const store = createStore(
-  reducers,
-  compose(
-    applyMiddleware(reduxThunk),
-    typeof window === 'object' &&
-    typeof window.devToolsExtension !== 'undefined'
-      ? window.devToolsExtension()
-      : f => f
-  )
+	reducers,
+	compose(
+		applyMiddleware(reduxThunk),
+		typeof window === 'object' &&
+		typeof window.devToolsExtension !== 'undefined'
+			? window.devToolsExtension()
+			: f => f
+	)
 );
 
 if (module.hot) {
-  module.hot.accept('./reducers', () => {
-    const nextRootReducer = require('./reducers/index');
-    store.replaceReducer(nextRootReducer);
-  });
+	module.hot.accept('./reducers', () => {
+		const nextRootReducer = require('./reducers/index');
+		store.replaceReducer(nextRootReducer);
+	});
 }
 
 const App = props => (
-  <Provider store={store}>
-    <div className="app">
-      <Header user={props.user} />
-      <Switch>
-        <Route exact path="/" component={Picks} />
-        <Route exact path="/picks" component={Picks} />
-        <Route path="/leaderboard" component={Leaderboard} />
-        <Route path="/rules" component={Rules} />
-        <Route component={FourOhFour} />
-      </Switch>
-    </div>
-  </Provider>
+	<Provider store={store}>
+		<div className="app">
+			<Header user={props.user} />
+			<Switch>
+				<Route exact path="/" component={Picks} />
+				<Route exact path="/picks" component={Picks} />
+				<Route path="/leaderboard" component={Leaderboard} />
+				<Route path="/rules" component={Rules} />
+				<Route component={FourOhFour} />
+			</Switch>
+		</div>
+	</Provider>
 );
 
 export default App;

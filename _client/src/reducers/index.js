@@ -5,8 +5,8 @@ import drivers from './driversReducer';
 import header from './headerReducer';
 
 export default combineReducers({
-  races,
-  selectedRace,
-  drivers,
-  header
+	races,
+	selectedRace,
+	drivers,
+	header
 });

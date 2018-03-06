@@ -10,17 +10,13 @@ exports.index = async (req, res) => {
 	)).data.MRData.DriverTable.Drivers;
 
 	//	create driver documents
-	drivers.forEach(
-		async ({ permanentNumber, givenName, familyName, code }) => {
-			(await new Driver({
-				code,
-				name: givenName.charAt(0) + '. ' + familyName,
-				number: permanentNumber
-			})).save();
-		}
-	);
+	drivers.forEach(async ({ permanentNumber, givenName, familyName, code }) => {
+		(await new Driver({
+			code,
+			name: givenName.charAt(0) + '. ' + familyName,
+			number: permanentNumber
+		})).save();
+	});
 
-	res.status(200).send({drivers});
+	res.status(200).send({ drivers });
 };
-
-

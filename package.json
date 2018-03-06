@@ -10,7 +10,8 @@
     "dev": "concurrently \"npm run server\" \"npm run client\"",
     "test": "PORT=3002 jest --coverage",
     "test:watch": "PORT=3002 jest --watch",
-    "lint": "eslint . --ext .js,.jsx --quiet"
+    "lint": "eslint . --ext .js,.jsx --quiet",
+		"format": "prettier --write '**/*.{js,jsx}'"
   },
   "author": "tom-aglow",
   "license": "MIT",
