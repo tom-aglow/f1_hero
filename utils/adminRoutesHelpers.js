@@ -1,4 +1,5 @@
 const { BASETRIP_SECRET } = require('../config/keys');
+const axios = require('axios');
 
 const scoreRules = {
   0: 25,
