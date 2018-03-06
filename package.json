@@ -8,8 +8,8 @@
     "server": "nodemon server.js",
     "client": "npm run dev --prefix _client",
     "dev": "concurrently \"npm run server\" \"npm run client\"",
-    "test": "export NODE_ENV=test || SET \"NODE_ENV=test\" && mocha tests/*.test.js ",
-    "test-watch": "nodemon --exec \"npm test\""
+    "test": "PORT=3002 jest --coverage",
+    "test:watch": "PORT=3002 jest --watch"
   },
   "author": "tom-aglow",
   "license": "MIT",
@@ -46,8 +46,24 @@
     "redux-thunk": "2.2.0"
   },
   "devDependencies": {
-    "expect.js": "^0.3.1",
-    "mocha": "^4.0.1",
-    "supertest": "^3.0.0"
+    "babel-jest": "^22.4.1",
+    "enzyme": "^3.3.0",
+    "enzyme-adapter-react-16": "^1.1.1",
+    "jest": "^22.4.2",
+    "jest-serializer-enzyme": "^1.0.0"
+  },
+  "jest": {
+    "setupTestFrameworkScriptFile": "<rootDir>/jest/setup.js",
+    "moduleNameMapper": {
+      "\\.(css|jpg|png)$": "<rootDir>/jest/mocks/emptyModule.js"
+    },
+    "collectCoverageFrom": [
+      "**/*.{js,jsx}",
+      "!**/node_modules/**",
+      "!coverage/**",
+      "!config/**",
+      "!_client/public/**",
+      "!start-client.js"
+    ]
   }
 }
