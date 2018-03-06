@@ -1,9 +1,9 @@
 const express = require('express');
 
-const racesController = require('../controllers/races');
-const driversController = require('../controllers/drivers');
-const picksController = require('../controllers/picks');
-const leaderboardController = require('../controllers/leaderboard');
+const racesController = require('../controllers/api/races');
+const driversController = require('../controllers/api/drivers');
+const picksController = require('../controllers/api/picks');
+const leaderboardController = require('../controllers/api/leaderboard');
 const isAuth = require('../middlewares/isAuth');
 
 module.exports = () => {

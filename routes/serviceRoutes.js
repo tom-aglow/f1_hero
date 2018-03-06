@@ -6,7 +6,7 @@ const Race = require('mongoose').model('race');
 const Driver = require('mongoose').model('driver');
 const Pick = require('mongoose').model('pick');
 const isAdmin = require('../middlewares/isAdmin');
-const {castCountry, getCountryFlag, getForecastScore} = require('../utils/serviceRoutesHelpers');
+const {castCountry, getCountryFlag, getForecastScore} = require('../utils/adminRoutesHelpers');
 
 const seedPicksTable = async (username, round) => {
   const _user = await User.findOne({ username }).select('_id');

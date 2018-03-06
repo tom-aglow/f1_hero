@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {getMaxFiveElements} = require('../utils/functions');
+const {getMaxFiveElements} = require('../../utils/functions');
 
 exports.index = async (req, res) => {
 	const User = mongoose.model('user');
