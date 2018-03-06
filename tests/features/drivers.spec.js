@@ -23,6 +23,9 @@ beforeEach(populateDriversCollection);
 describe('GET /api/drivers', () => {
 	it('should fetch all drivers', async () => {
 		const drivers = await api.get('/drivers').then(res => res.data.drivers);
+		const driversSnap = drivers.map(({ code, name }) => ({ code, name }));
+
 		expect(drivers).toHaveLength(driversData.length);
+		expect(driversSnap).toMatchSnapshot();
 	});
 });

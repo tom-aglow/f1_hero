@@ -3,7 +3,8 @@
 	"plugins": ["prettier"],
 	"rules": {
 		"prettier/prettier": ["error"],
-		"function-paren-newline": "off"
+		"function-paren-newline": "off",
+		"no-underscore-dangle": "off"
 	},
 	"parser": "babel-eslint",
 	"parserOptions": {

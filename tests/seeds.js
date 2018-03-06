@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 
 const drivers = require('./seedsData/drivers');
+const races = require('./seedsData/races');
 
 const populateDriversCollection = done => {
 	const Driver = mongoose.model('driver');
@@ -10,4 +11,12 @@ const populateDriversCollection = done => {
 		.then(() => done());
 };
 
-module.exports = { populateDriversCollection };
+const populateRacesCollection = done => {
+	const Race = mongoose.model('race');
+
+	Race.remove()
+		.then(() => Race.insertMany(races))
+		.then(() => done());
+};
+
+module.exports = { populateDriversCollection, populateRacesCollection };

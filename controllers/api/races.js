@@ -15,7 +15,7 @@ exports.index = async (req, res) => {
 
 	races.map(race => {
 		const pick = picks.filter(
-			pick => String(pick._race) === String(race._id)
+			item => String(item._race) === String(race._id)
 		)[0];
 		if (pick && pick.score > 0) {
 			race.score = pick.score;
@@ -24,5 +24,6 @@ exports.index = async (req, res) => {
 		return race;
 	});
 
-	setTimeout(() => res.send({ races }), 500);
+	res.send({ races });
+	// setTimeout(() => res.send({ races }), 500);
 };

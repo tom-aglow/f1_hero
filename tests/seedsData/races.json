@@ -1,0 +1,52 @@
+[
+	{
+		"round": 1,
+		"raceName": "Australian Grand Prix",
+		"country": "australia",
+		"flagUrl":
+			"https://assets.thebasetrip.com/api/v2/countries/flags/australia.svg",
+		"alpha3code": "AUS",
+		"isPassed": true,
+		"date": "2018-03-28"
+	},
+	{
+		"round": 2,
+		"raceName": "Chinese Grand Prix",
+		"country": "china",
+		"flagUrl":
+			"https://assets.thebasetrip.com/api/v2/countries/flags/china.svg",
+		"alpha3code": "CHN",
+		"isPassed": true,
+		"date": "2018-04-05"
+	},
+	{
+		"round": 3,
+		"raceName": "Bahrain Grand Prix",
+		"country": "bahrain",
+		"flagUrl":
+			"https://assets.thebasetrip.com/api/v2/countries/flags/bahrain.svg",
+		"alpha3code": "BHR",
+		"isPassed": false,
+		"date": "2018-04-19"
+	},
+	{
+		"round": 4,
+		"raceName": "Russian Grand Prix",
+		"country": "russia",
+		"flagUrl":
+			"https://assets.thebasetrip.com/api/v2/countries/flags/russia.svg",
+		"alpha3code": "RUS",
+		"isPassed": false,
+		"date": "2018-04-26"
+	},
+	{
+		"round": 5,
+		"raceName": "Spanish Grand Prix",
+		"country": "spain",
+		"flagUrl":
+			"https://assets.thebasetrip.com/api/v2/countries/flags/spain.svg",
+		"alpha3code": "ESP",
+		"isPassed": false,
+		"date": "2018-05-10"
+	}
+]
