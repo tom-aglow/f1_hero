@@ -13,6 +13,9 @@ jobs:
       # CircleCI maintains a library of pre-built images
       # documented at https://circleci.com/docs/2.0/circleci-images/
       - image: circleci/mongo:3.4.4
+      
+		environment:
+			- COVERALLS_REPO_TOKEN: "qyG8htfO4IoMOpPzZg0rP5VOlsJyRj3s6"
 
     working_directory: ~/repo
 
