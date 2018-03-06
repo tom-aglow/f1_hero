@@ -9,6 +9,7 @@ module.exports = () => {
 
 	router.get('/races', isAdmin, racesController.index);
 	router.get('/drivers', isAdmin, driversController.index);
+	router.get('/races/:round/score', isAdmin, racesController.score);
 
 	return router;
 };
