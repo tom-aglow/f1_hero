@@ -18,9 +18,12 @@ afterAll(done => {
 	server.close(done);
 });
 
-beforeEach(populateRacesCollection);
+beforeEach(async done => {
+	await populateRacesCollection();
+	done();
+});
 
-describe('GET /api/drivers', () => {
+describe('GET /api/races', () => {
 	it('should fetch all races in the season', async () => {
 		const races = await api.get('/races').then(res => res.data.races);
 

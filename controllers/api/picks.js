@@ -8,7 +8,6 @@ exports.show = async (req, res) => {
 	const pick = await Pick.findOne({ _race: race._id, _user: req.user._id })
 		.populate('forecast._driver')
 		.select();
-
 	res.send({ pick });
 };
 

@@ -18,7 +18,10 @@ afterAll(done => {
 	server.close(done);
 });
 
-beforeEach(populateDriversCollection);
+beforeEach(async done => {
+	await populateDriversCollection();
+	done();
+});
 
 describe('GET /api/drivers', () => {
 	it('should fetch all drivers', async () => {
