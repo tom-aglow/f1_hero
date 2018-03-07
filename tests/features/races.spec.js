@@ -13,7 +13,7 @@ let server;
 beforeAll(async () => {
 	server = await startServer();
 	clearAllCollections();
-	f.create('user');
+	await f.create('user');
 });
 
 afterAll(done => {

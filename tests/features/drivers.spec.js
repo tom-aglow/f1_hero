@@ -13,7 +13,7 @@ let server;
 beforeAll(async () => {
 	server = await startServer();
 	clearAllCollections();
-	f.create('user');
+	await f.create('user');
 });
 
 afterAll(done => {
@@ -21,10 +21,11 @@ afterAll(done => {
 });
 
 describe('GET /api/drivers', () => {
-	it('should fetch all drivers', async () => {
-		await f.create('driver');
+	it('should return all drivers in correct format', async () => {
+		const { id, code, name } = await f.create('driver');
 		const response = await api.get('/drivers').then(res => res.data.drivers);
 
 		expect(response).toHaveLength(1);
+		expect(response).toContainEqual({ _id: id, code, name });
 	});
 });
