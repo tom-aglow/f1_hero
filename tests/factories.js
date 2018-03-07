@@ -7,7 +7,8 @@ const { capitalizeFirstLetter } = require('../utils/functions');
 const factory = (function testFactory() {
 	const self = {
 		createRace,
-		createUser
+		createUser,
+		createDriver
 	};
 
 	const publicApi = {
@@ -42,6 +43,18 @@ const factory = (function testFactory() {
 		return User.create({
 			twitterID: faker.random.uuid(),
 			username: faker.internet.userName(),
+			...fields
+		});
+	}
+
+	function createDriver(fields) {
+		const Driver = mongoose.model('driver');
+		const name = `${faker.name.firstName()} ${faker.name.lastName()}`;
+
+		return Driver.create({
+			number: faker.random.number(99),
+			name,
+			code: name.slice(0, 3).toUpperCase(),
 			...fields
 		});
 	}
