@@ -9,10 +9,11 @@ const api = axios.create({ baseURL: 'http://localhost:3002/api' });
 let server;
 let user;
 
-beforeAll(async () => {
+beforeAll(async done => {
 	server = await startServer();
 	clearAllCollections();
 	user = await f.create('user');
+	done();
 });
 
 afterAll(done => {
