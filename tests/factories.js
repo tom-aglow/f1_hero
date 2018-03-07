@@ -8,7 +8,8 @@ const factory = (function testFactory() {
 	const self = {
 		createRace,
 		createUser,
-		createDriver
+		createDriver,
+		createPick
 	};
 
 	const publicApi = {
@@ -55,6 +56,17 @@ const factory = (function testFactory() {
 			number: faker.random.number(99),
 			name,
 			code: name.slice(0, 3).toUpperCase(),
+			...fields
+		});
+	}
+
+	async function createPick(fields) {
+		const Pick = mongoose.model('pick');
+
+		return Pick.create({
+			_user: await self.createUser(),
+			_race: await self.createRace(),
+			forecast: [],
 			...fields
 		});
 	}
