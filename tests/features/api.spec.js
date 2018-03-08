@@ -11,13 +11,36 @@ let user;
 
 beforeAll(async done => {
 	server = await startServer();
-	clearAllCollections();
-	user = await f.create('user');
 	done();
 });
 
 afterAll(done => {
 	server.close(done);
+});
+
+beforeEach(async done => {
+	clearAllCollections();
+	user = await f.create('user');
+	done();
+});
+
+describe('GET /api/races', () => {
+	it('should fetch all races in the season', async () => {
+		await f.create('race');
+		const response = await api.get('/races').then(res => res.data.races);
+
+		expect(response).toHaveLength(1);
+	});
+});
+
+describe('GET /api/drivers', () => {
+	it('should return all drivers in correct format', async () => {
+		const { id, code, name } = await f.create('driver');
+		const response = await api.get('/drivers').then(res => res.data.drivers);
+
+		expect(response).toHaveLength(1);
+		expect(response).toContainEqual({ _id: id, code, name });
+	});
 });
 
 describe('GET /api/picks/:round', () => {
