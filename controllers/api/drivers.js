@@ -7,6 +7,5 @@ exports.index = async (req, res) => {
 		.sort({ number: 1 })
 		.select('code name');
 
-	res.send({drivers});
+	res.send({ drivers });
 };
-

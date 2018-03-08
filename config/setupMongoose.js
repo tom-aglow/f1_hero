@@ -21,4 +21,3 @@ module.exports = async () => {
 		mongoose.connection.close();
 	};
 };
-

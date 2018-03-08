@@ -1,5 +1,5 @@
 const mongoose = require('mongoose');
-const {getMaxFiveElements} = require('../../utils/functions');
+const { getMaxFiveElements } = require('../../utils/functions');
 
 exports.index = async (req, res) => {
 	const User = mongoose.model('user');
@@ -36,7 +36,6 @@ exports.index = async (req, res) => {
 		});
 
 		//  return result array
-		res.status(200).send({leaderboard: results});
+		res.status(200).send({ leaderboard: results });
 	});
 };
-

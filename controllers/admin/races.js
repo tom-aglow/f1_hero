@@ -1,7 +1,11 @@
 const mongoose = require('mongoose');
 const axios = require('axios');
 
-const {castCountry, getCountryFlag, getForecastScore} = require('../../utils/adminRoutesHelpers');
+const {
+	castCountry,
+	getCountryFlag,
+	getForecastScore
+} = require('../../utils/adminRoutesHelpers');
 
 exports.index = async (req, res) => {
 	const Race = mongoose.model('race');
@@ -12,9 +16,7 @@ exports.index = async (req, res) => {
 	//	create races documents
 	races.forEach(async ({ round, raceName, date, Circuit }) => {
 		const country = Circuit.Location.country;
-		const { flagUrl, alpha3code } = await getCountryFlag(
-			castCountry(country)
-		);
+		const { flagUrl, alpha3code } = await getCountryFlag(castCountry(country));
 
 		(await new Race({
 			round,
@@ -26,7 +28,7 @@ exports.index = async (req, res) => {
 		})).save();
 	});
 
-	res.status(200).send({races});
+	res.status(200).send({ races });
 };
 
 exports.score = async (req, res) => {
@@ -63,5 +65,5 @@ exports.score = async (req, res) => {
 
 	await Race.findOneAndUpdate({ _id: _race }, { $set: { isPassed: true } });
 
-	res.status(200).send({status: 'done'});
+	res.status(200).send({ status: 'done' });
 };

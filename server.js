@@ -10,16 +10,13 @@ const start = async () => {
 	const cleanupMongoose = await setupMongoose();
 	setupModels();
 
-	
 	//	CREATING A SERVER
 	const app = express();
 	app.use(cors());
 
-	
 	// 	ROUTES
 	app.use(getRouter());
 
-	
 	//	CLIENT CONFIG
 
 	// Express only serves static assets in production
@@ -27,7 +24,6 @@ const start = async () => {
 		app.use(express.static('client/build'));
 	}
 
-	
 	//	SERVER START
 	return new Promise(resolve => {
 		const port = process.env.PORT || 3001;
@@ -44,4 +40,3 @@ if (process.env.NODE_ENV !== 'test') {
 }
 
 module.exports = start;
-

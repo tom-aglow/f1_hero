@@ -7,41 +7,41 @@ import SearchBar from './SearchBar';
 import * as actions from './../../actions';
 
 class Leaderboard extends Component {
-  state = { searchTerm: '' };
+	state = { searchTerm: '' };
 
-  async componentDidMount() {
-    const scores = (await axios.get('/api/leaderboard')).data;
-    this.setState({ scores });
-    this.props.setHeader('Leaderboard');
-  }
+	async componentDidMount() {
+		const scores = (await axios.get('/api/leaderboard')).data;
+		this.setState({ scores });
+		this.props.setHeader('Leaderboard');
+	}
 
-  handleSearchTermChange = event => {
-    this.setState({ searchTerm: event.target.value });
-  };
+	handleSearchTermChange = event => {
+		this.setState({ searchTerm: event.target.value });
+	};
 
-  render() {
-    const content = this.state.scores
-      ? this.state.scores
-          .filter(score => {
-            return (
-              score.user
-                .toLowerCase()
-                .indexOf(this.state.searchTerm.toLowerCase()) >= 0
-            );
-          })
-          .map(score => <UserResult score={{ score }} key={score.index} />)
-      : '';
+	render() {
+		const content = this.state.scores
+			? this.state.scores
+					.filter(score => {
+						return (
+							score.user
+								.toLowerCase()
+								.indexOf(this.state.searchTerm.toLowerCase()) >= 0
+						);
+					})
+					.map(score => <UserResult score={{ score }} key={score.index} />)
+			: '';
 
-    return (
-      <div className="leaderboard">
-        <SearchBar
-          onChange={this.handleSearchTermChange}
-          searchTerm={this.state.searchTerm}
-        />
-        <div className="results">{content}</div>
-      </div>
-    );
-  }
+		return (
+			<div className="leaderboard">
+				<SearchBar
+					onChange={this.handleSearchTermChange}
+					searchTerm={this.state.searchTerm}
+				/>
+				<div className="results">{content}</div>
+			</div>
+		);
+	}
 }
 
 export const Unwrapped = Leaderboard;
