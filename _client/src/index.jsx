@@ -11,18 +11,18 @@ import './styles/main.scss';
 
 const renderApp = async () => {
 	let content;
-	const user = (await axios.get('/auth/current-user')).data;
-
-	if (user) {
-		content = <App user={user} />;
-	} else if (window.location.pathname !== '/login') {
-		window.location.replace('/login');
-	} else {
-		content = <Login />;
-	}
+	// const user = (await axios.get('/auth/current-user')).data;
+  //
+	// if (user) {
+	// 	content = <App user={user} />;
+	// } else if (window.location.pathname !== '/login') {
+	// 	window.location.replace('/login');
+	// } else {
+	// 	content = <Login />;
+	// }
 
 	render(
-		<BrowserRouter>{content}</BrowserRouter>,
+		<BrowserRouter><App /></BrowserRouter>,
 		document.getElementById('app')
 	);
 };

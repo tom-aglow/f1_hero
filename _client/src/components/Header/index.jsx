@@ -1,13 +1,18 @@
 import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { connect } from 'react-redux';
+import * as usersActionCreators from '../../data/users/actions';
 
 class Header extends Component {
+	componentDidMount() {
+		this.props.getCurrentUser();	
+	}
+	
 	render() {
 		return (
 			<header className="page-header">
 				<h1 className="page-title">
-					F1 Hero <span>// {this.props.header}</span>
+					F1 Hero <span>// Page header!!!</span>
 				</h1>
 				<nav className="navbar">
 					<ul>
@@ -41,4 +46,4 @@ function mapStateToProps({ header }) {
 	return { header };
 }
 
-export default connect(mapStateToProps)(Header);
+export default connect(null, usersActionCreators)(Header);

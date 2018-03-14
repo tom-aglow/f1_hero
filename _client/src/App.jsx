@@ -2,11 +2,11 @@ import React from 'react';
 import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
+import store from './store';
+import Header from './components/Header/index';
 import Leaderboard from './components/leaderboard/_Leaderboard';
 import Picks from './components/picks/_Picks';
-import Header from './components/Header';
 import Rules from './components/rules/_Rules';
-import store from './store';
 
 //	404 component placeholder
 const FourOhFour = () => <h1>404</h1>;
@@ -21,8 +21,7 @@ if (module.hot) {
 const App = () => (
 	<Provider store={store}>
 		<div className="app">
-			Hello
-			{/*<Header />*/}
+			<Header />
 			{/*<Switch>*/}
 				{/*<Route exact path="/" component={Picks} />*/}
 				{/*<Route exact path="/picks" component={Picks} />*/}
