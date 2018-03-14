@@ -9,9 +9,9 @@
 		"watch": "webpack --watch",
 		"dev": "webpack-dev-server --content-base public/",
 		"lint": "eslint src/**/*.{js,jsx} **/*.{js,jsx} --quiet",
-        "test": "jest",
-        "test:coverage": "jest --coverage",
-        "test:update": "jest -u"
+		"test": "jest",
+		"test:coverage": "jest --coverage",
+		"test:update": "jest -u"
 	},
 	"author": "tom_aglow",
 	"license": "MIT",
@@ -23,9 +23,11 @@
 			"target": "http://localhost:3001"
 		}
 	},
-    "jest": {
-      "snapshotSerializers": ["jest-serializer-enzyme"]
-    },
+	"jest": {
+		"snapshotSerializers": [
+			"jest-serializer-enzyme"
+		]
+	},
 	"dependencies": {
 		"axios": "0.16.1",
 		"babel-plugin-dynamic-import-webpack": "1.0.1",
@@ -60,6 +62,7 @@
 		"babel-plugin-transform-async-to-generator": "^6.24.1",
 		"babel-plugin-transform-class-properties": "6.24.1",
 		"babel-plugin-transform-es2015-modules-commonjs": "6.24.1",
+		"babel-plugin-transform-object-rest-spread": "^6.26.0",
 		"babel-polyfill": "^6.26.0",
 		"babel-preset-env": "1.5.1",
 		"babel-preset-react": "6.24.1",

@@ -28,7 +28,7 @@ class Header extends Component {
 						</li>
 						<li className="btn btn-secondary username">
 							<i className="fa fa-user" aria-hidden="true" />
-							{this.props.user ? this.props.user.username : ''}
+							{/*{this.props.user ? this.props.user.username : ''}*/}
 						</li>
 					</ul>
 				</nav>

@@ -8,7 +8,7 @@ const config = {
 		'webpack-dev-server/client?http://localhost:8080',
 		'webpack/hot/only-dev-server',
 		'babel-polyfill',
-		'./src/ClientApp.jsx'
+		'./src/index.jsx'
 	],
 	devtool: 'cheap-eval-source-map',
 	output: {
