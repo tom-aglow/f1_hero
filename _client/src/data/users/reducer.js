@@ -9,6 +9,7 @@ export const reducer = (state = initialState, action) => {
 	switch (action.type) {
 		case actionTypes.UPDATE_CURRENT_USER:
 			return {
+				...state,
 				current: {
 					...state.current,
 					...action.payload
