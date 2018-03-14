@@ -11,7 +11,7 @@ import './styles/main.scss';
 
 const renderApp = async () => {
 	let content;
-	const user = (await axios.get('/api/current-user')).data;
+	const user = (await axios.get('/auth/current-user')).data;
 
 	if (user) {
 		content = <App user={user} />;

@@ -56,12 +56,12 @@ const config = {
 	devServer: {
 		hot: true,
 		proxy: {
-			'/auth/twitter': {
-				target: 'http://localhost:5000',
+			'/auth/*': {
+				target: 'http://localhost:3001',
 				secure: false
 			},
 			'/api/*': {
-				target: 'http://localhost:5000',
+				target: 'http://localhost:3001',
 				secure: false
 			}
 		},
