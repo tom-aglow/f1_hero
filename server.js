@@ -19,9 +19,15 @@ const start = async () => {
 
 	//	CLIENT CONFIG
 
+	app.use('/assets', express.static('./_client/public/assets'));
+
 	// Express only serves static assets in production
-	if (process.env.NODE_ENV === 'production') {
+	if (
+		process.env.NODE_ENV === 'production' ||
+		process.env.NODE_ENV === 'server'
+	) {
 		app.use(express.static('client/build'));
+		app.use('/images', express.static('./_client/public/assets/images'));
 	}
 
 	//	SERVER START

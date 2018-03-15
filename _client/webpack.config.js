@@ -8,7 +8,7 @@ const config = {
 		'webpack-dev-server/client?http://localhost:8080',
 		'webpack/hot/only-dev-server',
 		'babel-polyfill',
-		'./src/ClientApp.jsx'
+		'./src/index.jsx'
 	],
 	devtool: 'cheap-eval-source-map',
 	output: {
@@ -56,12 +56,12 @@ const config = {
 	devServer: {
 		hot: true,
 		proxy: {
-			'/auth/twitter': {
-				target: 'http://localhost:5000',
+			'/auth/*': {
+				target: 'http://localhost:3001',
 				secure: false
 			},
 			'/api/*': {
-				target: 'http://localhost:5000',
+				target: 'http://localhost:3001',
 				secure: false
 			}
 		},
