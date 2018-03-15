@@ -1,2 +1,2 @@
 /* eslint-disable import/prefer-default-export */
-export const UPDATE_SCORES = 'leaderboard/UPDATE_SCORES';
+export const GET_SCORES = 'leaderboard/GET_SCORES';

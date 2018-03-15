@@ -1,24 +1,28 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
+
+import ScoreRow from './ScoreRow';
 import SearchBar from './SearchBar';
 
 class Leaderboard extends Component {
-	state = { searchTerm: '', scores: [] };
+	state = { searchTerm: '' };
 
 	handleSearchTermChange = event => {
 		this.setState({ searchTerm: event.target.value });
 	};
 
 	renderResultsList() {
-		return this.state.scores
-			? this.state.scores
+		return this.props.scores
+			? this.props.scores
 					.filter(
 						score =>
 							score.user
 								.toLowerCase()
 								.indexOf(this.state.searchTerm.toLowerCase()) >= 0
 					)
-					// .map(score => <UserResult score={{ score }} key={score.index} />)
-					.map(score => <div>my score</div>)
+					.map((score, index) => (
+						<ScoreRow {...score} index={index} key={score.user} />
+					))
 			: '';
 	}
 
@@ -34,5 +38,14 @@ class Leaderboard extends Component {
 		);
 	}
 }
+
+Leaderboard.propTypes = {
+	scores: PropTypes.arrayOf(
+		PropTypes.shape({
+			user: PropTypes.string,
+			total: PropTypes.number
+		})
+	).isRequired
+};
 
 export default Leaderboard;

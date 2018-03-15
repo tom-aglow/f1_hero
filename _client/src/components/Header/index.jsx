@@ -17,8 +17,8 @@ const Header = ({ user }) => (
 		<nav className="navbar">
 			<ul>
 				{NavLinks.map(link => (
-					<li>
-						<NavLink {...link} key={link.name} />
+					<li key={link.name}>
+						<NavLink {...link} />
 					</li>
 				))}
 				<li className="btn btn-secondary username">

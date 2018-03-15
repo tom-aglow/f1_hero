@@ -1,7 +1,7 @@
 /* eslint-disable react/prop-types */
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
-import { getUsersScores } from '../../data/users/actions';
+import { getUsersScores } from '../../data/leaderboard/actions';
 import Leaderboard from './index';
 
 const mapStateToProps = state => ({ scores: state.data.leaderboard.scores });
@@ -12,7 +12,7 @@ class LeaderboardContainer extends Component {
 	}
 
 	render() {
-		return <Leaderboard />;
+		return <Leaderboard scores={this.props.scores} />;
 	}
 }
 

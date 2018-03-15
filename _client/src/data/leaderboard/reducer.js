@@ -7,13 +7,10 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case actionTypes.UPDATE_SCORES:
+		case actionTypes.GET_SCORES:
 			return {
 				...state,
-				score: {
-					...state.score,
-					...action.payload
-				}
+				scores: action.payload
 			};
 		default:
 			return state;
