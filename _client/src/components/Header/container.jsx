@@ -4,7 +4,7 @@ import { connect } from 'react-redux';
 import { getCurrentUser } from '../../data/users/actions';
 import Header from './index';
 
-const mapStateToProps = state => ({ user: state.data.users.current });
+const mapStateToProps = state => ({ user: state.data.users.current, heading: state.services.page.heading });
 
 // const HeaderContainer = connect(mapStateToProps, { getCurrentUser })(Header);
 
@@ -14,7 +14,7 @@ class HeaderContainer extends Component {
 	}
 
 	render() {
-		return <Header user={this.props.user} />;
+		return <Header user={this.props.user} heading={this.props.heading} />;
 	}
 }
 

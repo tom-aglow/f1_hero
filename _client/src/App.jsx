@@ -6,7 +6,7 @@ import store from './store';
 import Header from './components/Header/container';
 import Leaderboard from './scenes/Leaderboard/container';
 import Picks from './components/picks/_Picks';
-import Rules from './scenes/Rules';
+import Rules from './scenes/Rules/container';
 
 //	404 component placeholder
 const FourOhFour = () => <h1>404</h1>;

@@ -9,10 +9,10 @@ const NavLinks = [
 	{ path: '/rules', name: 'Rules' }
 ];
 
-const Header = ({ user }) => (
+const Header = ({ user, heading }) => (
 	<header className="page-header">
 		<h1 className="page-title">
-			F1 Hero <span>// Page header!!!</span>
+			F1 Hero <span>// {heading}</span>
 		</h1>
 		<nav className="navbar">
 			<ul>
@@ -33,7 +33,8 @@ const Header = ({ user }) => (
 Header.propTypes = {
 	user: PropTypes.shape({
 		username: PropTypes.string
-	}).isRequired
+	}).isRequired,
+	heading: PropTypes.string.isRequired
 };
 
 export default Header;
