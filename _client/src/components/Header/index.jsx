@@ -1,6 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Link } from 'react-router-dom';
+
+import NavLink from './NavLink';
+
+const NavLinks = [
+	{ path: '/picks', name: 'My Picks' },
+	{ path: '/leaderboard', name: 'Leaderboard' },
+	{ path: '/rules', name: 'Rules' }
+];
 
 const Header = ({ user }) => (
 	<header className="page-header">
@@ -9,21 +16,11 @@ const Header = ({ user }) => (
 		</h1>
 		<nav className="navbar">
 			<ul>
-				<li>
-					<Link to="/picks" className="btn btn-primary">
-						My Picks
-					</Link>
-				</li>
-				<li>
-					<Link to="/leaderboard" className="btn btn-primary">
-						Leaderboard
-					</Link>
-				</li>
-				<li>
-					<Link to="/rules" className="btn btn-primary">
-						Rules
-					</Link>
-				</li>
+				{NavLinks.map(link => (
+					<li>
+						<NavLink {...link} key={link.name} />
+					</li>
+				))}
 				<li className="btn btn-secondary username">
 					<i className="fa fa-user" aria-hidden="true" />
 					{user ? user.username : ''}
