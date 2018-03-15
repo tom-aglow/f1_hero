@@ -21,7 +21,7 @@ exports.index = async (req, res) => {
 	).then(results => {
 		//  get top-5 element of scores array and calculate their sum
 		results.map(result => {
-			result.scores = getMaxFiveElements(result.scores).reduce(
+			result.total = getMaxFiveElements(result.scores).reduce(
 				(sum, value) => sum + value,
 				0
 			);
@@ -29,13 +29,15 @@ exports.index = async (req, res) => {
 		});
 
 		//  sort results array by score value
-		results.sort((a, b) => b.scores - a.scores);
-		results.map((result, index) => {
-			result.index = index + 1;
-			return result;
-		});
+		results.sort((a, b) => b.total - a.total);
+
+		const formatedResults = results.map(({ user, total }, index) => ({
+			user,
+			total,
+			index: index + 1
+		}));
 
 		//  return result array
-		res.status(200).send({ leaderboard: results });
+		res.status(200).send({ leaderboard: formatedResults });
 	});
 };
