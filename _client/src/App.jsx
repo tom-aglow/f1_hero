@@ -3,7 +3,7 @@ import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from './store';
-import Header from './components/Header/index';
+import Header from './components/Header/container';
 import Leaderboard from './components/leaderboard/_Leaderboard';
 import Picks from './components/picks/_Picks';
 import Rules from './components/rules/_Rules';
