@@ -2,7 +2,10 @@
 import * as actionTypes from './actionTypes';
 
 const initialState = {
-	all: []
+	all: [],
+	selected: {
+		round: 0
+	}
 };
 
 export const reducer = (state = initialState, action) => {
@@ -11,6 +14,14 @@ export const reducer = (state = initialState, action) => {
 			return {
 				...state,
 				all: [...state.all, ...action.payload]
+			};
+		case actionTypes.SELECT_RACE:
+			return {
+				...state,
+				selected: {
+					...state.selected,
+					round: action.payload
+				}
 			};
 		default:
 			return state;

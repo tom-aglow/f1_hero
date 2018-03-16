@@ -1,18 +1,16 @@
 import React from 'react';
-import Race from './Race';
+import Race from './Race/container';
 
 const Picks = ({ races }) => {
 	const content =
 		races && races.length > 0 ? (
-			races.map(race => (
-				<Race race={race} key={race.round} />
-			))
+			races.map(race => <Race key={race.round} race={race} />)
 		) : (
 			<div className="loader" />
 		);
 
 	return (
-		<div className="race-holder">
+		<div className="race-holder" id="race-holder">
 			{content}
 		</div>
 	);
