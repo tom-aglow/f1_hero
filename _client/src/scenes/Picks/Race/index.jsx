@@ -2,17 +2,14 @@ import React, { Component } from 'react';
 
 import { isObjectEmpty } from '../../../services/utils/functions';
 import { getPick } from './api';
+import StandingList from './StandingList/container';
 
 class Race extends Component {
 	state = {
 		pick: {}
 	};
 
-	fetchPick = async () => {
-		const { round } = this.props.race;
-		this.props.selectRace(round);
-
-		const {pick} = (await getPick(round)).data;
+	setRacePick = pick => {
 		const newState = {
 			...this.state,
 			pick: {
@@ -23,43 +20,43 @@ class Race extends Component {
 
 		this.setState(newState);
 	};
+	
+	fetchPick = async () => {
+		const { round } = this.props.race;
+		this.props.selectRace(round);
+		
+		const { pick } = (await getPick(round)).data;
+		this.setRacePick(pick);
+	};
 
 	displayPick() {
 		const { race, selectedRace } = this.props;
-		const isPickSet = isObjectEmpty(this.state.pick);
+		const { pick } = this.state;
+		const isPickSet = !isObjectEmpty(pick);
 		const isRaceSelected = selectedRace.round === race.round;
 		
 		if (!isRaceSelected || !isPickSet) {
 			return null;
 		}
 
-		return null;
-		// const data = {
-		// 	round: this.props.race.round,
-		// 	raceWidth: this.state.raceWidth,
-		// 	holderNode: this.props.holderNode
-		// };
-		//
-		// if (this.props.race.hasPick) {
-		// 	return (
-		// 		<Standings
-		// 			list={this.state.pick.forecast}
-		// 			status={'submitted'}
-		// 			data={data}
-		// 		/>
-		// 	);
-		// } else if (this.props.race.isPassed) {
-		// 	return <Standings status={'passed'} data={data} />;
-		// } else {
-		// 	return (
-		// 		<Standings
-		// 			list={this.props.drivers}
-		// 			status={'new'}
-		// 			data={data}
-		// 			onSubmit={this.submitRace}
-		// 		/>
-		// 	);
-		// }
+		if (race.hasPick) {
+			return (
+				<StandingList
+					list={pick.forecast}
+					status="submitted"
+					round={race.round}
+				/>
+			);
+		} else if (race.isPassed) {
+			return <StandingList status="passed" round={race.round} />;
+		}
+		return (
+			<StandingList
+				status="new"
+				round={race.round}
+				onSubmit={this.setRacePick}
+			/>
+		);
 	}
 
 	displayStatus() {

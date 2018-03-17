@@ -12,7 +12,7 @@ class RaceContainer extends Component {
 }
 
 const mapStateToProps = state => ({
-	races: state.data.races.all,
+	races: state.data.races.all,			//todo possible duplication (see parent component)
 	selectedRace: state.data.races.selected
 });
 
