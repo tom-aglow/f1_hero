@@ -1,7 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Race from './Race/container';
 
+import Race from './Race/container';
+import Loader from '../../components/Loader';
 import './styles.scss';
 
 const Picks = ({ races }) => {
@@ -9,7 +10,7 @@ const Picks = ({ races }) => {
 		races && races.length > 0 ? (
 			races.map(race => <Race key={race.round} race={race} races={races} />)
 		) : (
-			<div className="loader" />
+			<Loader />
 		);
 
 	return (
