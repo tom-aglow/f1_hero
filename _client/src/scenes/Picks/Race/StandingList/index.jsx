@@ -201,7 +201,8 @@ const listItemPropTypes = {
 
 StandingList.defaultProps = {
 	list: [],
-	drivers: []
+	drivers: [],
+	onSubmit: () => {}
 };
 
 StandingList.propTypes = {
@@ -210,7 +211,7 @@ StandingList.propTypes = {
 	drivers: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
 	round: PropTypes.number.isRequired,
 	races: PropTypes.arrayOf(PropTypes.shape(racePropType)).isRequired,
-	onSubmit: PropTypes.func.isRequired,
+	onSubmit: PropTypes.func,
 	updateRace: PropTypes.func.isRequired
 };
 

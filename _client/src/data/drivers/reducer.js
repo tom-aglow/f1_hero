@@ -17,7 +17,7 @@ export const reducer = (state = initialState, action) => {
 
 			return {
 				...state,
-				all: [...state.all, ...formattedDrivers]
+				all: formattedDrivers
 			};
 		default:
 			return state;

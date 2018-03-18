@@ -13,7 +13,7 @@ export const reducer = (state = initialState, action) => {
 		case actionTypes.UPDATE_RACE_LIST:
 			return {
 				...state,
-				all: [...state.all, ...action.payload]
+				all: action.payload
 			};
 		case actionTypes.SELECT_RACE:
 			return {

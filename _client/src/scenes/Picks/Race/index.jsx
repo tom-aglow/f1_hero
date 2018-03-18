@@ -96,7 +96,7 @@ export const racePropType = {
 	hasPick: PropTypes.bool.isRequired,
 	flagUrl: PropTypes.string.isRequired,
 	alpha3code: PropTypes.string.isRequired,
-	score: PropTypes.string.isRequired
+	score: PropTypes.number
 };
 
 Race.propTypes = {

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { updatePageHeading } from '../../services/page/actions';
-import { getRaceList } from '../../data/races/actions';
+import { getRaceList, selectRace } from '../../data/races/actions';
 import { getDriverList } from '../../data/drivers/actions';
 import Picks from './index';
 
@@ -11,6 +11,10 @@ class PicksContainer extends Component {
 		this.props.updatePageHeading('My picks');
 		this.props.getRaceList();
 		this.props.getDriverList();
+	}
+
+	componentWillUnmount() {
+		this.props.selectRace(0);
 	}
 
 	render() {
@@ -23,5 +27,6 @@ const mapStateToProps = state => ({ races: state.data.races.all });
 export default connect(mapStateToProps, {
 	updatePageHeading,
 	getRaceList,
+	selectRace,
 	getDriverList
 })(PicksContainer);

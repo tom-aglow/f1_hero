@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 const Item = ({ score, position, _driver }) => {
 	const icon =
-		score !== undefined ? (
+		score !== null ? (
 			<div className="score">{score}pt</div>
 		) : (
 			<i className="fa fa-sort" aria-hidden="true" />
@@ -19,8 +19,12 @@ const Item = ({ score, position, _driver }) => {
 	);
 };
 
+Item.defaultProps = {
+	score: null
+};
+
 Item.propTypes = {
-	score: PropTypes.number.isRequired,
+	score: PropTypes.number,
 	position: PropTypes.number.isRequired,
 	_driver: PropTypes.shape({
 		name: PropTypes.string.isRequired,
