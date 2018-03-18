@@ -27,6 +27,20 @@ class StandingList extends Component {
 		this.setState(newState);
 	}
 
+	onSortEnd = ({ oldIndex, newIndex }) => {
+		const newList = arrayMove(this.state.list, oldIndex, newIndex);
+		const formattedList = newList.map((value, index) => ({
+			...value,
+			position: index + 1
+		}));
+
+		const newState = {
+			...this.state,
+			list: formattedList //	todo make list array immutable
+		};
+		this.setState(newState);
+	};
+
 	computePickPosition() {
 		const { races, round } = this.props;
 		const racesNum = races.length;
@@ -92,19 +106,6 @@ class StandingList extends Component {
 		// 	})
 		// 	.catch(err => console.log('error: unable to save pick!!', err));
 	};
-	//
-	//
-	// onSortEnd = ({ oldIndex, newIndex }) => {
-	// 	const newList = arrayMove(this.state.list, oldIndex, newIndex);
-	// 	newList.map((value, index) => {
-	// 		value.position = index + 1;
-	// 		return value;
-	// 	});
-	//
-	// 	this.setState({
-	// 		list: newList
-	// 	});
-	// };
 
 	displayButton() {
 		return this.state.status === 'new' ? (
@@ -112,26 +113,25 @@ class StandingList extends Component {
 				<i className="fa fa-check" aria-hidden="true" /> Submit
 			</div>
 		) : (
-			''
+			null
 		);
 	}
 
 	render() {
-		// console.log(this.props);
-		// console.log(this.state);
-
 		let Standings;
 
 		switch (this.state.status) {
 			case 'new':
-				const SortableItem = SortableElement(({ standing }) => (
-					<Item standing={standing} />
-				));
+				const SortableItem = SortableElement(item => <Item {...item} />);
 
 				Standings = SortableContainer(({ items }) => (
 					<div className="standings-container">
 						{items.map((value, index) => (
-							<SortableItem key={`item-${index}`} index={index} {...value} />
+							<SortableItem
+								key={`item-${value.position}`}
+								index={index}
+								{...value}
+							/>
 						))}
 					</div>
 				));

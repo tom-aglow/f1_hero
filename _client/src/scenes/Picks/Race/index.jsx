@@ -20,11 +20,11 @@ class Race extends Component {
 
 		this.setState(newState);
 	};
-	
+
 	fetchPick = async () => {
 		const { round } = this.props.race;
 		this.props.selectRace(round);
-		
+
 		const { pick } = (await getPick(round)).data;
 		this.setRacePick(pick);
 	};
@@ -34,8 +34,8 @@ class Race extends Component {
 		const { pick } = this.state;
 		const isPickSet = !isObjectEmpty(pick);
 		const isRaceSelected = selectedRace.round === race.round;
-		
-		if (!isRaceSelected || !isPickSet) {
+
+		if (!isRaceSelected || (!isPickSet && race.hasPick)) {
 			return null;
 		}
 
