@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
@@ -76,7 +77,7 @@ class Race extends Component {
 
 		return (
 			<div className="race-container" id="race">
-				<div className="race" onClick={this.fetchPick}>
+				<div className="race" onClick={this.fetchPick} role="link" tabIndex="0">
 					{this.displayStatus()}
 					<div className="img-container">
 						<img src={flagUrl} alt={`flag of ${alpha3code}`} />

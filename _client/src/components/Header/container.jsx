@@ -4,7 +4,10 @@ import { connect } from 'react-redux';
 import { getCurrentUser } from '../../data/users/actions';
 import Header from './index';
 
-const mapStateToProps = state => ({ user: state.data.users.current, heading: state.services.page.heading });
+const mapStateToProps = state => ({
+	user: state.data.users.current,
+	heading: state.services.page.heading
+});
 
 // const HeaderContainer = connect(mapStateToProps, { getCurrentUser })(Header);
 

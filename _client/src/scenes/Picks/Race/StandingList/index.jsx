@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import {
@@ -120,7 +121,12 @@ class StandingList extends Component {
 
 	displayButton() {
 		return this.state.status === 'new' ? (
-			<div className="btn btn-submit" onClick={this.submitPick} role="button">
+			<div
+				className="btn btn-submit"
+				onClick={this.submitPick}
+				role="button"
+				tabIndex="0"
+			>
 				<i className="fa fa-check" aria-hidden="true" /> Submit
 			</div>
 		) : null;
@@ -128,10 +134,11 @@ class StandingList extends Component {
 
 	render() {
 		let Standings;
+		let SortableItem;
 
 		switch (this.state.status) {
 			case 'new':
-				const SortableItem = SortableElement(item => <Item {...item} />);
+				SortableItem = SortableElement(item => <Item {...item} />);
 
 				Standings = SortableContainer(({ items }) => (
 					<div className="standings-container">

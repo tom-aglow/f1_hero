@@ -16,7 +16,7 @@ const seedPicksTable = async (username, round) => {
 	const _user = await User.findOne({ username }).select('_id');
 	const _race = await Race.findOne({ round }).select('_id');
 	const drivers = await Driver.find({}).select('_id');
-	let forecast = [];
+	const forecast = [];
 
 	//	populate forecast array
 	for (let i = 0; i < 10; i++) {

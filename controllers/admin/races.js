@@ -15,7 +15,7 @@ exports.index = async (req, res) => {
 
 	//	create races documents
 	races.forEach(async ({ round, raceName, date, Circuit }) => {
-		const country = Circuit.Location.country;
+		const { country } = Circuit.Location;
 		const { flagUrl, alpha3code } = await getCountryFlag(castCountry(country));
 
 		(await new Race({
