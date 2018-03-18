@@ -12,6 +12,11 @@ export const selectRace = id => ({
 	payload: id
 });
 
+export const updateRace = ({ round, field, value }) => ({
+	type: actionTypes.UPDATE_RACE,
+	payload: { round, field, value }
+});
+
 export const getRaceList = () => async dispatch => {
 	const response = await api.getRaceList();
 	dispatch(updateRaceList(response.data.races));

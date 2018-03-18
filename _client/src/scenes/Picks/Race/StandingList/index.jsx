@@ -7,6 +7,7 @@ import {
 
 import Item from './Item';
 import { getNodePaddings } from '../../../../services/utils/functions';
+import { postPick } from './api';
 
 class StandingList extends Component {
 	state = {
@@ -92,19 +93,27 @@ class StandingList extends Component {
 		};
 	}
 
-	submitPick = () => {
-		// axios
-		// 	.post(`/api/pick/${this.props.data.round}`, {
-		// 		round: this.props.data.round,
-		// 		forecast: this.state.list.slice(0, 10)
-		// 	})
-		// 	.then(pick => {
-		// 		this.setState({ status: 'submitted', list: pick.data.forecast });
-		// 		this.props.onSubmit(pick.data);
-		// 		this.props.setPickStatus(this.props.data.round, true);
-		// 		this.props.fetchDrivers();
-		// 	})
-		// 	.catch(err => console.log('error: unable to save pick!!', err));
+	submitPick = async () => {
+		const { round, onSubmit, updateRace } = this.props;
+		try {
+			const { pick } = (await postPick(round, {
+				round,
+				forecast: this.state.list.slice(0, 10)
+			})).data;
+
+			const newState = {
+				...this.state,
+				status: 'submitted',
+				list: pick.forecast
+			};
+			
+			this.setState(newState);
+			onSubmit(pick);
+			updateRace({ round, field: 'hasPick', value: true });
+		} catch (error) {
+			//	todo display an error as a flash message
+			console.error('error: unable to save pick!!', error);
+		}
 	};
 
 	displayButton() {
@@ -112,9 +121,7 @@ class StandingList extends Component {
 			<div className="btn btn-submit" onClick={this.submitPick} role="button">
 				<i className="fa fa-check" aria-hidden="true" /> Submit
 			</div>
-		) : (
-			null
-		);
+		) : null;
 	}
 
 	render() {

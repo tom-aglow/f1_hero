@@ -23,6 +23,20 @@ export const reducer = (state = initialState, action) => {
 					round: action.payload
 				}
 			};
+		case actionTypes.UPDATE_RACE:
+			return {
+				...state,
+				all: state.all.map(race => {
+					if (race.round !== action.payload.round) {
+						return race;
+					}
+
+					return {
+						...race,
+						[action.payload.field]: action.payload.value
+					};
+				})
+			};
 		default:
 			return state;
 	}

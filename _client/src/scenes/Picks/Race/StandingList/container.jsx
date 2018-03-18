@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import StandingList from './index';
+import { updateRace } from '../../../../data/races/actions';
 
 class StandingListContainer extends Component {
 	render() {
@@ -15,4 +16,4 @@ const mapStateToProps = state => ({
 	drivers: state.data.drivers.all
 });
 
-export default connect(mapStateToProps, null)(StandingListContainer);
+export default connect(mapStateToProps, { updateRace })(StandingListContainer);
