@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import NavLink from './NavLink';
+import './styles.scss';
 
 const NavLinks = [
 	{ path: '/picks', name: 'My Picks' },
@@ -10,7 +11,7 @@ const NavLinks = [
 ];
 
 const Header = ({ user, heading }) => (
-	<header className="page-header">
+	<header className="Header">
 		<h1 className="page-title">
 			F1 Hero <span>// {heading}</span>
 		</h1>
