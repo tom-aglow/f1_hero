@@ -8,6 +8,9 @@ import Leaderboard from './scenes/Leaderboard/container';
 import Picks from './scenes/Picks/container';
 import Rules from './scenes/Rules/container';
 
+//	css styles
+import './styles/layout.scss';
+
 //	404 component placeholder
 const FourOhFour = () => <h1>404</h1>;
 

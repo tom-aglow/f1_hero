@@ -4,9 +4,6 @@ import { BrowserRouter } from 'react-router-dom';
 
 import App from './App';
 
-//	css styles
-import './styles/main.scss';
-
 const renderApp = async () => {
 	// let content;
 	// const user = (await axios.get('/auth/current-user')).data;
