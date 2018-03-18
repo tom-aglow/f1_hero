@@ -11,13 +11,6 @@ import Rules from './scenes/Rules/container';
 //	404 component placeholder
 const FourOhFour = () => <h1>404</h1>;
 
-if (module.hot) {
-	module.hot.accept('./reducers', () => {
-		const nextRootReducer = require('./reducers/index');
-		store.replaceReducer(nextRootReducer);
-	});
-}
-
 const App = () => (
 	<Provider store={store}>
 		<div className="app">

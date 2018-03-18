@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Item = ({ score, position, _driver }) => {
 	const icon =
@@ -7,7 +8,7 @@ const Item = ({ score, position, _driver }) => {
 		) : (
 			<i className="fa fa-sort" aria-hidden="true" />
 		);
-	
+
 	return (
 		<div className="standing">
 			<div className="position">{position}.</div>
@@ -16,6 +17,15 @@ const Item = ({ score, position, _driver }) => {
 			{icon}
 		</div>
 	);
+};
+
+Item.propTypes = {
+	score: PropTypes.number.isRequired,
+	position: PropTypes.number.isRequired,
+	_driver: PropTypes.shape({
+		name: PropTypes.string.isRequired,
+		code: PropTypes.string.isRequired
+	}).isRequired
 };
 
 export default Item;

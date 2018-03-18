@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 import {
 	SortableContainer,
 	SortableElement,
@@ -8,6 +9,7 @@ import {
 import Item from './Item';
 import { getNodePaddings } from '../../../../services/utils/functions';
 import { postPick } from './api';
+import { racePropType } from '../index';
 
 class StandingList extends Component {
 	state = {
@@ -106,7 +108,7 @@ class StandingList extends Component {
 				status: 'submitted',
 				list: pick.forecast
 			};
-			
+
 			this.setState(newState);
 			onSubmit(pick);
 			updateRace({ round, field: 'hasPick', value: true });
@@ -148,7 +150,7 @@ class StandingList extends Component {
 				Standings = () => (
 					<div className="standings-container">
 						<div className="standing">
-							You didn\'t submit your prediction on time. No results available
+							You did not submit your prediction on time. No results available
 							for you for this race.
 						</div>
 					</div>
@@ -186,5 +188,30 @@ class StandingList extends Component {
 		);
 	}
 }
+
+const listItemPropTypes = {
+	position: PropTypes.number.isRequired,
+	_drivers: PropTypes.arrayOf(
+		PropTypes.shape({
+			code: PropTypes.string.isRequired,
+			name: PropTypes.string.isRequired
+		})
+	)
+};
+
+StandingList.defaultProps = {
+	list: [],
+	drivers: []
+};
+
+StandingList.propTypes = {
+	status: PropTypes.string.isRequired,
+	list: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
+	drivers: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
+	round: PropTypes.number.isRequired,
+	races: PropTypes.arrayOf(PropTypes.shape(racePropType)).isRequired,
+	onSubmit: PropTypes.func.isRequired,
+	updateRace: PropTypes.func.isRequired
+};
 
 export default StandingList;

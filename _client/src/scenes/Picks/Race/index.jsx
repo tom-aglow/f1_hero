@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import PropTypes from 'prop-types';
 
 import { isObjectEmpty } from '../../../services/utils/functions';
 import { getPick } from './api';
@@ -88,5 +89,22 @@ class Race extends Component {
 		);
 	}
 }
+
+export const racePropType = {
+	round: PropTypes.number.isRequired,
+	isPassed: PropTypes.bool.isRequired,
+	hasPick: PropTypes.bool.isRequired,
+	flagUrl: PropTypes.string.isRequired,
+	alpha3code: PropTypes.string.isRequired,
+	score: PropTypes.string.isRequired
+};
+
+Race.propTypes = {
+	race: PropTypes.shape(racePropType).isRequired,
+	selectedRace: PropTypes.shape({
+		round: PropTypes.number.isRequired
+	}).isRequired,
+	selectRace: PropTypes.func.isRequired
+};
 
 export default Race;

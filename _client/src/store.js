@@ -4,7 +4,7 @@ import reduxThunk from 'redux-thunk';
 import dataReducer from './data/reducer';
 import servicesReducer from './services/reducer';
 
-const appReducer = combineReducers({
+export const appReducer = combineReducers({
 	data: dataReducer,
 	services: servicesReducer
 });
