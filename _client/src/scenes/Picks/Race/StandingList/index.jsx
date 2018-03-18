@@ -6,6 +6,7 @@ import {
 } from 'react-sortable-hoc';
 
 import Item from './Item';
+import { getNodePaddings } from '../../../../services/utils/functions';
 
 class StandingList extends Component {
 	state = {
@@ -16,67 +17,67 @@ class StandingList extends Component {
 		status: this.props.status
 	};
 
-	// componentDidMount() {
-	// 	const { pickPos, stemPos } = this.computePickPosition();
-	// 	this.setState({ pickPos, stemPos });
-	// }
-	//
-	// computePickPosition() {
-	// 	const racesNum = this.props.races.length;
-	// 	const round = this.props.data.round;
-	//
-	// 	const picksWidth = this.refs.picks ? this.refs.picks.offsetWidth : 0;
-	// 	const stemWidth = this.refs.stem ? this.refs.stem.offsetWidth : 0;
-	//
-	// 	const raceWidth = this.props.data.raceWidth;
-	// 	const holderWidth = this.props.data.holderNode.offsetWidth;
-	// 	const holderPadding = Standings.getNodePadding(this.props.data.holderNode);
-	//
-	// 	const gutter =
-	// 		(holderWidth - holderPadding - raceWidth * racesNum) / (racesNum - 1);
-	//
-	// 	const offset =
-	// 		holderPadding / 2 +
-	// 		raceWidth * round -
-	// 		raceWidth / 2 +
-	// 		gutter * (round - 1) -
-	// 		picksWidth / 2;
-	//
-	// 	if (offset < 0) {
-	// 		return {
-	// 			pickPos: 0,
-	// 			stemPos:
-	// 			holderPadding / 2 +
-	// 			raceWidth / 2 +
-	// 			(raceWidth + gutter) * (round - 1) -
-	// 			stemWidth / 2 * 1.41
-	// 		};
-	// 	} else if (offset + picksWidth > holderWidth) {
-	// 		return {
-	// 			pickPos: holderWidth - picksWidth,
-	// 			stemPos:
-	// 			picksWidth -
-	// 			stemWidth / 2 * 1.41 -
-	// 			raceWidth / 2 -
-	// 			holderPadding / 2 -
-	// 			(raceWidth + gutter) * (racesNum - round)
-	// 		};
-	// 	} else {
-	// 		return {
-	// 			pickPos: offset,
-	// 			stemPos: picksWidth / 2 - stemWidth / 2
-	// 		};
-	// 	}
-	// }
-	//
-	// static getNodePadding(node) {
-	// 	const nodeStyle = window.getComputedStyle(node);
-	// 	return (
-	// 		parseInt(nodeStyle.getPropertyValue('padding-right'), 10) +
-	// 		parseInt(nodeStyle.getPropertyValue('padding-left'), 10)
-	// 	);
-	// }
-	//
+	componentDidMount() {
+		const { pickPos, stemPos } = this.computePickPosition();
+		const newState = {
+			...this.state,
+			pickPos,
+			stemPos
+		};
+		this.setState(newState);
+	}
+
+	computePickPosition() {
+		const { races, round } = this.props;
+		const racesNum = races.length;
+
+		const picksNode = document.getElementById('picks');
+		const stemNode = document.getElementById('stem');
+		const raceNode = document.getElementById('race');
+		const raceHolderNode = document.getElementById('race-holder');
+
+		const picksWidth = picksNode ? picksNode.offsetWidth : 0;
+		const stemWidth = stemNode ? stemNode.offsetWidth : 0;
+		const raceWidth = raceNode.offsetWidth;
+		const holderWidth = raceHolderNode.offsetWidth;
+		const holderPadding = getNodePaddings(raceHolderNode);
+
+		const gutter =
+			(holderWidth - holderPadding - raceWidth * racesNum) / (racesNum - 1);
+
+		const offset =
+			holderPadding / 2 +
+			raceWidth * round -
+			raceWidth / 2 +
+			gutter * (round - 1) -
+			picksWidth / 2;
+
+		if (offset < 0) {
+			return {
+				pickPos: 0,
+				stemPos:
+					holderPadding / 2 +
+					raceWidth / 2 +
+					(raceWidth + gutter) * (round - 1) -
+					stemWidth / 2 * 1.41
+			};
+		} else if (offset + picksWidth > holderWidth) {
+			return {
+				pickPos: holderWidth - picksWidth,
+				stemPos:
+					picksWidth -
+					stemWidth / 2 * 1.41 -
+					raceWidth / 2 -
+					holderPadding / 2 -
+					(raceWidth + gutter) * (racesNum - round)
+			};
+		}
+		return {
+			pickPos: offset,
+			stemPos: picksWidth / 2 - stemWidth / 2
+		};
+	}
+
 	submitPick = () => {
 		// axios
 		// 	.post(`/api/pick/${this.props.data.round}`, {
@@ -104,10 +105,10 @@ class StandingList extends Component {
 	// 		list: newList
 	// 	});
 	// };
-	
+
 	displayButton() {
 		return this.state.status === 'new' ? (
-			<div className="btn btn-submit" onClick={this.submitPick}>
+			<div className="btn btn-submit" onClick={this.submitPick} role="button">
 				<i className="fa fa-check" aria-hidden="true" /> Submit
 			</div>
 		) : (
@@ -118,7 +119,7 @@ class StandingList extends Component {
 	render() {
 		// console.log(this.props);
 		// console.log(this.state);
-		
+
 		let Standings;
 
 		switch (this.state.status) {
@@ -130,11 +131,7 @@ class StandingList extends Component {
 				Standings = SortableContainer(({ items }) => (
 					<div className="standings-container">
 						{items.map((value, index) => (
-							<SortableItem
-								key={`item-${index}`}
-								index={index}
-								{...value}
-							/>
+							<SortableItem key={`item-${index}`} index={index} {...value} />
 						))}
 					</div>
 				));
@@ -161,14 +158,14 @@ class StandingList extends Component {
 
 		return (
 			<div
+				id="picks"
 				className="picks"
 				style={{ left: `${this.state.pickPos}px` }}
-				ref="picks"
 			>
 				<div
+					id="stem"
 					className="stem"
 					style={{ left: `${this.state.stemPos}px` }}
-					ref="stem"
 				/>
 				<Standings
 					items={this.state.list}

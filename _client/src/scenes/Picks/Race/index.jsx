@@ -74,7 +74,7 @@ class Race extends Component {
 		const scoreText = score ? `${score}pt` : '-';
 
 		return (
-			<div className="race-container" ref="race">
+			<div className="race-container" id="race">
 				<div className="race" onClick={this.fetchPick}>
 					{this.displayStatus()}
 					<div className="img-container">

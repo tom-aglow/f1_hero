@@ -11,6 +11,7 @@ class StandingListContainer extends Component {
 }
 
 const mapStateToProps = state => ({
+	races: state.data.races.all,
 	drivers: state.data.drivers.all
 });
 
