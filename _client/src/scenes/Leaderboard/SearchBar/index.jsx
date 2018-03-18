@@ -1,8 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './styles.scss';
+
 const SearchBar = ({ searchTerm, onChange }) => (
-	<div className="search-bar">
+	<div className="SearchBar">
 		<input
 			type="text"
 			placeholder="Search..."

@@ -3,6 +3,7 @@ import PropTypes from 'prop-types';
 
 import ScoreRow from './ScoreRow';
 import SearchBar from './SearchBar';
+import './styles.scss';
 
 class Leaderboard extends Component {
 	state = { searchTerm: '' };
@@ -28,7 +29,7 @@ class Leaderboard extends Component {
 
 	render() {
 		return (
-			<div className="leaderboard">
+			<div className="Leaderboard">
 				<SearchBar
 					onChange={this.handleSearchTermChange}
 					searchTerm={this.state.searchTerm}
