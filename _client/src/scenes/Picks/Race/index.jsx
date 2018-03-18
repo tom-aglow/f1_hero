@@ -5,6 +5,7 @@ import PropTypes from 'prop-types';
 import { isObjectEmpty } from '../../../services/utils/functions';
 import { getPick } from './api';
 import StandingList from './StandingList/container';
+import './styles.scss';
 
 class Race extends Component {
 	state = {
@@ -76,8 +77,8 @@ class Race extends Component {
 		const scoreText = score ? `${score}pt` : '-';
 
 		return (
-			<div className="race-container" id="race">
-				<div className="race" onClick={this.fetchPick} role="link" tabIndex="0">
+			<div id="race">
+				<div className="Race" onClick={this.fetchPick} role="link" tabIndex="0">
 					{this.displayStatus()}
 					<div className="img-container">
 						<img src={flagUrl} alt={`flag of ${alpha3code}`} />

@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Race from './Race/container';
 
+import './styles.scss';
+
 const Picks = ({ races }) => {
 	const content =
 		races && races.length > 0 ? (
@@ -11,7 +13,7 @@ const Picks = ({ races }) => {
 		);
 
 	return (
-		<div className="race-holder" id="race-holder">
+		<div className="Picks" id="race-holder">
 			{content}
 		</div>
 	);

@@ -11,6 +11,7 @@ import Item from './Item';
 import { getNodePaddings } from '../../../../services/utils/functions';
 import { postPick } from './api';
 import { racePropType } from '../index';
+import './styles.scss';
 
 class StandingList extends Component {
 	state = {
@@ -175,7 +176,7 @@ class StandingList extends Component {
 		return (
 			<div
 				id="picks"
-				className="picks"
+				className="StandingList"
 				style={{ left: `${this.state.pickPos}px` }}
 			>
 				<div

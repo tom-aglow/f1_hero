@@ -1,6 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import './styles.scss';
+
 const Item = ({ score, position, _driver }) => {
 	const icon =
 		score !== null ? (
@@ -10,7 +12,7 @@ const Item = ({ score, position, _driver }) => {
 		);
 
 	return (
-		<div className="standing">
+		<div className="StandingItem">
 			<div className="position">{position}.</div>
 			<div className="driver-name">{_driver.name}</div>
 			<div className="driver-code">{_driver.code}</div>
