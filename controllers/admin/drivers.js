@@ -13,7 +13,7 @@ exports.index = async (req, res) => {
 	drivers.forEach(async ({ permanentNumber, givenName, familyName, code }) => {
 		(await new Driver({
 			code,
-			name: givenName.charAt(0) + '. ' + familyName,
+			name: `${givenName.charAt(0)}. ${familyName}`,
 			number: permanentNumber
 		})).save();
 	});

@@ -1,5 +1,6 @@
 const express = require('express');
 const cors = require('cors');
+const bodyParser = require('body-parser');
 
 const setupMongoose = require('./config/setupMongoose');
 const setupModels = require('./config/setupModels');
@@ -10,9 +11,11 @@ const start = async () => {
 	const cleanupMongoose = await setupMongoose();
 	setupModels();
 
-	//	CREATING A SERVER
+	//	CREATING AND CONFIGURING A SERVER
 	const app = express();
 	app.use(cors());
+	app.use(bodyParser.urlencoded({ extended: true }));
+	app.use(bodyParser.json());
 
 	// 	ROUTES
 	app.use(getRouter());

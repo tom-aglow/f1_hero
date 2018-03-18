@@ -44,7 +44,10 @@ const config = {
 						loader: 'css-loader'
 					},
 					{
-						loader: 'sass-loader'
+						loader: 'sass-loader',
+						options: {
+							includePaths: [path.resolve(__dirname, './src')]
+						}
 					},
 					{
 						loader: 'postcss-loader'

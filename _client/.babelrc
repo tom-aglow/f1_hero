@@ -24,6 +24,8 @@
 		},
 		"server": {
 			"plugins": [
+				"transform-async-to-generator",
+				"babel-plugin-transform-class-properties",
 				"transform-es2015-modules-commonjs"
 			]
 		},

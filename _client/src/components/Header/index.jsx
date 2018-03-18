@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import NavLink from './NavLink';
+import './styles.scss';
 
 const NavLinks = [
 	{ path: '/picks', name: 'My Picks' },
@@ -9,10 +10,10 @@ const NavLinks = [
 	{ path: '/rules', name: 'Rules' }
 ];
 
-const Header = ({ user }) => (
-	<header className="page-header">
+const Header = ({ user, heading }) => (
+	<header className="Header">
 		<h1 className="page-title">
-			F1 Hero <span>// Page header!!!</span>
+			F1 Hero <span>// {heading}</span>
 		</h1>
 		<nav className="navbar">
 			<ul>
@@ -33,7 +34,8 @@ const Header = ({ user }) => (
 Header.propTypes = {
 	user: PropTypes.shape({
 		username: PropTypes.string
-	}).isRequired
+	}).isRequired,
+	heading: PropTypes.string.isRequired
 };
 
 export default Header;

@@ -42,7 +42,7 @@ const getCountryFlag = async country => {
 			alpha3code: res.data.basic.code.alpha3
 		};
 	} catch (err) {
-		console.log('no such country: ' + country);
+		console.log(`no such country: ${country}`);
 		return {
 			flagUrl: '-',
 			alpha3code: '---'
@@ -50,8 +50,8 @@ const getCountryFlag = async country => {
 	}
 };
 
-const getForecastScore = (results, forecast) => {
-	return forecast.map(standing => {
+const getForecastScore = (results, forecast) =>
+	forecast.map(standing => {
 		const driverResult = results.filter(
 			result => result.number === String(standing._driver.number)
 		)[0];
@@ -65,7 +65,6 @@ const getForecastScore = (results, forecast) => {
 
 		return standing;
 	});
-};
 
 module.exports = {
 	castCountry,
