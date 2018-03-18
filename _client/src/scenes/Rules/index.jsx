@@ -1,7 +1,9 @@
 import React from 'react';
 
+import './styles.scss';
+
 const Rules = () => (
-	<div className="rules">
+	<div className="Rules">
 		<ol>
 			<li>
 				Points are awarded only for those stages which you take a part. The
