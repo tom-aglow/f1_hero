@@ -2,7 +2,7 @@
 const mongoose = require('mongoose');
 const faker = require('faker');
 
-const { capitalizeFirstLetter } = require('../utils/functions');
+const { capitalizeFirstLetter } = require('../../utils/functions');
 
 const factory = (function testFactory() {
 	const self = {

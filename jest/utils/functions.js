@@ -13,7 +13,12 @@ function clearAllCollections() {
 	]).then(() => null);
 }
 
+function sel(id) {
+	return `[data-test="${id}"]`;
+}
+
 module.exports = {
 	clearCollection,
-	clearAllCollections
+	clearAllCollections,
+	sel
 };

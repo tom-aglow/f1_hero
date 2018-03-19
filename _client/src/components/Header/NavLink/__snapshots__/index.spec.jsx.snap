@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<Link
+  className="btn btn-primary"
+  replace={false}
+  to="/foo"
+>
+  Foo
+</Link>
+`;
