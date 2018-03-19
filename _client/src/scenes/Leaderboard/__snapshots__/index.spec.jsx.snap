@@ -23,6 +23,12 @@ exports[`renders correctly 1`] = `
       total={95}
       user="Mary Doe"
     />
+    <ScoreRow
+      index={2}
+      key="Josh Simpson"
+      total={12}
+      user="Josh Simpson"
+    />
   </div>
 </div>
 `;

@@ -9,7 +9,11 @@ class Leaderboard extends Component {
 	state = { searchTerm: '' };
 
 	handleSearchTermChange = event => {
-		this.setState({ searchTerm: event.target.value });
+		const newState = {
+			...this.state,
+			searchTerm: event.target.value
+		};
+		this.setState(newState);
 	};
 
 	renderResultsList() {
