@@ -1,13 +1,11 @@
 /* eslint-disable jsx-a11y/click-events-have-key-events */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import {
-	SortableContainer,
-	SortableElement,
-	arrayMove
-} from 'react-sortable-hoc';
+import { arrayMove } from 'react-sortable-hoc';
 
-import Item from './Item';
+import ForecastNew from './ForecastNew';
+import ForecastMissed from './ForecastMissed';
+import ForecastSubmitted from './ForecastSubmitted';
 import { getNodePaddings } from '../../../../services/utils/functions';
 import { postPick } from './api';
 import { racePropType } from '../index';
@@ -135,42 +133,16 @@ class StandingList extends Component {
 
 	render() {
 		let Standings;
-		let SortableItem;
 
 		switch (this.state.status) {
 			case 'new':
-				SortableItem = SortableElement(item => <Item {...item} />);
-
-				Standings = SortableContainer(({ items }) => (
-					<div className="standings-container">
-						{items.map((value, index) => (
-							<SortableItem
-								key={`item-${value.position}`}
-								index={index}
-								{...value}
-							/>
-						))}
-					</div>
-				));
-
+				Standings = ForecastNew;
 				break;
 			case 'passed':
-				Standings = () => (
-					<div className="standings-container">
-						<div className="standing">
-							You did not submit your prediction on time. No results available
-							for you for this race.
-						</div>
-					</div>
-				);
-
+				Standings = ForecastMissed;
 				break;
 			default:
-				Standings = ({ items }) => (
-					<div className="standings-container">
-						{items.map(item => <Item key={item.position} {...item} />)}
-					</div>
-				);
+				Standings = ForecastSubmitted;
 		}
 
 		return (
@@ -197,7 +169,7 @@ class StandingList extends Component {
 	}
 }
 
-const listItemPropTypes = {
+export const listItemPropTypes = {
 	position: PropTypes.number.isRequired,
 	_drivers: PropTypes.arrayOf(
 		PropTypes.shape({
