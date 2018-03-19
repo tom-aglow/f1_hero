@@ -1,3 +1,4 @@
+/* eslint-disable prettier/prettier */
 const path = require('path');
 const webpack = require('webpack');
 
@@ -17,7 +18,10 @@ const config = {
 		publicPath: '/assets/'
 	},
 	resolve: {
-		extensions: ['.js', '.jsx', '.json']
+		extensions: ['.js', '.jsx', '.json'],
+		alias: {
+			App: path.resolve(__dirname, 'src/')
+		}
 	},
 	stats: {
 		colors: true,

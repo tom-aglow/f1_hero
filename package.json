@@ -71,7 +71,9 @@
 	"jest": {
 		"setupTestFrameworkScriptFile": "<rootDir>/jest/setup.js",
 		"moduleNameMapper": {
-			"\\.(css|jpg|png)$": "<rootDir>/jest/mocks/emptyModule.js"
+			"\\.(css|jpg|png)$": "<rootDir>/jest/mocks/emptyModule.js",
+			"^.+\\.(css|less|scss|sass)$": "babel-jest",
+			"App(.*)$": "<rootDir>/_client/src/$1"
 		},
 		"snapshotSerializers": ["enzyme-to-json/serializer"],
 		"collectCoverageFrom": [

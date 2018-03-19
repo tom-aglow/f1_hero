@@ -23,9 +23,6 @@
 			"target": "http://localhost:3001"
 		}
 	},
-	"jest": {
-		"snapshotSerializers": ["jest-serializer-enzyme"]
-	},
 	"dependencies": {
 		"autoprefixer": "^8.1.0",
 		"axios": "0.16.1",

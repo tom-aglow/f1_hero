@@ -2,11 +2,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { arrayMove } from 'react-sortable-hoc';
+import { getNodePaddings } from 'App/services/utils/functions';
 
 import ForecastNew from './ForecastNew';
 import ForecastMissed from './ForecastMissed';
 import ForecastSubmitted from './ForecastSubmitted';
-import { getNodePaddings } from '../../../../services/utils/functions';
 import { postPick } from './api';
 import { racePropType } from '../index';
 import './styles.scss';
