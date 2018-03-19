@@ -18,17 +18,15 @@ class Leaderboard extends Component {
 
 	renderResultsList() {
 		return this.props.scores
-			? this.props.scores
-					.filter(
-						score =>
-							score.user
-								.toLowerCase()
-								.indexOf(this.state.searchTerm.toLowerCase()) >= 0
-					)
-					.map((score, index) => (
-						<ScoreRow {...score} index={index} key={score.user} />
-					))
-			: '';
+			.filter(
+				score =>
+					score.user
+						.toLowerCase()
+						.indexOf(this.state.searchTerm.toLowerCase()) >= 0
+			)
+			.map((score, index) => (
+				<ScoreRow {...score} index={index} key={score.user} />
+			));
 	}
 
 	render() {
@@ -44,13 +42,17 @@ class Leaderboard extends Component {
 	}
 }
 
+Leaderboard.defaultProps = {
+	scores: []
+};
+
 Leaderboard.propTypes = {
 	scores: PropTypes.arrayOf(
 		PropTypes.shape({
 			user: PropTypes.string,
 			total: PropTypes.number
 		})
-	).isRequired
+	)
 };
 
 export default Leaderboard;
