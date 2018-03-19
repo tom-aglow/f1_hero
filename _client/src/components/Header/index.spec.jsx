@@ -1,10 +1,10 @@
 import r from 'Root/jest/utils/renderer';
-import userSample from 'Root/jest/samples/user';
+import usersSample from 'Root/jest/samples/users';
 import pageSample from 'Root/jest/samples/page';
 import Header from './index';
 
 const defaultProps = {
-	user: userSample,
+	user: usersSample.current,
 	heading: pageSample.heading
 };
 
