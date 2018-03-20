@@ -2,7 +2,7 @@
 import * as api from './api';
 import * as actionTypes from './actionTypes';
 
-const updateRaceList = races => ({
+export const updateRaceList = races => ({
 	type: actionTypes.UPDATE_RACE_LIST,
 	payload: races
 });

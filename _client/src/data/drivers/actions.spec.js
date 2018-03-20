@@ -5,7 +5,7 @@ import { endPoints } from './api';
 
 const drivers = [driversSample.all[0]._driver, driversSample.all[1]._driver];
 
-it('dispatches "drivers/UPDATE_DRIVER_LIST" action with correct drivers', () => {
+it('dispatches "drivers/UPDATE_DRIVER_LIST" action with correct payload', () => {
 	expect(updateDriverList(drivers)).toMatchSnapshot();
 });
 

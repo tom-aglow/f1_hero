@@ -5,7 +5,7 @@ import { endPoints } from './api';
 
 const { scores } = leaderboardSample;
 
-it('dispatches "leaderboard/UPDATE_SCORES" action with correct drivers', () => {
+it('dispatches "leaderboard/UPDATE_SCORES" action with correct payload', () => {
 	expect(updateScores(scores)).toMatchSnapshot();
 });
 

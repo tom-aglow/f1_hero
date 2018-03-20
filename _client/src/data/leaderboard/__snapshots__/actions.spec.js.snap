@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dispatches "leaderboard/UPDATE_SCORES" action with correct drivers 1`] = `
+exports[`dispatches "leaderboard/UPDATE_SCORES" action with correct payload 1`] = `
 Object {
   "payload": Array [
     Object {

@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`dispatches "drivers/UPDATE_DRIVER_LIST" action with correct drivers 1`] = `
+exports[`dispatches "drivers/UPDATE_DRIVER_LIST" action with correct payload 1`] = `
 Object {
   "payload": Array [
     Object {
