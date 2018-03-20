@@ -1,5 +1,5 @@
 import r from 'Root/jest/utils/renderer';
-import { sel } from 'Root/jest/utils/functions';
+import { sel } from 'JestClient/functions';
 import SearchBar from './index';
 
 const defaultProps = {

@@ -1,6 +1,6 @@
 import r from 'Root/jest/utils/renderer';
-import leaderboardSample from 'Root/jest/samples/leaderboard';
-import { sel } from 'Root/jest/utils/functions';
+import leaderboardSample from 'JestClient/samples/leaderboard';
+import { sel } from 'JestClient/functions';
 
 import Leaderboard from './index';
 import ScoreRow from './ScoreRow';

@@ -1,5 +1,5 @@
 import r from 'Root/jest/utils/renderer';
-import leaderboardSample from 'Root/jest/samples/leaderboard';
+import leaderboardSample from 'JestClient/samples/leaderboard';
 import ScoreRow from './index';
 
 const defaultProps = {

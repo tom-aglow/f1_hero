@@ -66,6 +66,7 @@
 		"jest": "^22.4.2",
 		"jest-serializer-enzyme": "^1.0.0",
 		"lint-staged": "^7.0.0",
+		"moxios": "^0.4.0",
 		"prettier": "^1.11.1"
 	},
 	"jest": {
@@ -74,7 +75,8 @@
 			"\\.(css|jpg|png)$": "<rootDir>/jest/mocks/emptyModule.js",
 			"^.+\\.(css|less|scss|sass)$": "babel-jest",
 			"App(.*)$": "<rootDir>/_client/src/$1",
-			"Root(.*)$": "<rootDir>/$1"
+			"Root(.*)$": "<rootDir>/$1",
+			"JestClient(.*)$": "<rootDir>/_client/jest/$1"
 		},
 		"snapshotSerializers": ["enzyme-to-json/serializer"],
 		"collectCoverageFrom": [

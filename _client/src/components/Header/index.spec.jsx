@@ -1,6 +1,6 @@
 import r from 'Root/jest/utils/renderer';
-import usersSample from 'Root/jest/samples/users';
-import pageSample from 'Root/jest/samples/page';
+import usersSample from 'JestClient/samples/users';
+import pageSample from 'JestClient/samples/page';
 import Header from './index';
 
 const defaultProps = {
