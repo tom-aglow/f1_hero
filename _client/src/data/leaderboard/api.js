@@ -1,7 +1,7 @@
 /* eslint-disable import/prefer-default-export */
 import fetchApi from '../../services/api';
 
-const endPoints = {
+export const endPoints = {
 	getUsersScores: '/api/leaderboard'
 };
 

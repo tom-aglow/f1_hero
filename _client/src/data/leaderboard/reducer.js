@@ -7,7 +7,7 @@ const initialState = {
 
 export const reducer = (state = initialState, action) => {
 	switch (action.type) {
-		case actionTypes.GET_SCORES:
+		case actionTypes.UPDATE_SCORES:
 			return {
 				...state,
 				scores: action.payload
