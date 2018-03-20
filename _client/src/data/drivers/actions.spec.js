@@ -1,11 +1,12 @@
 import driversSample from 'JestClient/samples/drivers';
 import t from 'JestClient/actionTester';
 import { getDriverList, updateDriverList } from './actions';
+import { UPDATE_DRIVER_LIST } from './actionTypes';
 import { endPoints } from './api';
 
 const drivers = [driversSample.all[0]._driver, driversSample.all[1]._driver];
 
-it('dispatches "drivers/UPDATE_DRIVER_LIST" action with correct payload', () => {
+it(`dispatches "${UPDATE_DRIVER_LIST}" action with correct payload`, () => {
 	expect(updateDriverList(drivers)).toMatchSnapshot();
 });
 

@@ -1,9 +1,10 @@
 import usersSample from 'JestClient/samples/users';
 import t from 'JestClient/actionTester';
 import { getCurrentUser, updateCurrentUser } from './actions';
+import { UPDATE_CURRENT_USER } from './actionTypes';
 import { endPoints } from './api';
 
-it('dispatches "users/UPDATE_CURRENT_USER" action with correct payload', () => {
+it(`dispatches "${UPDATE_CURRENT_USER}" action with correct payload`, () => {
 	expect(updateCurrentUser(usersSample.current)).toMatchSnapshot();
 });
 

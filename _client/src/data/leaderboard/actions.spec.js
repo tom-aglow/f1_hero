@@ -1,11 +1,12 @@
 import leaderboardSample from 'JestClient/samples/leaderboard';
 import t from 'JestClient/actionTester';
 import { getUsersScores, updateScores } from './actions';
+import { UPDATE_SCORES } from './actionTypes';
 import { endPoints } from './api';
 
 const { scores } = leaderboardSample;
 
-it('dispatches "leaderboard/UPDATE_SCORES" action with correct payload', () => {
+it(`dispatches "${UPDATE_SCORES}" action with correct payload`, () => {
 	expect(updateScores(scores)).toMatchSnapshot();
 });
 
