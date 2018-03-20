@@ -1,0 +1,16 @@
+{
+	"scores": [
+		{
+			"user": "John Doe",
+			"total": 123
+		},
+		{
+			"user": "Mary Doe",
+			"total": 95
+		},
+		{
+			"user": "Josh Simpson",
+			"total": 12
+		}
+	]
+}

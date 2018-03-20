@@ -24,17 +24,23 @@ const Header = ({ user, heading }) => (
 				))}
 				<li className="btn btn-secondary username">
 					<i className="fa fa-user" aria-hidden="true" />
-					{user ? user.username : ''}
+					{user.username}
 				</li>
 			</ul>
 		</nav>
 	</header>
 );
 
+Header.defaultProps = {
+	user: {
+		username: ''
+	}
+};
+
 Header.propTypes = {
 	user: PropTypes.shape({
 		username: PropTypes.string
-	}).isRequired,
+	}),
 	heading: PropTypes.string.isRequired
 };
 

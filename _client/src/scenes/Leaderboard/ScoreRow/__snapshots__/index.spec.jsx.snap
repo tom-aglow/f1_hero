@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="ScoreRow"
+>
+  <div>
+    1
+    .
+  </div>
+  <div
+    className="username"
+  >
+    John Doe
+  </div>
+  <div>
+    123
+    pt
+  </div>
+</div>
+`;

@@ -1,0 +1,10 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dispatches "users/UPDATE_CURRENT_USER" action with correct payload 1`] = `
+Object {
+  "payload": Object {
+    "username": "John Doe",
+  },
+  "type": "users/UPDATE_CURRENT_USER",
+}
+`;

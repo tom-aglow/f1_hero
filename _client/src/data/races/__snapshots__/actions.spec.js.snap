@@ -1,0 +1,59 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dispatches "races/SELECT_RACE" action with correct payload 1`] = `
+Object {
+  "payload": 1,
+  "type": "races/SELECT_RACE",
+}
+`;
+
+exports[`dispatches "races/UPDATE_RACE" action with correct payload 1`] = `
+Object {
+  "payload": Object {
+    "field": "alpha3code",
+    "round": 1,
+    "value": "BAR",
+  },
+  "type": "races/UPDATE_RACE",
+}
+`;
+
+exports[`dispatches "races/UPDATE_RACE_LIST" action with correct payload 1`] = `
+Object {
+  "payload": Array [
+    Object {
+      "alpha3code": "AUS",
+      "flagUrl": "http://foo.bar",
+      "hasPick": true,
+      "isPassed": true,
+      "round": 1,
+      "score": 50,
+    },
+    Object {
+      "alpha3code": "RUS",
+      "flagUrl": "http://foo.bar",
+      "hasPick": false,
+      "isPassed": true,
+      "round": 2,
+      "score": 0,
+    },
+    Object {
+      "alpha3code": "SPA",
+      "flagUrl": "http://foo.bar",
+      "hasPick": true,
+      "isPassed": false,
+      "round": 3,
+      "score": 0,
+    },
+    Object {
+      "alpha3code": "BEL",
+      "flagUrl": "http://foo.bar",
+      "hasPick": false,
+      "isPassed": false,
+      "round": 4,
+      "score": 0,
+    },
+  ],
+  "type": "races/UPDATE_RACE_LIST",
+}
+`;

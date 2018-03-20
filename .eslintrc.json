@@ -4,7 +4,9 @@
 	"rules": {
 		"prettier/prettier": ["error"],
 		"function-paren-newline": "off",
-		"no-underscore-dangle": "off"
+		"no-underscore-dangle": "off",
+		"import/no-unresolved": [2, { "ignore": ["App", "Root", "JestClient"] }],
+		"import/extensions": [2, { "js": "never" }]
 	},
 	"parser": "babel-eslint",
 	"parserOptions": {

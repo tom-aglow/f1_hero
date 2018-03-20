@@ -10,6 +10,7 @@ const SearchBar = ({ searchTerm, onChange }) => (
 			placeholder="Search..."
 			onChange={onChange}
 			value={searchTerm}
+			data-test="searchInput"
 		/>
 		<i className="fa fa-search" aria-hidden="true" />
 	</div>

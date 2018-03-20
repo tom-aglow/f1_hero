@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dispatches "leaderboard/UPDATE_SCORES" action with correct payload 1`] = `
+Object {
+  "payload": Array [
+    Object {
+      "total": 123,
+      "user": "John Doe",
+    },
+    Object {
+      "total": 95,
+      "user": "Mary Doe",
+    },
+    Object {
+      "total": 12,
+      "user": "Josh Simpson",
+    },
+  ],
+  "type": "leaderboard/UPDATE_SCORES",
+}
+`;

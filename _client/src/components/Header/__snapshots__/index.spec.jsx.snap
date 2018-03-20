@@ -1,0 +1,56 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<header
+  className="Header"
+>
+  <h1
+    className="page-title"
+  >
+    F1 Hero 
+    <span>
+      // 
+      Foo Bar
+    </span>
+  </h1>
+  <nav
+    className="navbar"
+  >
+    <ul>
+      <li
+        key="My Picks"
+      >
+        <NavLink
+          name="My Picks"
+          path="/picks"
+        />
+      </li>
+      <li
+        key="Leaderboard"
+      >
+        <NavLink
+          name="Leaderboard"
+          path="/leaderboard"
+        />
+      </li>
+      <li
+        key="Rules"
+      >
+        <NavLink
+          name="Rules"
+          path="/rules"
+        />
+      </li>
+      <li
+        className="btn btn-secondary username"
+      >
+        <i
+          aria-hidden="true"
+          className="fa fa-user"
+        />
+        John Doe
+      </li>
+    </ul>
+  </nav>
+</header>
+`;

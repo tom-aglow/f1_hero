@@ -1,8 +1,8 @@
 const axios = require('axios');
 
 const startServer = require('../../server');
-const { clearAllCollections } = require('../utils');
-const f = require('../factories');
+const { clearAllCollections } = require('../../jest/utils/functions');
+const f = require('../../jest/utils/factories');
 
 const api = axios.create({ baseURL: 'http://localhost:3002/api' });
 

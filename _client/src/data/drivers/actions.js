@@ -2,7 +2,7 @@
 import * as api from './api';
 import * as actionTypes from './actionTypes';
 
-const updateDriverList = drivers => ({
+export const updateDriverList = drivers => ({
 	type: actionTypes.UPDATE_DRIVER_LIST,
 	payload: drivers
 });

@@ -1,0 +1,8 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`dispatches "page/UPDATE_PAGE_HEADING" action with correct payload 1`] = `
+Object {
+  "payload": "Foo Bar",
+  "type": "page/UPDATE_PAGE_HEADING",
+}
+`;
