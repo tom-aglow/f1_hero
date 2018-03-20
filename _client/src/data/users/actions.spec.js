@@ -3,15 +3,19 @@ import t from 'JestClient/actionTester';
 import { getCurrentUser, updateCurrentUser } from './actions';
 import { endPoints } from './api';
 
-test('updateCurrentUser', () => {
+it('dispatches "users/UPDATE_CURRENT_USER" action with correct payload', () => {
 	expect(updateCurrentUser(usersSample.current)).toMatchSnapshot();
 });
 
-test('getCurrentUser action', done => {
+it('fetches data from api and create correct action creator', done => {
 	const dispatchMock = jest.fn();
 
 	const assertions = (dispatch, request) => {
 		expect(request.url).toEqual(endPoints.getCurrentUser);
+		expect(dispatch).toHaveBeenCalledTimes(1);
+		expect(dispatch).toHaveBeenCalledWith(
+			updateCurrentUser(usersSample.current)
+		);
 		done();
 	};
 

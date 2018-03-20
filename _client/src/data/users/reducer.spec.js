@@ -2,18 +2,26 @@ import usersSample from 'JestClient/samples/users';
 import { reducer } from './reducer';
 import { UPDATE_CURRENT_USER } from './actionTypes';
 
-test('users/UPDATE_CURRENT_USER', () => {
-	const state = reducer(
-		{
-			current: {
-				username: 'default'
-			}
-		},
-		{
-			type: UPDATE_CURRENT_USER,
-			payload: usersSample.current
-		}
-	);
+const defaultState = {
+	current: {
+		username: 'default'
+	}
+};
+
+it('returns default state for non-related action types', () => {
+	const state = reducer(defaultState, {
+		type: 'foo',
+		payload: usersSample.current
+	});
+
+	expect(state).toMatchObject(defaultState);
+});
+
+it('updates "current" piece of state', () => {
+	const state = reducer(defaultState, {
+		type: UPDATE_CURRENT_USER,
+		payload: usersSample.current
+	});
 	expect(state).toMatchObject({
 		current: usersSample.current
 	});
