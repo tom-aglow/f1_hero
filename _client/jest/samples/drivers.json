@@ -1,0 +1,18 @@
+{
+	"all": [
+		{
+			"position": 1,
+			"_driver": {
+				"code": "VET",
+				"name": "S. Vettel"
+			}
+		},
+		{
+			"position": 2,
+			"_driver": {
+				"code": "RIC",
+				"name": "D. Riccardo"
+			}
+		}
+	]
+}
