@@ -13,10 +13,10 @@ describe('"isObjectEmpty" function', () => {
 });
 
 describe('"getNodePaddings" function', () => {
-	it('sums nodes horizontal padding', () => {
+	it("sums node's horizontal padding", () => {
 		const node = document.createElement('div');
 		const padding = 20;
-		node.style.padding = `${padding}px`;
+		node.style.padding = `0px ${padding}px`;
 
 		expect(getNodePaddings(node)).toBe(padding * 2);
 	});
