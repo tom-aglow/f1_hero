@@ -86,6 +86,8 @@
 			"!coverage/**",
 			"!config/**",
 			"!_client/public/**",
+			"!_client/webpack.config.js",
+			"!_client/postcss.config.js",
 			"!start-client.js"
 		]
 	},
