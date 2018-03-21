@@ -65,11 +65,29 @@ class Race extends Component {
 	displayStatus() {
 		const { isPassed, hasPick } = this.props.race;
 		if (isPassed) {
-			return <i className="fa fa-check" aria-hidden="true" />;
+			return (
+				<i
+					className="fa fa-check"
+					aria-hidden="true"
+					data-test="race-status-passed"
+				/>
+			);
 		} else if (hasPick) {
-			return <i className="fa fa-circle" aria-hidden="true" />;
+			return (
+				<i
+					className="fa fa-circle"
+					aria-hidden="true"
+					data-test="race-status-submitted"
+				/>
+			);
 		}
-		return <i className="fa fa-circle-o" aria-hidden="true" />;
+		return (
+			<i
+				className="fa fa-circle-o"
+				aria-hidden="true"
+				data-test="race-status-new"
+			/>
+		);
 	}
 
 	render() {
