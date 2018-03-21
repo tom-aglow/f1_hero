@@ -33,12 +33,11 @@ class Race extends Component {
 	};
 
 	displayPick() {
-		const { race, selectedRace } = this.props;
+		const { race, selectedRace, raceHolderNode } = this.props;
 		const { pick } = this.state;
 		const isPickSet = !isObjectEmpty(pick);
 		const isRaceSelected = selectedRace.round === race.round;
 
-		// console.log(race.round, !isRaceSelected, !isPickSet, race.hasPick);
 		if (!isRaceSelected || (!isPickSet && race.hasPick)) {
 			return null;
 		}
@@ -49,19 +48,32 @@ class Race extends Component {
 					list={pick.forecast}
 					status="submitted"
 					round={race.round}
+					raceNode={this.raceNode}
+					raceHolderNode={raceHolderNode}
 				/>
 			);
 		} else if (race.isPassed) {
-			return <StandingList status="passed" round={race.round} />;
+			return (
+				<StandingList
+					status="passed"
+					round={race.round}
+					raceNode={this.raceNode}
+					raceHolderNode={raceHolderNode}
+				/>
+			);
 		}
 		return (
 			<StandingList
 				status="new"
 				round={race.round}
 				onSubmit={this.setRacePick}
+				raceNode={this.raceNode}
+				raceHolderNode={raceHolderNode}
 			/>
 		);
 	}
+
+	//	todo try to merge displayStatus and display Pick methods
 
 	displayStatus() {
 		const { isPassed, hasPick } = this.props.race;
@@ -96,7 +108,11 @@ class Race extends Component {
 		const scoreText = score ? `${score}pt` : '-';
 
 		return (
-			<div id="race">
+			<div
+				ref={el => {
+					this.raceNode = el;
+				}}
+			>
 				<div
 					className="Race"
 					onClick={this.fetchPick}

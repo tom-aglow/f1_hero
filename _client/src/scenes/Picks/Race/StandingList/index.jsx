@@ -45,13 +45,11 @@ class StandingList extends Component {
 	};
 
 	computePickPosition() {
-		const { races, round } = this.props;
+		const { races, round, raceNode, raceHolderNode } = this.props;
 		const racesNum = races.length;
 
-		const picksNode = document.getElementById('picks');
-		const stemNode = document.getElementById('stem');
-		const raceNode = document.getElementById('race');
-		const raceHolderNode = document.getElementById('race-holder');
+		const picksNode = this.picks;
+		const stemNode = this.stem;
 
 		const picksWidth = picksNode ? picksNode.offsetWidth : 0;
 		const stemWidth = stemNode ? stemNode.offsetWidth : 0;
@@ -147,12 +145,16 @@ class StandingList extends Component {
 
 		return (
 			<div
-				id="picks"
+				ref={el => {
+					this.picks = el;
+				}}
 				className="StandingList"
 				style={{ left: `${this.state.pickPos}px` }}
 			>
 				<div
-					id="stem"
+					ref={el => {
+						this.stem = el;
+					}}
 					className="stem"
 					style={{ left: `${this.state.stemPos}px` }}
 				/>
