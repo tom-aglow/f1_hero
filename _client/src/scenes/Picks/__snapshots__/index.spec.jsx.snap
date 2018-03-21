@@ -1,0 +1,205 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="Picks"
+  id="race-holder"
+>
+  <Connect(RaceContainer)
+    key="1"
+    race={
+      Object {
+        "alpha3code": "AUS",
+        "flagUrl": "http://foo.bar",
+        "hasPick": true,
+        "isPassed": true,
+        "round": 1,
+        "score": 50,
+      }
+    }
+    races={
+      Array [
+        Object {
+          "alpha3code": "AUS",
+          "flagUrl": "http://foo.bar",
+          "hasPick": true,
+          "isPassed": true,
+          "round": 1,
+          "score": 50,
+        },
+        Object {
+          "alpha3code": "RUS",
+          "flagUrl": "http://foo.bar",
+          "hasPick": false,
+          "isPassed": true,
+          "round": 2,
+          "score": 0,
+        },
+        Object {
+          "alpha3code": "SPA",
+          "flagUrl": "http://foo.bar",
+          "hasPick": true,
+          "isPassed": false,
+          "round": 3,
+          "score": 0,
+        },
+        Object {
+          "alpha3code": "BEL",
+          "flagUrl": "http://foo.bar",
+          "hasPick": false,
+          "isPassed": false,
+          "round": 4,
+          "score": 0,
+        },
+      ]
+    }
+  />
+  <Connect(RaceContainer)
+    key="2"
+    race={
+      Object {
+        "alpha3code": "RUS",
+        "flagUrl": "http://foo.bar",
+        "hasPick": false,
+        "isPassed": true,
+        "round": 2,
+        "score": 0,
+      }
+    }
+    races={
+      Array [
+        Object {
+          "alpha3code": "AUS",
+          "flagUrl": "http://foo.bar",
+          "hasPick": true,
+          "isPassed": true,
+          "round": 1,
+          "score": 50,
+        },
+        Object {
+          "alpha3code": "RUS",
+          "flagUrl": "http://foo.bar",
+          "hasPick": false,
+          "isPassed": true,
+          "round": 2,
+          "score": 0,
+        },
+        Object {
+          "alpha3code": "SPA",
+          "flagUrl": "http://foo.bar",
+          "hasPick": true,
+          "isPassed": false,
+          "round": 3,
+          "score": 0,
+        },
+        Object {
+          "alpha3code": "BEL",
+          "flagUrl": "http://foo.bar",
+          "hasPick": false,
+          "isPassed": false,
+          "round": 4,
+          "score": 0,
+        },
+      ]
+    }
+  />
+  <Connect(RaceContainer)
+    key="3"
+    race={
+      Object {
+        "alpha3code": "SPA",
+        "flagUrl": "http://foo.bar",
+        "hasPick": true,
+        "isPassed": false,
+        "round": 3,
+        "score": 0,
+      }
+    }
+    races={
+      Array [
+        Object {
+          "alpha3code": "AUS",
+          "flagUrl": "http://foo.bar",
+          "hasPick": true,
+          "isPassed": true,
+          "round": 1,
+          "score": 50,
+        },
+        Object {
+          "alpha3code": "RUS",
+          "flagUrl": "http://foo.bar",
+          "hasPick": false,
+          "isPassed": true,
+          "round": 2,
+          "score": 0,
+        },
+        Object {
+          "alpha3code": "SPA",
+          "flagUrl": "http://foo.bar",
+          "hasPick": true,
+          "isPassed": false,
+          "round": 3,
+          "score": 0,
+        },
+        Object {
+          "alpha3code": "BEL",
+          "flagUrl": "http://foo.bar",
+          "hasPick": false,
+          "isPassed": false,
+          "round": 4,
+          "score": 0,
+        },
+      ]
+    }
+  />
+  <Connect(RaceContainer)
+    key="4"
+    race={
+      Object {
+        "alpha3code": "BEL",
+        "flagUrl": "http://foo.bar",
+        "hasPick": false,
+        "isPassed": false,
+        "round": 4,
+        "score": 0,
+      }
+    }
+    races={
+      Array [
+        Object {
+          "alpha3code": "AUS",
+          "flagUrl": "http://foo.bar",
+          "hasPick": true,
+          "isPassed": true,
+          "round": 1,
+          "score": 50,
+        },
+        Object {
+          "alpha3code": "RUS",
+          "flagUrl": "http://foo.bar",
+          "hasPick": false,
+          "isPassed": true,
+          "round": 2,
+          "score": 0,
+        },
+        Object {
+          "alpha3code": "SPA",
+          "flagUrl": "http://foo.bar",
+          "hasPick": true,
+          "isPassed": false,
+          "round": 3,
+          "score": 0,
+        },
+        Object {
+          "alpha3code": "BEL",
+          "flagUrl": "http://foo.bar",
+          "hasPick": false,
+          "isPassed": false,
+          "round": 4,
+          "score": 0,
+        },
+      ]
+    }
+  />
+</div>
+`;
