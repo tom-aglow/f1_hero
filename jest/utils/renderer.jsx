@@ -24,7 +24,7 @@ function init(_component, _defaultProps) {
 	defaultProps = _defaultProps;
 }
 
-function render(props = {}, isShallow = false) {
+function render(props = {}, isShallow = true) {
 	const propsToUse = {
 		...defaultProps,
 		...props

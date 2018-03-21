@@ -3,11 +3,14 @@ import pickSample from 'JestClient/samples/pick';
 import driversSample from 'JestClient/samples/drivers';
 import racesSample from 'JestClient/samples/races';
 import { sel } from 'JestClient/functions';
+import moxios from 'moxios';
 
 import StandingList from './index';
 import ForecastNew from './ForecastNew';
 import ForecastMissed from './ForecastMissed';
 import ForecastSubmitted from './ForecastSubmitted';
+import Item from './Item';
+import { endPoints } from './api';
 
 const defaultProps = {
 	status: 'submitted',
@@ -22,13 +25,13 @@ const defaultProps = {
 r.init(StandingList, defaultProps);
 
 it('renders correctly', () => {
-	const wrapper = r.render(null, true);
+	const wrapper = r.render();
 	expect(wrapper).toMatchSnapshot();
 });
 
 describe('renders correct forecast component', () => {
 	it('when provided status is new', () => {
-		const wrapper = r.render({ status: 'new' }, true);
+		const wrapper = r.render({ status: 'new' });
 
 		expect(wrapper.find(ForecastNew)).toHaveLength(1);
 		expect(wrapper.find(ForecastMissed)).toHaveLength(0);
@@ -36,7 +39,7 @@ describe('renders correct forecast component', () => {
 	});
 
 	it('when provided status is passed', () => {
-		const wrapper = r.render({ status: 'passed' }, true);
+		const wrapper = r.render({ status: 'passed' });
 
 		expect(wrapper.find(ForecastMissed)).toHaveLength(1);
 		expect(wrapper.find(ForecastNew)).toHaveLength(0);
@@ -44,7 +47,7 @@ describe('renders correct forecast component', () => {
 	});
 
 	it('when provided status is submitted', () => {
-		const wrapper = r.render({ status: 'submitted' }, true);
+		const wrapper = r.render({ status: 'submitted' });
 
 		expect(wrapper.find(ForecastSubmitted)).toHaveLength(1);
 		expect(wrapper.find(ForecastNew)).toHaveLength(0);
@@ -54,23 +57,70 @@ describe('renders correct forecast component', () => {
 
 describe('submit button', () => {
 	it('is shown when user is picking a new race forecast', () => {
-		const wrapper = r.render({ status: 'new' }, true);
+		const wrapper = r.render({ status: 'new' });
 		const button = wrapper.find(sel('submit-pick-button'));
 
 		expect(button).toHaveLength(1);
 	});
 
 	it('is hidden when user is checking previously submitted forecast', () => {
-		const wrapper = r.render({ status: 'submitted' }, true);
+		const wrapper = r.render({ status: 'submitted' });
 		const button = wrapper.find(sel('submit-pick-button'));
 
 		expect(button).toHaveLength(0);
 	});
 
 	it('is hidden when user is checking previously missed forecast', () => {
-		const wrapper = r.render({ status: 'passed' }, true);
+		const wrapper = r.render({ status: 'passed' });
 		const button = wrapper.find(sel('submit-pick-button'));
 
 		expect(button).toHaveLength(0);
+	});
+});
+
+it("submits user's forecast", done => {
+	const onSubmit = jest.fn();
+	const updateRace = jest.fn();
+	const wrapper = r.render({ status: 'new', onSubmit, updateRace });
+	const button = wrapper.find(sel('submit-pick-button'));
+
+	moxios.withMock(() => {
+		button.simulate('click');
+
+		moxios.wait(async () => {
+			const request = moxios.requests.mostRecent();
+			const response = { pick: pickSample };
+
+			await request.respondWith({
+				status: 200,
+				response
+			});
+
+			expect(request.config.method).toBe('post');
+			expect(request.url).toBe(endPoints.postPick(defaultProps.round));
+
+			const standingsEl = wrapper.update().find(ForecastSubmitted);
+			expect(standingsEl).toHaveLength(1);
+
+			const firstListItem = standingsEl
+				.dive()
+				.find(Item)
+				.at(0);
+			expect(firstListItem.props()._driver.name).toBe(
+				response.pick.forecast[0]._driver.name
+			);
+
+			expect(onSubmit).toHaveBeenCalledTimes(1);
+			expect(onSubmit).toHaveBeenCalledWith(response.pick);
+
+			expect(updateRace).toHaveBeenCalledTimes(1);
+			expect(updateRace).toHaveBeenCalledWith({
+				round: defaultProps.round,
+				field: 'hasPick',
+				value: true
+			});
+
+			done();
+		});
 	});
 });
