@@ -6,6 +6,7 @@ exports[`renders correctly 1`] = `
 >
   <div
     className="Race"
+    data-test="race"
     onClick={[Function]}
     role="link"
     tabIndex="0"

@@ -38,6 +38,7 @@ class Race extends Component {
 		const isPickSet = !isObjectEmpty(pick);
 		const isRaceSelected = selectedRace.round === race.round;
 
+		// console.log(race.round, !isRaceSelected, !isPickSet, race.hasPick);
 		if (!isRaceSelected || (!isPickSet && race.hasPick)) {
 			return null;
 		}
@@ -96,7 +97,13 @@ class Race extends Component {
 
 		return (
 			<div id="race">
-				<div className="Race" onClick={this.fetchPick} role="link" tabIndex="0">
+				<div
+					className="Race"
+					onClick={this.fetchPick}
+					role="link"
+					tabIndex="0"
+					data-test="race"
+				>
 					{this.displayStatus()}
 					<div className="img-container">
 						<img src={flagUrl} alt={`flag of ${alpha3code}`} />
