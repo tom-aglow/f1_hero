@@ -117,12 +117,14 @@ class StandingList extends Component {
 	};
 
 	displayButton() {
+		//	todo move to separate component
 		return this.state.status === 'new' ? (
 			<div
 				className="btn btn-submit"
 				onClick={this.submitPick}
 				role="button"
 				tabIndex="0"
+				data-test="submit-pick-button"
 			>
 				<i className="fa fa-check" aria-hidden="true" /> Submit
 			</div>
@@ -137,6 +139,7 @@ class StandingList extends Component {
 				Standings = ForecastNew;
 				break;
 			case 'passed':
+				//	todo rename this status to 'missed'
 				Standings = ForecastMissed;
 				break;
 			default:
@@ -188,7 +191,7 @@ StandingList.defaultProps = {
 };
 
 StandingList.propTypes = {
-	status: PropTypes.string.isRequired,
+	status: PropTypes.oneOf(['new', 'submitted', 'passed']).isRequired,
 	list: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
 	drivers: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
 	round: PropTypes.number.isRequired,
