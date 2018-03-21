@@ -12,7 +12,7 @@ r.init(ForecastNew, defaultProps);
 
 it('renders correctly', () => {
 	const wrapper = r.render(null, true);
-	expect(wrapper).toMatchSnapshot();
+	expect(wrapper.at(0).dive()).toMatchSnapshot();
 });
 
 it('renders correct amount of list items', () => {

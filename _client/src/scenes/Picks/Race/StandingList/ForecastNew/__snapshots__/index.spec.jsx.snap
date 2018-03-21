@@ -1,34 +1,50 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`renders correctly 1`] = `
-<ForecastNew
-  items={
-    Array [
+<div
+  className="standings-container"
+>
+  <sortableElement
+    _driver={
       Object {
-        "_driver": Object {
-          "code": "HAM",
-          "name": "L. Hamilton",
-        },
-        "position": 1,
-        "score": 18,
-      },
+        "code": "HAM",
+        "name": "L. Hamilton",
+      }
+    }
+    collection={0}
+    data-test="new-standing-item"
+    index={0}
+    key="item-1"
+    position={1}
+    score={18}
+  />
+  <sortableElement
+    _driver={
       Object {
-        "_driver": Object {
-          "code": "RIC",
-          "name": "D. Ricciardo",
-        },
-        "position": 2,
-        "score": 5,
-      },
+        "code": "RIC",
+        "name": "D. Ricciardo",
+      }
+    }
+    collection={0}
+    data-test="new-standing-item"
+    index={1}
+    key="item-2"
+    position={2}
+    score={5}
+  />
+  <sortableElement
+    _driver={
       Object {
-        "_driver": Object {
-          "code": "VAN",
-          "name": "S. Vandoorne",
-        },
-        "position": 3,
-        "score": 0,
-      },
-    ]
-  }
-/>
+        "code": "VAN",
+        "name": "S. Vandoorne",
+      }
+    }
+    collection={0}
+    data-test="new-standing-item"
+    index={2}
+    key="item-3"
+    position={3}
+    score={0}
+  />
+</div>
 `;
