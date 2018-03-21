@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<ForecastNew
+  items={
+    Array [
+      Object {
+        "_driver": Object {
+          "code": "HAM",
+          "name": "L. Hamilton",
+        },
+        "position": 1,
+        "score": 18,
+      },
+      Object {
+        "_driver": Object {
+          "code": "RIC",
+          "name": "D. Ricciardo",
+        },
+        "position": 2,
+        "score": 5,
+      },
+      Object {
+        "_driver": Object {
+          "code": "VAN",
+          "name": "S. Vandoorne",
+        },
+        "position": 3,
+        "score": 0,
+      },
+    ]
+  }
+/>
+`;

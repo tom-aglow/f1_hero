@@ -11,7 +11,7 @@ const ForecastNew = ({ items }) => {
 	return (
 		<div className="standings-container">
 			{items.map((value, index) => (
-				<SortableItem key={`item-${value.position}`} index={index} {...value} />
+				<SortableItem key={`item-${value.position}`} index={index} {...value} data-test="new-standing-item"/>
 			))}
 		</div>
 	);
@@ -21,4 +21,4 @@ ForecastNew.propTypes = {
 	items: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)).isRequired
 };
 
-export default SortableContainer(ForecastNew);
+export default SortableContainer(ForecastNew, { withRef: true });
