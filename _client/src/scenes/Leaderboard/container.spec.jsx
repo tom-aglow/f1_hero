@@ -9,7 +9,7 @@ const initialState = {
 };
 
 const defaultProps = {
-	scores: mapStateToProps(initialState),
+	scores: mapStateToProps(initialState).scores,
 	updatePageHeading: jest.fn(),
 	getUsersScores: jest.fn()
 };
