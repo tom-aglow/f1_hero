@@ -16,19 +16,19 @@ const defaultProps = {
 r.init(Picks, defaultProps);
 
 it('renders correctly', () => {
-	const wrapper = r.render(null, true);
+	const wrapper = r.render();
 	expect(wrapper).toMatchSnapshot();
 });
 
 it('renders correct amount of races', () => {
-	const wrapper = r.render(null, true);
+	const wrapper = r.render();
 	const races = wrapper.find(Race);
 
 	expect(races).toHaveLength(defaultProps.races.length);
 });
 
 it('renders Loader if there are no races', () => {
-	const wrapper = r.render({ races: [] }, true);
+	const wrapper = r.render({ races: [] });
 	const loader = wrapper.find(Loader);
 	const races = wrapper.find(Race);
 
@@ -37,13 +37,17 @@ it('renders Loader if there are no races', () => {
 });
 
 describe('renders standing list', () => {
+	let wrapper;
+
+	beforeEach(() => {
+		wrapper = r.render(null, false);
+	});
+
 	it('only if race is clicked', done => {
-		const wrapper = r.render(null, false);
 		let standingList = wrapper.find(StandingList);
 		expect(standingList).toHaveLength(0);
 
-		const index = 0;
-		const race = wrapper.find(sel('race')).at(index);
+		const race = wrapper.find(sel('race')).at(0);
 
 		moxios.withMock(() => {
 			race.simulate('click');
@@ -58,6 +62,52 @@ describe('renders standing list', () => {
 
 				standingList = wrapper.update().find(StandingList);
 				expect(standingList).toHaveLength(1);
+				done();
+			});
+		});
+	});
+
+	it("with status 'submitted' if user previously submitted the pick", done => {
+		const race = wrapper.find(Race).at(0);
+		expect(race.props().race.hasPick).toBe(true);
+		expect(race.props().race.isPassed).toBe(true);
+
+		moxios.withMock(() => {
+			race.find(sel('race')).simulate('click');
+
+			moxios.wait(async () => {
+				const request = moxios.requests.mostRecent();
+
+				await request.respondWith({
+					status: 200,
+					response: { pick: pickSample }
+				});
+
+				const standingList = wrapper.update().find(StandingList);
+				expect(standingList.props().status).toBe('submitted');
+				done();
+			});
+		});
+	});
+
+	it("with status 'passed' if user has submitted the pick and race has passed", done => {
+		const race = wrapper.find(Race).at(1);
+		expect(race.props().race.hasPick).toBe(false);
+		expect(race.props().race.isPassed).toBe(true);
+
+		moxios.withMock(() => {
+			race.find(sel('race')).simulate('click');
+
+			moxios.wait(async () => {
+				const request = moxios.requests.mostRecent();
+
+				await request.respondWith({
+					status: 200,
+					response: { pick: pickSample }
+				});
+
+				const standingList = wrapper.update().find(StandingList);
+				expect(standingList.props().status).toBe('passed');
 				done();
 			});
 		});

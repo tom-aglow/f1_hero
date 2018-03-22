@@ -160,7 +160,11 @@ StandingList.propTypes = {
 	round: PropTypes.number.isRequired,
 	races: PropTypes.arrayOf(PropTypes.shape(racePropType)).isRequired,
 	onSubmit: PropTypes.func,
-	updateRace: PropTypes.func.isRequired
+	updateRace: PropTypes.func.isRequired,
+	// eslint-disable-next-line react/forbid-prop-types
+	raceHolderNode: PropTypes.object.isRequired,
+	// eslint-disable-next-line react/forbid-prop-types
+	raceNode: PropTypes.object.isRequired
 };
 
 export default StandingList;

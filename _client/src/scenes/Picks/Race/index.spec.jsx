@@ -11,37 +11,35 @@ const defaultProps = {
 };
 
 r.init(Race, defaultProps);
+
 it('renders correctly', () => {
-	const wrapper = r.render(null, true);
+	const wrapper = r.render();
 	expect(wrapper).toMatchSnapshot();
 });
 
 describe('renders correct race status icon', () => {
 	it('when race has passed', () => {
-		const wrapper = r.render(
-			{ race: { ...defaultProps.race, isPassed: true } },
-			true
-		);
+		const wrapper = r.render({
+			race: { ...defaultProps.race, hasPick: false, isPassed: true }
+		});
 		const status = wrapper.find(sel('race-status-passed'));
 
 		expect(status).toHaveLength(1);
 	});
 
 	it('when pick is submitted and race is not passed', () => {
-		const wrapper = r.render(
-			{ race: { ...defaultProps.race, hasPick: true, isPassed: false } },
-			true
-		);
+		const wrapper = r.render({
+			race: { ...defaultProps.race, hasPick: true, isPassed: false }
+		});
 		const status = wrapper.find(sel('race-status-submitted'));
 
 		expect(status).toHaveLength(1);
 	});
 
 	it('when pick is not submitted and race is not passed', () => {
-		const wrapper = r.render(
-			{ race: { ...defaultProps.race, hasPick: false, isPassed: false } },
-			true
-		);
+		const wrapper = r.render({
+			race: { ...defaultProps.race, hasPick: false, isPassed: false }
+		});
 		const status = wrapper.find(sel('race-status-new'));
 
 		expect(status).toHaveLength(1);

@@ -147,7 +147,9 @@ Race.propTypes = {
 	selectedRace: PropTypes.shape({
 		round: PropTypes.number.isRequired
 	}).isRequired,
-	selectRace: PropTypes.func.isRequired
+	selectRace: PropTypes.func.isRequired,
+	// eslint-disable-next-line react/forbid-prop-types
+	raceHolderNode: PropTypes.object.isRequired
 };
 
 export default Race;
