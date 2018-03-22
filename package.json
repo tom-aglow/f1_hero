@@ -88,6 +88,9 @@
 			"!_client/public/**",
 			"!_client/webpack.config.js",
 			"!_client/postcss.config.js",
+			"!_client/src/App.jsx",
+			"!_client/src/index.jsx",
+			"!_client/src/store.js",
 			"!start-client.js"
 		]
 	},
