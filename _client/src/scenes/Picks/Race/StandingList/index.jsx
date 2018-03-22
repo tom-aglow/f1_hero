@@ -79,6 +79,7 @@ class StandingList extends Component {
 			updateRace({ round, field: 'hasPick', value: true });
 		} catch (error) {
 			//	todo display an error as a flash message
+			//	doesn't seem like circleCI fetched my last commit
 			console.error('error: unable to save pick!!', error);
 		}
 	}
