@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { arrayMove } from 'react-sortable-hoc';
-import { getNodePaddings } from 'App/services/utils/functions';
+import { calculatePickAndStemLeftPosition } from 'App/services/utils/functions';
 
 import ForecastNew from './ForecastNew';
 import ForecastMissed from './ForecastMissed';
@@ -21,7 +21,18 @@ class StandingList extends Component {
 	};
 
 	componentDidMount() {
-		const { pickPos, stemPos } = this.computePickPosition();
+		const { races, round, raceNode, raceHolderNode } = this.props;
+		const { pickPos, stemPos } = calculatePickAndStemLeftPosition(
+			{
+				picksNode: this.picks,
+				stemNode: this.stem,
+				raceNode,
+				raceHolderNode
+			},
+			races.length,
+			round
+		);
+
 		const newState = {
 			...this.state,
 			pickPos,
@@ -43,55 +54,6 @@ class StandingList extends Component {
 		};
 		this.setState(newState);
 	};
-
-	computePickPosition() {
-		const { races, round, raceNode, raceHolderNode } = this.props;
-		const racesNum = races.length;
-
-		const picksNode = this.picks;
-		const stemNode = this.stem;
-
-		const picksWidth = picksNode ? picksNode.offsetWidth : 0;
-		const stemWidth = stemNode ? stemNode.offsetWidth : 0;
-		const raceWidth = raceNode.offsetWidth;
-		const holderWidth = raceHolderNode.offsetWidth;
-		const holderPadding = getNodePaddings(raceHolderNode);
-
-		const gutter =
-			(holderWidth - holderPadding - raceWidth * racesNum) / (racesNum - 1);
-
-		const offset =
-			holderPadding / 2 +
-			raceWidth * round -
-			raceWidth / 2 +
-			gutter * (round - 1) -
-			picksWidth / 2;
-
-		if (offset < 0) {
-			return {
-				pickPos: 0,
-				stemPos:
-					holderPadding / 2 +
-					raceWidth / 2 +
-					(raceWidth + gutter) * (round - 1) -
-					stemWidth / 2 * 1.41
-			};
-		} else if (offset + picksWidth > holderWidth) {
-			return {
-				pickPos: holderWidth - picksWidth,
-				stemPos:
-					picksWidth -
-					stemWidth / 2 * 1.41 -
-					raceWidth / 2 -
-					holderPadding / 2 -
-					(raceWidth + gutter) * (racesNum - round)
-			};
-		}
-		return {
-			pickPos: offset,
-			stemPos: picksWidth / 2 - stemWidth / 2
-		};
-	}
 
 	submitPick = async () => {
 		const { round, onSubmit, updateRace } = this.props;
@@ -170,6 +132,7 @@ class StandingList extends Component {
 				/>
 				{this.displayButton()}
 			</div>
+			//	todo make function that will create refs
 		);
 	}
 }
