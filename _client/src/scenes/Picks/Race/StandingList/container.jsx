@@ -7,7 +7,7 @@ import { updateRace } from '../../../../data/races/actions';
 
 const StandingListContainer = props => <StandingList {...props} />;
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
 	races: state.data.races.all,
 	drivers: state.data.drivers.all
 });

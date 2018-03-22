@@ -6,9 +6,15 @@ import './styles.scss';
 const Item = ({ score, position, _driver }) => {
 	const icon =
 		score !== null ? (
-			<div className="score">{score}pt</div>
+			<div className="score" data-test="standing-list-item-score">
+				{score}pt
+			</div>
 		) : (
-			<i className="fa fa-sort" aria-hidden="true" />
+			<i
+				className="fa fa-sort"
+				aria-hidden="true"
+				data-test="standing-list-item-sort"
+			/>
 		);
 
 	return (

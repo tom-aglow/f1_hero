@@ -1,0 +1,55 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="StandingList"
+  style={
+    Object {
+      "left": "0px",
+    }
+  }
+>
+  <div
+    className="stem"
+    style={
+      Object {
+        "left": "0px",
+      }
+    }
+  />
+  <ForecastSubmitted
+    helperClass="draggable"
+    items={
+      Array [
+        Object {
+          "_driver": Object {
+            "code": "HAM",
+            "name": "L. Hamilton",
+          },
+          "position": 1,
+          "score": 18,
+        },
+        Object {
+          "_driver": Object {
+            "code": "RIC",
+            "name": "D. Ricciardo",
+          },
+          "position": 2,
+          "score": 5,
+        },
+        Object {
+          "_driver": Object {
+            "code": "VAN",
+            "name": "S. Vandoorne",
+          },
+          "position": 3,
+          "score": 0,
+        },
+      ]
+    }
+    lockAxis="y"
+    lockToContainerEdges={true}
+    onSortEnd={[Function]}
+  />
+</div>
+`;

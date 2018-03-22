@@ -5,8 +5,12 @@ import { UPDATE_RACE_LIST, SELECT_RACE, UPDATE_RACE } from './actionTypes';
 const currentState = {
 	all: [
 		{
-			round: 2,
+			round: 1,
 			alpha3code: 'FOO'
+		},
+		{
+			round: 2,
+			alpha3code: 'BAR'
 		}
 	],
 	selected: {
@@ -58,7 +62,7 @@ it('updates field of specified race with provided value', () => {
 	});
 
 	expect(state).toMatchObject({
-		all: [{ round, [field]: value }],
+		all: [currentState.all[0], { round, [field]: value }],
 		selected: currentState.selected
 	});
 });

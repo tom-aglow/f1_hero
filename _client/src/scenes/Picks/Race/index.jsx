@@ -33,7 +33,7 @@ class Race extends Component {
 	};
 
 	displayPick() {
-		const { race, selectedRace } = this.props;
+		const { race, selectedRace, raceHolderNode } = this.props;
 		const { pick } = this.state;
 		const isPickSet = !isObjectEmpty(pick);
 		const isRaceSelected = selectedRace.round === race.round;
@@ -48,28 +48,59 @@ class Race extends Component {
 					list={pick.forecast}
 					status="submitted"
 					round={race.round}
+					raceNode={this.raceNode}
+					raceHolderNode={raceHolderNode}
 				/>
 			);
 		} else if (race.isPassed) {
-			return <StandingList status="passed" round={race.round} />;
+			return (
+				<StandingList
+					status="passed"
+					round={race.round}
+					raceNode={this.raceNode}
+					raceHolderNode={raceHolderNode}
+				/>
+			);
 		}
 		return (
 			<StandingList
 				status="new"
 				round={race.round}
 				onSubmit={this.setRacePick}
+				raceNode={this.raceNode}
+				raceHolderNode={raceHolderNode}
 			/>
 		);
 	}
 
+	//	todo try to merge displayStatus and display Pick methods
+
 	displayStatus() {
 		const { isPassed, hasPick } = this.props.race;
 		if (isPassed) {
-			return <i className="fa fa-check" aria-hidden="true" />;
+			return (
+				<i
+					className="fa fa-check"
+					aria-hidden="true"
+					data-test="race-status-passed"
+				/>
+			);
 		} else if (hasPick) {
-			return <i className="fa fa-circle" aria-hidden="true" />;
+			return (
+				<i
+					className="fa fa-circle"
+					aria-hidden="true"
+					data-test="race-status-submitted"
+				/>
+			);
 		}
-		return <i className="fa fa-circle-o" aria-hidden="true" />;
+		return (
+			<i
+				className="fa fa-circle-o"
+				aria-hidden="true"
+				data-test="race-status-new"
+			/>
+		);
 	}
 
 	render() {
@@ -77,8 +108,18 @@ class Race extends Component {
 		const scoreText = score ? `${score}pt` : '-';
 
 		return (
-			<div id="race">
-				<div className="Race" onClick={this.fetchPick} role="link" tabIndex="0">
+			<div
+				ref={el => {
+					this.raceNode = el;
+				}}
+			>
+				<div
+					className="Race"
+					onClick={this.fetchPick}
+					role="link"
+					tabIndex="0"
+					data-test="race"
+				>
 					{this.displayStatus()}
 					<div className="img-container">
 						<img src={flagUrl} alt={`flag of ${alpha3code}`} />
@@ -106,7 +147,9 @@ Race.propTypes = {
 	selectedRace: PropTypes.shape({
 		round: PropTypes.number.isRequired
 	}).isRequired,
-	selectRace: PropTypes.func.isRequired
+	selectRace: PropTypes.func.isRequired,
+	// eslint-disable-next-line react/forbid-prop-types
+	raceHolderNode: PropTypes.object.isRequired
 };
 
 export default Race;

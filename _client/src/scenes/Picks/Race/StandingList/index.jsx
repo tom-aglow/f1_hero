@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { arrayMove } from 'react-sortable-hoc';
-import { getNodePaddings } from 'App/services/utils/functions';
+import { calculatePickAndStemLeftPosition } from 'App/services/utils/functions';
 
 import ForecastNew from './ForecastNew';
 import ForecastMissed from './ForecastMissed';
@@ -20,8 +20,24 @@ class StandingList extends Component {
 		status: this.props.status
 	};
 
+	constructor(props) {
+		super(props);
+		this.submitPick = this.submitPick.bind(this);
+	}
+
 	componentDidMount() {
-		const { pickPos, stemPos } = this.computePickPosition();
+		const { races, round, raceNode, raceHolderNode } = this.props;
+		const { pickPos, stemPos } = calculatePickAndStemLeftPosition(
+			{
+				picksNode: this.picks,
+				stemNode: this.stem,
+				raceNode,
+				raceHolderNode
+			},
+			races.length,
+			round
+		);
+
 		const newState = {
 			...this.state,
 			pickPos,
@@ -44,58 +60,7 @@ class StandingList extends Component {
 		this.setState(newState);
 	};
 
-	computePickPosition() {
-		const { races, round } = this.props;
-		const racesNum = races.length;
-
-		const picksNode = document.getElementById('picks');
-		const stemNode = document.getElementById('stem');
-		const raceNode = document.getElementById('race');
-		const raceHolderNode = document.getElementById('race-holder');
-
-		const picksWidth = picksNode ? picksNode.offsetWidth : 0;
-		const stemWidth = stemNode ? stemNode.offsetWidth : 0;
-		const raceWidth = raceNode.offsetWidth;
-		const holderWidth = raceHolderNode.offsetWidth;
-		const holderPadding = getNodePaddings(raceHolderNode);
-
-		const gutter =
-			(holderWidth - holderPadding - raceWidth * racesNum) / (racesNum - 1);
-
-		const offset =
-			holderPadding / 2 +
-			raceWidth * round -
-			raceWidth / 2 +
-			gutter * (round - 1) -
-			picksWidth / 2;
-
-		if (offset < 0) {
-			return {
-				pickPos: 0,
-				stemPos:
-					holderPadding / 2 +
-					raceWidth / 2 +
-					(raceWidth + gutter) * (round - 1) -
-					stemWidth / 2 * 1.41
-			};
-		} else if (offset + picksWidth > holderWidth) {
-			return {
-				pickPos: holderWidth - picksWidth,
-				stemPos:
-					picksWidth -
-					stemWidth / 2 * 1.41 -
-					raceWidth / 2 -
-					holderPadding / 2 -
-					(raceWidth + gutter) * (racesNum - round)
-			};
-		}
-		return {
-			pickPos: offset,
-			stemPos: picksWidth / 2 - stemWidth / 2
-		};
-	}
-
-	submitPick = async () => {
+	async submitPick() {
 		const { round, onSubmit, updateRace } = this.props;
 		try {
 			const { pick } = (await postPick(round, {
@@ -114,17 +79,20 @@ class StandingList extends Component {
 			updateRace({ round, field: 'hasPick', value: true });
 		} catch (error) {
 			//	todo display an error as a flash message
+			//	doesn't seem like circleCI fetched my last commit
 			console.error('error: unable to save pick!!', error);
 		}
-	};
+	}
 
 	displayButton() {
+		//	todo move to separate component
 		return this.state.status === 'new' ? (
 			<div
 				className="btn btn-submit"
 				onClick={this.submitPick}
 				role="button"
 				tabIndex="0"
+				data-test="submit-pick-button"
 			>
 				<i className="fa fa-check" aria-hidden="true" /> Submit
 			</div>
@@ -139,6 +107,7 @@ class StandingList extends Component {
 				Standings = ForecastNew;
 				break;
 			case 'passed':
+				//	todo rename this status to 'missed'
 				Standings = ForecastMissed;
 				break;
 			default:
@@ -147,12 +116,16 @@ class StandingList extends Component {
 
 		return (
 			<div
-				id="picks"
+				ref={el => {
+					this.picks = el;
+				}}
 				className="StandingList"
 				style={{ left: `${this.state.pickPos}px` }}
 			>
 				<div
-					id="stem"
+					ref={el => {
+						this.stem = el;
+					}}
 					className="stem"
 					style={{ left: `${this.state.stemPos}px` }}
 				/>
@@ -165,6 +138,7 @@ class StandingList extends Component {
 				/>
 				{this.displayButton()}
 			</div>
+			//	todo make function that will create refs
 		);
 	}
 }
@@ -186,13 +160,17 @@ StandingList.defaultProps = {
 };
 
 StandingList.propTypes = {
-	status: PropTypes.string.isRequired,
+	status: PropTypes.oneOf(['new', 'submitted', 'passed']).isRequired,
 	list: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
 	drivers: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
 	round: PropTypes.number.isRequired,
 	races: PropTypes.arrayOf(PropTypes.shape(racePropType)).isRequired,
 	onSubmit: PropTypes.func,
-	updateRace: PropTypes.func.isRequired
+	updateRace: PropTypes.func.isRequired,
+	// eslint-disable-next-line react/forbid-prop-types
+	raceHolderNode: PropTypes.object.isRequired,
+	// eslint-disable-next-line react/forbid-prop-types
+	raceNode: PropTypes.object.isRequired
 };
 
 export default StandingList;

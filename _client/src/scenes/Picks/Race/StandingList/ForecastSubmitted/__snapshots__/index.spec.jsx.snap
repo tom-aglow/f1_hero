@@ -1,0 +1,41 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="standings-container"
+>
+  <Item
+    _driver={
+      Object {
+        "code": "HAM",
+        "name": "L. Hamilton",
+      }
+    }
+    key="1"
+    position={1}
+    score={18}
+  />
+  <Item
+    _driver={
+      Object {
+        "code": "RIC",
+        "name": "D. Ricciardo",
+      }
+    }
+    key="2"
+    position={2}
+    score={5}
+  />
+  <Item
+    _driver={
+      Object {
+        "code": "VAN",
+        "name": "S. Vandoorne",
+      }
+    }
+    key="3"
+    position={3}
+    score={0}
+  />
+</div>
+`;
