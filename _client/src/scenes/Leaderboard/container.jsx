@@ -9,7 +9,7 @@ export const mapStateToProps = state => ({
 	scores: state.data.leaderboard.scores
 });
 
-class LeaderboardContainer extends Component {
+export class LeaderboardContainer extends Component {
 	componentDidMount() {
 		this.props.updatePageHeading('Leaderboard');
 		this.props.getUsersScores();

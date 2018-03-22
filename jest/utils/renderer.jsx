@@ -24,7 +24,7 @@ function init(_component, _defaultProps) {
 	defaultProps = _defaultProps;
 }
 
-function render(props = {}, isShallow = true) {
+function render(props = {}, isShallow = true, options = {}) {
 	const propsToUse = {
 		...defaultProps,
 		...props
@@ -32,7 +32,8 @@ function render(props = {}, isShallow = true) {
 
 	if (isShallow) {
 		return shallow(React.createElement(component, propsToUse), {
-			disableLifecycleMethods: true
+			disableLifecycleMethods: true,
+			...options
 		});
 	}
 

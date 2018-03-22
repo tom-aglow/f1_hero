@@ -6,7 +6,7 @@ import { getRaceList, selectRace } from '../../data/races/actions';
 import { getDriverList } from '../../data/drivers/actions';
 import Picks from './index';
 
-class PicksContainer extends Component {
+export class PicksContainer extends Component {
 	componentDidMount() {
 		this.props.updatePageHeading('My picks');
 		this.props.getRaceList();
