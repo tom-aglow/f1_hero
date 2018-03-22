@@ -1,6 +1,6 @@
 import {
 	isObjectEmpty,
-	getNodePadding,
+	getNodeHorPadding,
 	calculatePickAndStemLeftPosition
 } from './functions';
 
@@ -22,7 +22,7 @@ describe('"getNodePadding" function', () => {
 		const padding = 20;
 		node.style.padding = `0px ${padding}px`;
 
-		expect(getNodePadding(node)).toBe(padding * 2);
+		expect(getNodeHorPadding(node)).toBe(padding * 2);
 	});
 });
 

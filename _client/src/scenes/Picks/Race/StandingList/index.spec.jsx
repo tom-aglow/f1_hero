@@ -124,3 +124,25 @@ it("submits user's forecast", done => {
 		});
 	});
 });
+
+it('can sort new forecast list', () => {
+	const oldIndex = 1;
+	const newIndex = 0;
+	const wrapper = r.render({ status: 'new' });
+	const initialList = wrapper.state('list');
+
+	const forecast = wrapper.find(ForecastNew);
+	forecast.props().onSortEnd({ oldIndex, newIndex });
+
+	const newList = wrapper.update().state('list');
+
+	expect(newList[newIndex]._driver).toMatchObject(
+		initialList[oldIndex]._driver
+	);
+	expect(newList[oldIndex]._driver).toMatchObject(
+		initialList[newIndex]._driver
+	);
+
+	expect(newList[0].position).toBe(1);
+	expect(newList[1].position).toBe(2);
+});

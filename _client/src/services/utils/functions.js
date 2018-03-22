@@ -7,7 +7,7 @@ const getNodePropValue = (node, propName) => {
 	return parseInt(nodeStyle.getPropertyValue(propName), 10);
 };
 
-export const getNodePadding = node =>
+export const getNodeHorPadding = node =>
 	getNodePropValue(node, 'padding-right') +
 	getNodePropValue(node, 'padding-left');
 
@@ -21,7 +21,7 @@ export const calculatePickAndStemLeftPosition = (
 	const raceWidth = getNodePropValue(raceNode, 'width');
 	const holderWidth = getNodePropValue(raceHolderNode, 'width');
 
-	const holderPadding = getNodePadding(raceHolderNode);
+	const holderPadding = getNodeHorPadding(raceHolderNode);
 
 	const gutter = (holderWidth - raceWidth * racesNum) / (racesNum - 1);
 
