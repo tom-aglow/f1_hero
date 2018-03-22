@@ -7,7 +7,7 @@ import { selectRace } from '../../../data/races/actions';
 
 const RaceContainer = props => <Race {...props} />;
 
-const mapStateToProps = state => ({
+export const mapStateToProps = state => ({
 	selectedRace: state.data.races.selected
 });
 

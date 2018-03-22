@@ -5,7 +5,9 @@ import { getUsersScores } from '../../data/leaderboard/actions';
 import { updatePageHeading } from '../../services/page/actions';
 import Leaderboard from './index';
 
-const mapStateToProps = state => ({ scores: state.data.leaderboard.scores });
+export const mapStateToProps = state => ({
+	scores: state.data.leaderboard.scores
+});
 
 class LeaderboardContainer extends Component {
 	componentDidMount() {

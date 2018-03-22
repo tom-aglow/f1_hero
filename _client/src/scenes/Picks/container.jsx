@@ -22,7 +22,7 @@ class PicksContainer extends Component {
 	}
 }
 
-const mapStateToProps = state => ({ races: state.data.races.all });
+export const mapStateToProps = state => ({ races: state.data.races.all });
 
 export default connect(mapStateToProps, {
 	updatePageHeading,
