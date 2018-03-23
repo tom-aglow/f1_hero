@@ -1,9 +1,8 @@
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
 
 const setupMongoose = require('./config/setupMongoose');
 const setupModels = require('./config/setupModels');
+const setupMiddleware = require('./config/setupMiddleware');
 const getRouter = require('./routes');
 
 const start = async () => {
@@ -13,9 +12,7 @@ const start = async () => {
 
 	//	CREATING AND CONFIGURING A SERVER
 	const app = express();
-	app.use(cors());
-	app.use(bodyParser.urlencoded({ extended: true }));
-	app.use(bodyParser.json());
+	app.use(...setupMiddleware());
 
 	// 	ROUTES
 	app.use(getRouter());
