@@ -4,7 +4,8 @@
 		"test": {
 			"plugins": [
 				"transform-es2015-modules-commonjs",
-				"babel-plugin-transform-class-properties"
+				"transform-class-properties",
+				"transform-async-to-generator"
 			]
 		}
 	}
