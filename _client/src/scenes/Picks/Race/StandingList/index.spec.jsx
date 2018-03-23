@@ -10,6 +10,7 @@ import ForecastNew from './ForecastNew';
 import ForecastMissed from './ForecastMissed';
 import ForecastSubmitted from './ForecastSubmitted';
 import Item from './Item';
+import SubmitButton from './SubmitButton';
 import { endPoints } from './api';
 
 const defaultProps = {
@@ -58,21 +59,21 @@ describe('renders correct forecast component', () => {
 describe('submit button', () => {
 	it('is shown when user is picking a new race forecast', () => {
 		const wrapper = r.render({ status: 'new' });
-		const button = wrapper.find(sel('submit-pick-button'));
+		const button = wrapper.find(SubmitButton);
 
 		expect(button).toHaveLength(1);
 	});
 
 	it('is hidden when user is checking previously submitted forecast', () => {
 		const wrapper = r.render({ status: 'submitted' });
-		const button = wrapper.find(sel('submit-pick-button'));
+		const button = wrapper.find(SubmitButton);
 
 		expect(button).toHaveLength(0);
 	});
 
 	it('is hidden when user is checking previously missed forecast', () => {
 		const wrapper = r.render({ status: 'passed' });
-		const button = wrapper.find(sel('submit-pick-button'));
+		const button = wrapper.find(SubmitButton);
 
 		expect(button).toHaveLength(0);
 	});
@@ -82,7 +83,7 @@ it("submits user's forecast", done => {
 	const onSubmit = jest.fn();
 	const updateRace = jest.fn();
 	const wrapper = r.render({ status: 'new', onSubmit, updateRace });
-	const button = wrapper.find(sel('submit-pick-button'));
+	const button = wrapper.find(SubmitButton);
 
 	moxios.withMock(() => {
 		button.simulate('click');

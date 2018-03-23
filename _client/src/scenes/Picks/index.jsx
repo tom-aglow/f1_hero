@@ -45,8 +45,6 @@ class Picks extends Component {
 	}
 }
 
-//	todo: pass content as children
-
 Picks.propTypes = {
 	races: PropTypes.arrayOf(
 		PropTypes.shape({

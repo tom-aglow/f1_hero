@@ -7,6 +7,7 @@ import { calculatePickAndStemLeftPosition } from 'App/services/utils/functions';
 import ForecastNew from './ForecastNew';
 import ForecastMissed from './ForecastMissed';
 import ForecastSubmitted from './ForecastSubmitted';
+import SubmitButton from './SubmitButton';
 import { postPick } from './api';
 import { racePropType } from '../index';
 import './styles.scss';
@@ -78,25 +79,11 @@ class StandingList extends Component {
 		}
 	};
 
-	displayButton() {
-		//	todo move to separate component
-		return this.state.status === 'new' ? (
-			<div
-				className="btn btn-submit"
-				onClick={this.submitPick}
-				role="button"
-				tabIndex="0"
-				data-test="submit-pick-button"
-			>
-				<i className="fa fa-check" aria-hidden="true" /> Submit
-			</div>
-		) : null;
-	}
-
 	render() {
+		const { status } = this.state;
 		let Standings;
 
-		switch (this.state.status) {
+		switch (status) {
 			case 'new':
 				Standings = ForecastNew;
 				break;
@@ -130,7 +117,7 @@ class StandingList extends Component {
 					helperClass="draggable"
 					lockAxis="y"
 				/>
-				{this.displayButton()}
+				{status === 'new' && <SubmitButton onClick={this.submitPick} />}
 			</div>
 			//	todo make function that will create refs
 		);
