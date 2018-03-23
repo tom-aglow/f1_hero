@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { makeRef } from 'App/services/utils/functions';
 
 import Race from './Race/container';
 import Loader from '../../components/Loader';
@@ -33,12 +34,7 @@ class Picks extends Component {
 
 	render() {
 		return (
-			<div
-				className="Picks"
-				ref={el => {
-					this.raceHolderNode = el;
-				}}
-			>
+			<div className="Picks" ref={makeRef('raceHolderNode', this)}>
 				{this.renderContent()}
 			</div>
 		);

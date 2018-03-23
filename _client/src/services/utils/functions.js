@@ -59,3 +59,8 @@ export const calculatePickAndStemLeftPosition = (
 		stemPos: Math.round(picksWidth / 2 - stemWidth / 2)
 	};
 };
+
+export const makeRef = (name, _this) => el => {
+	// eslint-disable-next-line no-param-reassign
+	_this[name] = el;
+};

@@ -2,7 +2,7 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { isObjectEmpty } from '../../../services/utils/functions';
+import { isObjectEmpty, makeRef } from 'App/services/utils/functions';
 import { getPick } from './api';
 import StandingList from './StandingList/container';
 import StatusIcon from './StatusIcon';
@@ -93,9 +93,7 @@ class Race extends Component {
 
 		return (
 			<div
-				ref={el => {
-					this.raceNode = el;
-				}}
+				ref={makeRef('raceNode', this)}
 			>
 				<div
 					className="Race"

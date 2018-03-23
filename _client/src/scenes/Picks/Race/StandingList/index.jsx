@@ -2,7 +2,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { arrayMove } from 'react-sortable-hoc';
-import { calculatePickAndStemLeftPosition } from 'App/services/utils/functions';
+import {
+	calculatePickAndStemLeftPosition,
+	makeRef
+} from 'App/services/utils/functions';
 
 import ForecastNew from './ForecastNew';
 import ForecastMissed from './ForecastMissed';
@@ -96,16 +99,12 @@ class StandingList extends Component {
 
 		return (
 			<div
-				ref={el => {
-					this.picks = el;
-				}}
+				ref={makeRef('picks', this)}
 				className="StandingList"
 				style={{ left: `${this.state.pickPos}px` }}
 			>
 				<div
-					ref={el => {
-						this.stem = el;
-					}}
+					ref={makeRef('stem', this)}
 					className="stem"
 					style={{ left: `${this.state.stemPos}px` }}
 				/>
