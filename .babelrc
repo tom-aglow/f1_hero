@@ -1,11 +1,14 @@
 {
 	"presets": ["env", "react"],
+	"plugins": [
+		"transform-async-to-generator",
+		"transform-class-properties",
+		"transform-object-rest-spread"
+	],
 	"env": {
 		"test": {
 			"plugins": [
-				"transform-es2015-modules-commonjs",
-				"transform-class-properties",
-				"transform-async-to-generator"
+				"transform-es2015-modules-commonjs"
 			]
 		}
 	}
