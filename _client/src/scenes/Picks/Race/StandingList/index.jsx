@@ -87,8 +87,7 @@ class StandingList extends Component {
 			case 'new':
 				Standings = ForecastNew;
 				break;
-			case 'passed':
-				//	todo rename this status to 'missed'
+			case 'missed':
 				Standings = ForecastMissed;
 				break;
 			default:

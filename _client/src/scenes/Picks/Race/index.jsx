@@ -55,7 +55,7 @@ class Race extends Component {
 		} else if (race.isPassed) {
 			return (
 				<StandingList
-					status="passed"
+					status="missed"
 					round={race.round}
 					raceNode={this.raceNode}
 					raceHolderNode={raceHolderNode}

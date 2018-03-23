@@ -39,8 +39,8 @@ describe('renders correct forecast component', () => {
 		expect(wrapper.find(ForecastSubmitted)).toHaveLength(0);
 	});
 
-	it('when provided status is passed', () => {
-		const wrapper = r.render({ status: 'passed' });
+	it('when provided status is missed', () => {
+		const wrapper = r.render({ status: 'missed' });
 
 		expect(wrapper.find(ForecastMissed)).toHaveLength(1);
 		expect(wrapper.find(ForecastNew)).toHaveLength(0);
@@ -72,7 +72,7 @@ describe('submit button', () => {
 	});
 
 	it('is hidden when user is checking previously missed forecast', () => {
-		const wrapper = r.render({ status: 'passed' });
+		const wrapper = r.render({ status: 'missed' });
 		const button = wrapper.find(SubmitButton);
 
 		expect(button).toHaveLength(0);
