@@ -3,6 +3,7 @@ import racesSample from 'JestClient/samples/races';
 import { sel } from 'JestClient/functions';
 
 import Race from './index';
+import StatusIcon from './StatusIcon';
 
 const defaultProps = {
 	race: racesSample.all[0],
@@ -22,7 +23,10 @@ describe('renders correct race status icon', () => {
 		const wrapper = r.render({
 			race: { ...defaultProps.race, hasPick: false, isPassed: true }
 		});
-		const status = wrapper.find(sel('race-status-passed'));
+		const status = wrapper
+			.find(StatusIcon)
+			.dive()
+			.find(sel('race-status-passed'));
 
 		expect(status).toHaveLength(1);
 	});
@@ -31,7 +35,10 @@ describe('renders correct race status icon', () => {
 		const wrapper = r.render({
 			race: { ...defaultProps.race, hasPick: true, isPassed: false }
 		});
-		const status = wrapper.find(sel('race-status-submitted'));
+		const status = wrapper
+			.find(StatusIcon)
+			.dive()
+			.find(sel('race-status-submitted'));
 
 		expect(status).toHaveLength(1);
 	});
@@ -40,7 +47,10 @@ describe('renders correct race status icon', () => {
 		const wrapper = r.render({
 			race: { ...defaultProps.race, hasPick: false, isPassed: false }
 		});
-		const status = wrapper.find(sel('race-status-new'));
+		const status = wrapper
+			.find(StatusIcon)
+			.dive()
+			.find(sel('race-status-new'));
 
 		expect(status).toHaveLength(1);
 	});

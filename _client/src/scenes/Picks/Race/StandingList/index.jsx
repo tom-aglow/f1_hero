@@ -140,7 +140,7 @@ StandingList.defaultProps = {
 };
 
 StandingList.propTypes = {
-	status: PropTypes.oneOf(['new', 'submitted', 'passed']).isRequired,
+	status: PropTypes.oneOf(['new', 'submitted', 'missed']).isRequired,
 	list: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
 	drivers: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
 	round: PropTypes.number.isRequired,

@@ -9,10 +9,9 @@ exports[`renders correctly 1`] = `
     role="link"
     tabIndex="0"
   >
-    <i
-      aria-hidden="true"
-      className="fa fa-check"
-      data-test="race-status-passed"
+    <StatusIcon
+      iconClass="fa-check"
+      status="passed"
     />
     <div
       className="img-container"
