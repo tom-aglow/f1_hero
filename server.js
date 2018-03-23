@@ -3,16 +3,20 @@ const express = require('express');
 const setupMongoose = require('./config/setupMongoose');
 const setupModels = require('./config/setupModels');
 const setupMiddleware = require('./config/setupMiddleware');
+const { setupPassport } = require('./config/setupPassport');
 const getRouter = require('./routes');
 
 const start = async () => {
 	//	DB SETUP
 	const cleanupMongoose = await setupMongoose();
-	setupModels();
+	await setupModels();
 
 	//	CREATING AND CONFIGURING A SERVER
 	const app = express();
+
+	//	setup application level middleware
 	app.use(...setupMiddleware());
+	app.use(...setupPassport());
 
 	// 	ROUTES
 	app.use(getRouter());
