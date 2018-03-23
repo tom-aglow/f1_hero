@@ -1,4 +1,4 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/no-did-mount-set-state */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { arrayMove } from 'react-sortable-hoc';
@@ -117,7 +117,6 @@ class StandingList extends Component {
 				/>
 				{status === 'new' && <SubmitButton onClick={this.submitPick} />}
 			</div>
-			//	todo make function that will create refs
 		);
 	}
 }

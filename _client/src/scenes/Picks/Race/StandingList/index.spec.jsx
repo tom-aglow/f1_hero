@@ -2,7 +2,6 @@ import r from 'Root/jest/utils/renderer';
 import pickSample from 'JestClient/samples/pick';
 import driversSample from 'JestClient/samples/drivers';
 import racesSample from 'JestClient/samples/races';
-import { sel } from 'JestClient/functions';
 import moxios from 'moxios';
 
 import StandingList from './index';

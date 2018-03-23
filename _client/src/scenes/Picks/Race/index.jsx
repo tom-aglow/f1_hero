@@ -92,9 +92,7 @@ class Race extends Component {
 		const scoreText = score ? `${score}pt` : '-';
 
 		return (
-			<div
-				ref={makeRef('raceNode', this)}
-			>
+			<div ref={makeRef('raceNode', this)}>
 				<div
 					className="Race"
 					onClick={this.fetchPick}

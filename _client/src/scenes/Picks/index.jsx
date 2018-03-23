@@ -1,3 +1,4 @@
+/* eslint-disable react/no-did-mount-set-state,react/no-unused-state */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { makeRef } from 'App/services/utils/functions';

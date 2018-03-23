@@ -11,7 +11,12 @@ const ForecastNew = ({ items }) => {
 	return (
 		<div className="standings-container">
 			{items.map((value, index) => (
-				<SortableItem key={`item-${value.position}`} index={index} {...value} data-test="new-standing-item"/>
+				<SortableItem
+					key={`item-${value.position}`}
+					index={index}
+					{...value}
+					data-test="new-standing-item"
+				/>
 			))}
 		</div>
 	);
