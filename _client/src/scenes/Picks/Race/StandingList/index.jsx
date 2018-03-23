@@ -20,11 +20,6 @@ class StandingList extends Component {
 		status: this.props.status
 	};
 
-	constructor(props) {
-		super(props);
-		this.submitPick = this.submitPick.bind(this);
-	}
-
 	componentDidMount() {
 		const { races, round, raceNode, raceHolderNode } = this.props;
 		const { pickPos, stemPos } = calculatePickAndStemLeftPosition(
@@ -60,29 +55,30 @@ class StandingList extends Component {
 		this.setState(newState);
 	};
 
-	async submitPick() {
+	submitPick = () => {
 		const { round, onSubmit, updateRace } = this.props;
 		try {
-			const { pick } = (await postPick(round, {
+			postPick(round, {
 				round,
 				forecast: this.state.list.slice(0, 10)
-			})).data;
+			}).then(res => {
+				const { pick } = res.data;
 
-			const newState = {
-				...this.state,
-				status: 'submitted',
-				list: pick.forecast
-			};
+				const newState = {
+					...this.state,
+					status: 'submitted',
+					list: pick.forecast
+				};
 
-			this.setState(newState);
-			onSubmit(pick);
-			updateRace({ round, field: 'hasPick', value: true });
+				this.setState(newState);
+				onSubmit(pick);
+				updateRace({ round, field: 'hasPick', value: true });
+			});
 		} catch (error) {
 			//	todo display an error as a flash message
-			//	doesn't seem like circleCI fetched my last commit
 			console.error('error: unable to save pick!!', error);
 		}
-	}
+	};
 
 	displayButton() {
 		//	todo move to separate component
