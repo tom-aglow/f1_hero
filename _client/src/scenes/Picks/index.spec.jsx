@@ -90,7 +90,7 @@ describe('renders standing list', () => {
 		});
 	});
 
-	it("with status 'passed' if user has submitted the pick and race has passed", done => {
+	it("with status 'missed' if user has submitted the pick and race has passed", done => {
 		const race = wrapper.find(Race).at(1);
 		expect(race.props().race.hasPick).toBe(false);
 		expect(race.props().race.isPassed).toBe(true);
@@ -107,7 +107,7 @@ describe('renders standing list', () => {
 				});
 
 				const standingList = wrapper.update().find(StandingList);
-				expect(standingList.props().status).toBe('passed');
+				expect(standingList.props().status).toBe('missed');
 				done();
 			});
 		});

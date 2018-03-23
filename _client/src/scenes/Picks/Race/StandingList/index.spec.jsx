@@ -2,7 +2,6 @@ import r from 'Root/jest/utils/renderer';
 import pickSample from 'JestClient/samples/pick';
 import driversSample from 'JestClient/samples/drivers';
 import racesSample from 'JestClient/samples/races';
-import { sel } from 'JestClient/functions';
 import moxios from 'moxios';
 
 import StandingList from './index';
@@ -10,6 +9,7 @@ import ForecastNew from './ForecastNew';
 import ForecastMissed from './ForecastMissed';
 import ForecastSubmitted from './ForecastSubmitted';
 import Item from './Item';
+import SubmitButton from './SubmitButton';
 import { endPoints } from './api';
 
 const defaultProps = {
@@ -38,8 +38,8 @@ describe('renders correct forecast component', () => {
 		expect(wrapper.find(ForecastSubmitted)).toHaveLength(0);
 	});
 
-	it('when provided status is passed', () => {
-		const wrapper = r.render({ status: 'passed' });
+	it('when provided status is missed', () => {
+		const wrapper = r.render({ status: 'missed' });
 
 		expect(wrapper.find(ForecastMissed)).toHaveLength(1);
 		expect(wrapper.find(ForecastNew)).toHaveLength(0);
@@ -58,21 +58,21 @@ describe('renders correct forecast component', () => {
 describe('submit button', () => {
 	it('is shown when user is picking a new race forecast', () => {
 		const wrapper = r.render({ status: 'new' });
-		const button = wrapper.find(sel('submit-pick-button'));
+		const button = wrapper.find(SubmitButton);
 
 		expect(button).toHaveLength(1);
 	});
 
 	it('is hidden when user is checking previously submitted forecast', () => {
 		const wrapper = r.render({ status: 'submitted' });
-		const button = wrapper.find(sel('submit-pick-button'));
+		const button = wrapper.find(SubmitButton);
 
 		expect(button).toHaveLength(0);
 	});
 
 	it('is hidden when user is checking previously missed forecast', () => {
-		const wrapper = r.render({ status: 'passed' });
-		const button = wrapper.find(sel('submit-pick-button'));
+		const wrapper = r.render({ status: 'missed' });
+		const button = wrapper.find(SubmitButton);
 
 		expect(button).toHaveLength(0);
 	});
@@ -82,7 +82,7 @@ it("submits user's forecast", done => {
 	const onSubmit = jest.fn();
 	const updateRace = jest.fn();
 	const wrapper = r.render({ status: 'new', onSubmit, updateRace });
-	const button = wrapper.find(sel('submit-pick-button'));
+	const button = wrapper.find(SubmitButton);
 
 	moxios.withMock(() => {
 		button.simulate('click');

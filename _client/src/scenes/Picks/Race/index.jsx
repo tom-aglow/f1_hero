@@ -2,9 +2,10 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import { isObjectEmpty } from '../../../services/utils/functions';
+import { isObjectEmpty, makeRef } from 'App/services/utils/functions';
 import { getPick } from './api';
 import StandingList from './StandingList/container';
+import StatusIcon from './StatusIcon';
 import './styles.scss';
 
 class Race extends Component {
@@ -55,7 +56,7 @@ class Race extends Component {
 		} else if (race.isPassed) {
 			return (
 				<StandingList
-					status="passed"
+					status="missed"
 					round={race.round}
 					raceNode={this.raceNode}
 					raceHolderNode={raceHolderNode}
@@ -73,33 +74,16 @@ class Race extends Component {
 		);
 	}
 
-	//	todo try to merge displayStatus and display Pick methods
-
-	displayStatus() {
+	displayStatusIcon() {
 		const { isPassed, hasPick } = this.props.race;
-		if (isPassed) {
-			return (
-				<i
-					className="fa fa-check"
-					aria-hidden="true"
-					data-test="race-status-passed"
-				/>
-			);
-		} else if (hasPick) {
-			return (
-				<i
-					className="fa fa-circle"
-					aria-hidden="true"
-					data-test="race-status-submitted"
-				/>
-			);
-		}
-		return (
-			<i
-				className="fa fa-circle-o"
-				aria-hidden="true"
-				data-test="race-status-new"
-			/>
+
+		// eslint-disable-next-line no-nested-ternary
+		return isPassed ? (
+			<StatusIcon iconClass="fa-check" status="passed" />
+		) : hasPick ? (
+			<StatusIcon iconClass="fa-circle" status="submitted" />
+		) : (
+			<StatusIcon iconClass="fa-circle-o" status="new" />
 		);
 	}
 
@@ -108,11 +92,7 @@ class Race extends Component {
 		const scoreText = score ? `${score}pt` : '-';
 
 		return (
-			<div
-				ref={el => {
-					this.raceNode = el;
-				}}
-			>
+			<div ref={makeRef('raceNode', this)}>
 				<div
 					className="Race"
 					onClick={this.fetchPick}
@@ -120,7 +100,7 @@ class Race extends Component {
 					tabIndex="0"
 					data-test="race"
 				>
-					{this.displayStatus()}
+					{this.displayStatusIcon()}
 					<div className="img-container">
 						<img src={flagUrl} alt={`flag of ${alpha3code}`} />
 					</div>

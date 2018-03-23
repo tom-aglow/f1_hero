@@ -1,12 +1,16 @@
-/* eslint-disable jsx-a11y/click-events-have-key-events */
+/* eslint-disable react/no-did-mount-set-state */
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { arrayMove } from 'react-sortable-hoc';
-import { calculatePickAndStemLeftPosition } from 'App/services/utils/functions';
+import {
+	calculatePickAndStemLeftPosition,
+	makeRef
+} from 'App/services/utils/functions';
 
 import ForecastNew from './ForecastNew';
 import ForecastMissed from './ForecastMissed';
 import ForecastSubmitted from './ForecastSubmitted';
+import SubmitButton from './SubmitButton';
 import { postPick } from './api';
 import { racePropType } from '../index';
 import './styles.scss';
@@ -78,30 +82,15 @@ class StandingList extends Component {
 		}
 	};
 
-	displayButton() {
-		//	todo move to separate component
-		return this.state.status === 'new' ? (
-			<div
-				className="btn btn-submit"
-				onClick={this.submitPick}
-				role="button"
-				tabIndex="0"
-				data-test="submit-pick-button"
-			>
-				<i className="fa fa-check" aria-hidden="true" /> Submit
-			</div>
-		) : null;
-	}
-
 	render() {
+		const { status } = this.state;
 		let Standings;
 
-		switch (this.state.status) {
+		switch (status) {
 			case 'new':
 				Standings = ForecastNew;
 				break;
-			case 'passed':
-				//	todo rename this status to 'missed'
+			case 'missed':
 				Standings = ForecastMissed;
 				break;
 			default:
@@ -110,16 +99,12 @@ class StandingList extends Component {
 
 		return (
 			<div
-				ref={el => {
-					this.picks = el;
-				}}
+				ref={makeRef('picks', this)}
 				className="StandingList"
 				style={{ left: `${this.state.pickPos}px` }}
 			>
 				<div
-					ref={el => {
-						this.stem = el;
-					}}
+					ref={makeRef('stem', this)}
 					className="stem"
 					style={{ left: `${this.state.stemPos}px` }}
 				/>
@@ -130,9 +115,8 @@ class StandingList extends Component {
 					helperClass="draggable"
 					lockAxis="y"
 				/>
-				{this.displayButton()}
+				{status === 'new' && <SubmitButton onClick={this.submitPick} />}
 			</div>
-			//	todo make function that will create refs
 		);
 	}
 }
@@ -154,7 +138,7 @@ StandingList.defaultProps = {
 };
 
 StandingList.propTypes = {
-	status: PropTypes.oneOf(['new', 'submitted', 'passed']).isRequired,
+	status: PropTypes.oneOf(['new', 'submitted', 'missed']).isRequired,
 	list: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
 	drivers: PropTypes.arrayOf(PropTypes.shape(listItemPropTypes)),
 	round: PropTypes.number.isRequired,

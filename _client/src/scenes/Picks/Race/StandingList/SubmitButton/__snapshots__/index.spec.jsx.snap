@@ -1,0 +1,16 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="btn SubmitButton"
+  onClick={[MockFunction]}
+  role="button"
+  tabIndex="0"
+>
+  <i
+    aria-hidden="true"
+    className="fa fa-check"
+  />
+   Submit
+</div>
+`;
