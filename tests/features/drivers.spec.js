@@ -1,41 +1,34 @@
-/* eslint-disable one-var */
-const axios = require('axios');
-const passportStub = require('passport-stub-es6');
-
-const startServer = require('../../server');
-const { clearAllCollections } = require('../../jest/utils/functions');
 const f = require('../../jest/utils/factories');
-
-const api = axios.create({ baseURL: 'http://localhost:3002/api' });
-
-let server, user, app;
-
-const signIn = u => passportStub.login(u);
-const signOut = () => passportStub.logout();
+const h = require('../../jest/utils/helper');
 
 beforeAll(async done => {
-	({ server, app } = await startServer());
-	passportStub.install(app);
-	user = await f.create('user');
+	await h.beforeAll();
 	done();
 });
 
-afterAll(done => {
-	server.close(done);
+afterAll(async done => {
+	await h.afterAll();
+	done();
 });
 
 beforeEach(async done => {
-	clearAllCollections();
-	signOut();
+	await h.beforeEach();
 	done();
 });
 
 test('user can fetch all drivers in correct format', async () => {
-	signIn(user);
+	h.signIn();
 	const { id, code, name } = await f.create('driver');
 	await f.create('driver');
-	const response = await api.get('/drivers').then(res => res.data.drivers);
+	const response = await h.api.get('/drivers').then(res => res.data.drivers);
 
 	expect(response).toHaveLength(2);
 	expect(response).toContainEqual({ _id: id, code, name });
+});
+
+test('unauthenticated user cannot get drivers info', async () => {
+	await f.create('driver');
+	const error = await h.api.get('/drivers').catch(err => err.response);
+
+	expect(error.status).toBe(401);
 });

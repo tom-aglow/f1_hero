@@ -1,42 +1,46 @@
-/* eslint-disable one-var */
-const axios = require('axios');
-const passportStub = require('passport-stub-es6');
-
-const startServer = require('../../server');
-const { clearAllCollections } = require('../../jest/utils/functions');
 const f = require('../../jest/utils/factories');
-
-const api = axios.create({ baseURL: 'http://localhost:3002/api' });
-
-let server, user, app;
-
-const signIn = u => passportStub.login(u);
-const signOut = () => passportStub.logout();
+const h = require('../../jest/utils/helper');
 
 beforeAll(async done => {
-	({ server, app } = await startServer());
-	passportStub.install(app);
-	user = await f.create('user');
+	await h.beforeAll();
 	done();
 });
 
-afterAll(done => {
-	server.close(done);
+afterAll(async done => {
+	await h.afterAll();
+	done();
 });
 
 beforeEach(async done => {
-	clearAllCollections();
-	signOut();
+	await h.beforeEach();
 	done();
 });
 
-test('user can fetch pick info', async () => {
-	signIn(user);
+describe('GET /api/picks/:round', () => {
 	const round = 1;
-	const race = await f.create('race', { round });
-	const pick = await f.create('pick', { _user: user._id, _race: race._id });
+	let race;
 
-	const response = await api.get(`/picks/${round}`).then(res => res.data.pick);
+	beforeAll(async done => {
+		race = await f.create('race', { round });
+		await f.create('pick', { _user: h.getUser()._id, _race: race._id });
+		done();
+	});
 
-	expect(response._race).toBe(race.id);
+	test('user can fetch pick info', async done => {
+		h.signIn();
+
+		const response = await h.api
+			.get(`/picks/${round}`)
+			.then(res => res.data.pick);
+
+		expect(response._race).toBe(race.id);
+		done();
+	});
+
+	test('unauthenticated user cannot get pick info', async done => {
+		const error = await h.api.get(`/picks/${round}`).catch(err => err.response);
+
+		expect(error.status).toBe(401);
+		done();
+	});
 });
