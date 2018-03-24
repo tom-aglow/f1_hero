@@ -40,7 +40,7 @@ const start = async () => {
 		const server = app.listen(port, () => {
 			console.log(`Find the server at: http://localhost:${port}/`); // eslint-disable-line no-console
 			server.on('close', () => cleanupMongoose());
-			resolve(server);
+			resolve({ server, app });
 		});
 	});
 };
