@@ -1,21 +1,22 @@
 const express = require('express');
-const cors = require('cors');
-const bodyParser = require('body-parser');
 
 const setupMongoose = require('./config/setupMongoose');
 const setupModels = require('./config/setupModels');
+const setupMiddleware = require('./config/setupMiddleware');
+const { setupPassport } = require('./config/setupPassport');
 const getRouter = require('./routes');
 
 const start = async () => {
 	//	DB SETUP
 	const cleanupMongoose = await setupMongoose();
-	setupModels();
+	await setupModels();
 
 	//	CREATING AND CONFIGURING A SERVER
 	const app = express();
-	app.use(cors());
-	app.use(bodyParser.urlencoded({ extended: true }));
-	app.use(bodyParser.json());
+
+	//	setup application level middleware
+	app.use(...setupMiddleware());
+	app.use(...setupPassport());
 
 	// 	ROUTES
 	app.use(getRouter());
@@ -39,7 +40,7 @@ const start = async () => {
 		const server = app.listen(port, () => {
 			console.log(`Find the server at: http://localhost:${port}/`); // eslint-disable-line no-console
 			server.on('close', () => cleanupMongoose());
-			resolve(server);
+			resolve({ server, app });
 		});
 	});
 };

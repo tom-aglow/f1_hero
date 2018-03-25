@@ -1,3 +1,4 @@
+/* eslint-disable no-prototype-builtins */
 const { BASETRIP_SECRET } = require('../config/keys');
 const axios = require('axios');
 
@@ -52,18 +53,20 @@ const getCountryFlag = async country => {
 
 const getForecastScore = (results, forecast) =>
 	forecast.map(standing => {
-		const driverResult = results.filter(
-			result => result.number === String(standing._driver.number)
-		)[0];
+		const driverResult = results.find(
+			result => Number(result.number) === Number(standing._driver.number)
+		);
 		const posDifference = driverResult
 			? Math.abs(driverResult.position - standing.position)
 			: 100;
-
-		standing.score = scoreRules.hasOwnProperty(posDifference)
+		const score = scoreRules.hasOwnProperty(posDifference)
 			? scoreRules[posDifference]
 			: 0;
 
-		return standing;
+		return {
+			...standing,
+			score
+		};
 	});
 
 module.exports = {

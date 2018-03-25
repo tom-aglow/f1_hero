@@ -59,8 +59,8 @@ async function createPick(fields) {
 	const Pick = mongoose.model('pick');
 
 	return Pick.create({
-		_user: await self.createUser(),
-		_race: await self.createRace(),
+		_user: fields._user || (await self.createUser()),
+		_race: fields._race || (await self.createRace()),
 		forecast: [],
 		...fields
 	});

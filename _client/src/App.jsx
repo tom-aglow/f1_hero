@@ -3,27 +3,19 @@ import { Route, Switch } from 'react-router-dom';
 import { Provider } from 'react-redux';
 
 import store from './store';
-import Header from './components/Header/container';
-import Leaderboard from './scenes/Leaderboard/container';
-import Picks from './scenes/Picks/container';
-import Rules from './scenes/Rules/container';
+import Content from './Content';
+import Login from './scenes/Login';
+import requireAuth from './hoc/requireAuth';
 
 //	css styles
 import './styles/layout.scss';
 
-//	404 component placeholder
-const FourOhFour = () => <h1>404</h1>;
-
 const App = () => (
 	<Provider store={store}>
 		<div className="app">
-			<Header />
 			<Switch>
-				<Route exact path="/" component={Picks} />
-				<Route exact path="/picks" component={Picks} />
-				<Route path="/leaderboard" component={Leaderboard} />
-				<Route path="/rules" component={Rules} />
-				<Route component={FourOhFour} />
+				<Route path="/login" component={Login} />
+				<Route path="" component={requireAuth(Content)} />
 			</Switch>
 		</div>
 	</Provider>

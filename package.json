@@ -10,7 +10,7 @@
 		"server": "nodemon server.js",
 		"client": "npm run dev --prefix _client",
 		"dev": "concurrently \"npm run server\" \"npm run client\"",
-		"test": "PORT=3002 jest --coverage",
+		"test": "PORT=3002 jest --coverage --runInBand",
 		"test:watch": "PORT=3002 jest --watch --verbose",
 		"lint": "eslint . --ext .js,.jsx --quiet",
 		"format": "prettier --write '**/*.{js,jsx}'",
@@ -69,7 +69,9 @@
 		"jest-serializer-enzyme": "^1.0.0",
 		"lint-staged": "^7.0.0",
 		"moxios": "^0.4.0",
-		"prettier": "^1.11.1"
+		"passport-stub-es6": "^1.0.0",
+		"prettier": "^1.11.1",
+		"transform-props": "^1.0.1"
 	},
 	"jest": {
 		"setupTestFrameworkScriptFile": "<rootDir>/jest/setup.js",
@@ -86,6 +88,7 @@
 			"!**/node_modules/**",
 			"!coverage/**",
 			"!config/**",
+			"!jest/mocks/**",
 			"!_client/public/**",
 			"!_client/webpack.config.js",
 			"!_client/postcss.config.js",
