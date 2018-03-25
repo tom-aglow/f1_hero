@@ -21,17 +21,21 @@ function signOut() {
 
 async function beforeAll() {
 	({ server, app } = await startServer());
-	await clearAllCollections();
 	passportStub.install(app);
-	user = await f.create('user');
 }
 
 function afterAll() {
 	server.close();
 }
 
-function beforeEach() {
+async function afterEach() {
+	return null;
+}
+
+async function beforeEach() {
 	signOut();
+	await clearAllCollections();
+	user = await f.create('user');
 }
 
 function getUser() {
@@ -44,6 +48,7 @@ const helper = {
 	beforeAll,
 	afterAll,
 	beforeEach,
+	afterEach,
 	api,
 	auth,
 	getUser

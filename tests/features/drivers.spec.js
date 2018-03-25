@@ -16,6 +16,11 @@ beforeEach(async done => {
 	done();
 });
 
+afterEach(async done => {
+	await h.afterEach();
+	done();
+});
+
 test('user can fetch all drivers in correct format', async () => {
 	h.signIn();
 	const { id, code, name } = await f.create('driver');

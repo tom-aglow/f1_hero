@@ -16,6 +16,11 @@ beforeEach(async done => {
 	done();
 });
 
+afterEach(async done => {
+	await h.afterEach();
+	done();
+});
+
 test('user can fetch information about himself', async () => {
 	h.signIn();
 	const response = await h.auth.get('/current-user').then(res => res.data.user);

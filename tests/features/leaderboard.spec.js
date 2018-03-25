@@ -16,6 +16,11 @@ beforeEach(async done => {
 	done();
 });
 
+afterEach(async done => {
+	await h.afterEach();
+	done();
+});
+
 test('user can fetch other users results', async () => {
 	h.signIn();
 

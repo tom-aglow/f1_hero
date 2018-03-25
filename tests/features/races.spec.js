@@ -16,6 +16,11 @@ beforeEach(async done => {
 	done();
 });
 
+afterEach(async done => {
+	await h.afterEach();
+	done();
+});
+
 test('user can fetch all races in the season', async () => {
 	h.signIn();
 	await f.create('race');
@@ -26,7 +31,6 @@ test('user can fetch all races in the season', async () => {
 });
 
 test('unauthenticated user cannot get races info', async () => {
-	await f.create('race');
 	const error = await h.api.get('/races').catch(err => err.response);
 
 	expect(error.status).toBe(401);

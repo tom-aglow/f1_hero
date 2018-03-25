@@ -1,13 +1,12 @@
 const f = require('../../jest/utils/factories');
 const h = require('../../jest/utils/helper');
-const { clearCollection, docToObj } = require('../../jest/utils/functions');
+const { docToObj } = require('../../jest/utils/functions');
 
 const round = 1;
 let race;
 
 beforeAll(async done => {
 	await h.beforeAll();
-	race = await f.create('race', { round });
 	done();
 });
 
@@ -18,7 +17,12 @@ afterAll(async done => {
 
 beforeEach(async done => {
 	await h.beforeEach();
-	await clearCollection('pick');
+	race = await f.create('race', { round });
+	done();
+});
+
+afterEach(async done => {
+	await h.afterEach();
 	done();
 });
 
