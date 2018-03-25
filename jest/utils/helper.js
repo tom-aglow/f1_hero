@@ -7,6 +7,7 @@ const { clearAllCollections } = require('./functions');
 const f = require('./factories');
 
 const api = axios.create({ baseURL: 'http://localhost:3002/api' });
+const auth = axios.create({ baseURL: 'http://localhost:3002/auth' });
 
 let server, user, app;
 
@@ -44,6 +45,7 @@ const helper = {
 	afterAll,
 	beforeEach,
 	api,
+	auth,
 	getUser
 };
 
