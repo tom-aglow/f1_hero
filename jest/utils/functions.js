@@ -1,4 +1,5 @@
 const mongoose = require('mongoose');
+const transformProps = require('transform-props');
 
 function clearCollection(model) {
 	return mongoose.model(model).remove();
@@ -13,7 +14,16 @@ function clearAllCollections() {
 	]).then(() => null);
 }
 
+function castToString(arg) {
+	return String(arg);
+}
+
+function docToObj(docObj) {
+	return transformProps(docObj, castToString, '_id');
+}
+
 module.exports = {
 	clearCollection,
-	clearAllCollections
+	clearAllCollections,
+	docToObj
 };

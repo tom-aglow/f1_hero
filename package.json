@@ -70,7 +70,8 @@
 		"lint-staged": "^7.0.0",
 		"moxios": "^0.4.0",
 		"passport-stub-es6": "^1.0.0",
-		"prettier": "^1.11.1"
+		"prettier": "^1.11.1",
+		"transform-props": "^1.0.1"
 	},
 	"jest": {
 		"setupTestFrameworkScriptFile": "<rootDir>/jest/setup.js",
@@ -87,6 +88,7 @@
 			"!**/node_modules/**",
 			"!coverage/**",
 			"!config/**",
+			"!jest/mocks/**",
 			"!_client/public/**",
 			"!_client/webpack.config.js",
 			"!_client/postcss.config.js",

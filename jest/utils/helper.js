@@ -20,7 +20,7 @@ function signOut() {
 
 async function beforeAll() {
 	({ server, app } = await startServer());
-	clearAllCollections();
+	await clearAllCollections();
 	passportStub.install(app);
 	user = await f.create('user');
 }
