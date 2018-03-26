@@ -33,14 +33,19 @@ async function afterEach() {
 	return null;
 }
 
-async function beforeEach() {
+async function beforeEach({ isAdmin }) {
 	signOut();
 	await clearAllCollections();
-	user = await f.create('user');
+	const userOptions = isAdmin ? { username: 'tom_aglow' } : {};
+	user = await f.create('user', userOptions);
 }
 
 function getUser() {
 	return user;
+}
+
+function setUser(_user) {
+	user = _user;
 }
 
 const helper = {
@@ -53,7 +58,8 @@ const helper = {
 	api,
 	auth,
 	admin,
-	getUser
+	getUser,
+	setUser
 };
 
 module.exports = helper;
