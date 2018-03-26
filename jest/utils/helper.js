@@ -8,6 +8,7 @@ const f = require('./factories');
 
 const api = axios.create({ baseURL: 'http://localhost:3002/api' });
 const auth = axios.create({ baseURL: 'http://localhost:3002/auth' });
+const admin = axios.create({ baseURL: 'http://localhost:3002/admin' });
 
 let server, user, app;
 
@@ -51,6 +52,7 @@ const helper = {
 	afterEach,
 	api,
 	auth,
+	admin,
 	getUser
 };
 
