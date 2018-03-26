@@ -33,7 +33,7 @@ async function afterEach() {
 	return null;
 }
 
-async function beforeEach({ isAdmin }) {
+async function beforeEach({ isAdmin } = {}) {
 	signOut();
 	await clearAllCollections();
 	const userOptions = isAdmin ? { username: 'tom_aglow' } : {};

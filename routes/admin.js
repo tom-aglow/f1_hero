@@ -7,7 +7,7 @@ const isAdmin = require('../middlewares/isAdmin');
 module.exports = () => {
 	const router = express.Router();
 
-	router.get('/races', isAdmin, racesController.index);
+	router.get('/races', isAdmin, racesController.fetchAndStore);
 	router.get('/drivers', isAdmin, driversController.fetchAndStore);
 	router.get('/races/:round/score', isAdmin, racesController.score);
 
