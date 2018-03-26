@@ -22,7 +22,7 @@ afterEach(async done => {
 	done();
 });
 
-test('admin can fetch drivers list from API and store it in the database', async () => {
+test('admin can fetch driver list from API and store it in the database', async () => {
 	h.signIn();
 
 	const response = await h.admin.get('/drivers').then(res => res.data.drivers);
@@ -32,7 +32,7 @@ test('admin can fetch drivers list from API and store it in the database', async
 	expect(response).toHaveLength(drivers.length);
 });
 
-test('not admin cannot change drivers data', async () => {
+test('not admin cannot change driver data', async () => {
 	const user = await f.create('user');
 	h.setUser(user);
 	h.signIn();

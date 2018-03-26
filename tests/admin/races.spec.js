@@ -1,4 +1,5 @@
 const moxios = require('moxios');
+const mongoose = require('mongoose');
 const h = require('../../jest/utils/helper');
 const f = require('../../jest/utils/factories');
 
@@ -22,34 +23,82 @@ afterEach(async done => {
 	done();
 });
 
-test('admin can fetch drivers list from API and store it in the database', async done => {
-	const numRaces2017 = 20;
+describe('GET /admin/races', () => {
+	test('admin can fetch race list from API and store it in the database', async () => {
+		const numRaces2017 = 20;
 
-	h.signIn();
+		h.signIn();
 
-	moxios.stubRequest(/thebasetrip/, {
-		status: 200,
-		response: {
-			basic: {
-				flag: { svg: 'foo' },
-				code: { alpha3: 'BAR' }
+		moxios.stubRequest(/thebasetrip/, {
+			status: 200,
+			response: {
+				basic: {
+					flag: { svg: 'foo' },
+					code: { alpha3: 'BAR' }
+				}
 			}
-		}
+		});
+
+		moxios.wait(async () => {
+			const response = await h.admin.get('/races').then(res => res.data.races);
+			expect(response).toHaveLength(numRaces2017);
+		});
 	});
 
-	moxios.wait(async () => {
-		const response = await h.admin.get('/races').then(res => res.data.races);
-		expect(response).toHaveLength(numRaces2017);
-		done();
+	test('not admin cannot change race data', async () => {
+		const user = await f.create('user');
+		h.setUser(user);
+		h.signIn();
+
+		const error = await h.admin.get('/races').catch(err => err.response);
+
+		expect(error.status).toBe(401);
 	});
 });
 
-test('not admin cannot change drivers data', async () => {
-	const user = await f.create('user');
-	h.setUser(user);
-	h.signIn();
+describe('GET /admin/races/:round/score', () => {
+	test("admin can calculate user's scores", async () => {
+		const round = 1;
+		const Race = mongoose.model('race');
+		const Pick = mongoose.model('pick');
 
-	const error = await h.admin.get('/races').catch(err => err.response);
+		h.signIn();
+		const _user = await f.create('user');
+		let _race = await f.create('race', { round });
+		const driverOne = await f.create('driver', { number: 5 });
+		const driverTwo = await f.create('driver', { number: 44 });
+		const driverThree = await f.create('driver', { number: 99 });
 
-	expect(error.status).toBe(401);
+		const forecast = [
+			{ _driver: driverOne, position: 1 },
+			{ _driver: driverTwo, position: 5 },
+			{ _driver: driverThree, position: 3 }
+		];
+
+		await f.create('pick', { _race, _user, forecast });
+
+		const response = await h.admin
+			.get(`races/${round}/score`)
+			.then(res => res.data);
+		expect(response.status).toBe('done');
+
+		_race = await Race.findOne({ round });
+		expect(_race.isPassed).toBe(true);
+
+		const pick = await Pick.findOne({ _race, _user });
+		expect(pick.status).toBe('calculated');
+		expect(pick.score).toBe(37);
+	});
+
+	test('not admin cannot calculate the scores', async () => {
+		const user = await f.create('user');
+		h.setUser(user);
+		h.signIn();
+
+		const error = await h.admin
+			.get('/races/1/score')
+			.catch(err => err.response);
+
+		expect(error.status).toBe(401);
+	});
 });

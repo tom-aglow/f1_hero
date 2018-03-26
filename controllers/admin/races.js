@@ -31,7 +31,7 @@ exports.fetchAndStore = async (req, res) => {
 	res.status(200).send({ races });
 };
 
-exports.score = async (req, res) => {
+exports.calculateScores = async (req, res) => {
 	const Race = mongoose.model('race');
 	const Pick = mongoose.model('pick');
 	const { round } = req.params;
