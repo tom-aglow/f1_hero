@@ -8,6 +8,7 @@ const f = require('./factories');
 
 const api = axios.create({ baseURL: 'http://localhost:3002/api' });
 const auth = axios.create({ baseURL: 'http://localhost:3002/auth' });
+const admin = axios.create({ baseURL: 'http://localhost:3002/admin' });
 
 let server, user, app;
 
@@ -32,14 +33,19 @@ async function afterEach() {
 	return null;
 }
 
-async function beforeEach() {
+async function beforeEach({ isAdmin } = {}) {
 	signOut();
 	await clearAllCollections();
-	user = await f.create('user');
+	const userOptions = isAdmin ? { username: 'tom_aglow' } : {};
+	user = await f.create('user', userOptions);
 }
 
 function getUser() {
 	return user;
+}
+
+function setUser(_user) {
+	user = _user;
 }
 
 const helper = {
@@ -51,7 +57,9 @@ const helper = {
 	afterEach,
 	api,
 	auth,
-	getUser
+	admin,
+	getUser,
+	setUser
 };
 
 module.exports = helper;

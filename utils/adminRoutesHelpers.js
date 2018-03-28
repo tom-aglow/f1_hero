@@ -64,7 +64,7 @@ const getForecastScore = (results, forecast) =>
 			: 0;
 
 		return {
-			...standing,
+			...JSON.parse(JSON.stringify(standing)),
 			score
 		};
 	});
