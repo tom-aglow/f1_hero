@@ -1,0 +1,24 @@
+.StandingList
+  position: absolute
+  width: 350px
+  background-color: $color-black
+  color: white
+  top: calc(100% + 30px)
+
+  .stem
+    width: 20px
+    height: 20px
+    position: absolute
+    top: -10px
+    background-color: $color-black
+    transform: rotate(45deg)
+    z-index: -1
+
+  .standings-container
+    overflow-y: scroll
+    max-height: 540px
+    color: grey
+
+    .standing:nth-child(-n+10)
+      color: white
+

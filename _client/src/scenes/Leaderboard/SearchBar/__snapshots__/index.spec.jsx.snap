@@ -1,0 +1,19 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="SearchBar"
+>
+  <input
+    data-test="searchInput"
+    onChange={[Function]}
+    placeholder="Search..."
+    type="text"
+    value=""
+  />
+  <i
+    aria-hidden="true"
+    className="fa fa-search"
+  />
+</div>
+`;

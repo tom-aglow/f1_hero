@@ -1,0 +1,39 @@
+{
+	"all": [
+		{
+			"round": 1,
+			"isPassed": true,
+			"hasPick": true,
+			"flagUrl": "http://foo.bar",
+			"alpha3code": "AUS",
+			"score": 50
+		},
+		{
+			"round": 2,
+			"isPassed": true,
+			"hasPick": false,
+			"flagUrl": "http://foo.bar",
+			"alpha3code": "RUS",
+			"score": 0
+		},
+		{
+			"round": 3,
+			"isPassed": false,
+			"hasPick": true,
+			"flagUrl": "http://foo.bar",
+			"alpha3code": "SPA",
+			"score": 0
+		},
+		{
+			"round": 4,
+			"isPassed": false,
+			"hasPick": false,
+			"flagUrl": "http://foo.bar",
+			"alpha3code": "BEL",
+			"score": 0
+		}
+	],
+	"selected": {
+		"round": 1
+	}
+}

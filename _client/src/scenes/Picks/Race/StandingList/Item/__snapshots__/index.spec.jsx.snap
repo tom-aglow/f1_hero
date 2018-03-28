@@ -1,0 +1,31 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="StandingItem"
+>
+  <div
+    className="position"
+  >
+    1
+    .
+  </div>
+  <div
+    className="driver-name"
+  >
+    L. Hamilton
+  </div>
+  <div
+    className="driver-code"
+  >
+    HAM
+  </div>
+  <div
+    className="score"
+    data-test="standing-list-item-score"
+  >
+    18
+    pt
+  </div>
+</div>
+`;

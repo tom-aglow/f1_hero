@@ -7,29 +7,34 @@
 			},
 			"loose": true,
 			"modules": false
-		}]
+		}],
+		"stage-3"
 	],
 	"plugins": [
 		"react-hot-loader/babel",
 		"transform-async-to-generator",
-		"babel-plugin-transform-class-properties"
+		"babel-plugin-transform-class-properties",
+		"transform-object-rest-spread"
 	],
 	"env": {
 		"test": {
 			"plugins": [
+				"babel-plugin-transform-class-properties",
 				"transform-es2015-modules-commonjs",
 				"transform-async-to-generator"
 			]
 		},
 		"server": {
 			"plugins": [
+				"transform-async-to-generator",
+				"babel-plugin-transform-class-properties",
 				"transform-es2015-modules-commonjs"
 			]
 		},
-        "production": {
-          "plugins": [
-            "transform-es2015-modules-commonjs"
-          ]
-        }
+		"production": {
+			"plugins": [
+				"transform-es2015-modules-commonjs"
+			]
+		}
 	}
 }

@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="standings-container"
+>
+  <div
+    className="standing"
+  >
+    You did not submit your prediction on time. No race results available for you.
+  </div>
+</div>
+`;

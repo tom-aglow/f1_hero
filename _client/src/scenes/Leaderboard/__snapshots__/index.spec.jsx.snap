@@ -1,0 +1,34 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`renders correctly 1`] = `
+<div
+  className="Leaderboard"
+>
+  <SearchBar
+    onChange={[Function]}
+    searchTerm=""
+  />
+  <div
+    className="results"
+  >
+    <ScoreRow
+      index={0}
+      key="John Doe"
+      total={123}
+      user="John Doe"
+    />
+    <ScoreRow
+      index={1}
+      key="Mary Doe"
+      total={95}
+      user="Mary Doe"
+    />
+    <ScoreRow
+      index={2}
+      key="Josh Simpson"
+      total={12}
+      user="Josh Simpson"
+    />
+  </div>
+</div>
+`;
