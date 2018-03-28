@@ -8,13 +8,15 @@
 	"scripts": {
 		"start": "node server.js",
 		"server": "nodemon server.js",
-		"client": "npm run dev --prefix _client",
-		"dev": "concurrently \"npm run server\" \"npm run client\"",
+		"client": "node startClient.js",
+		"dev": "concurrently \"yarn server\" \"yarn client\"",
 		"test": "PORT=3002 jest --coverage --runInBand",
 		"test:watch": "PORT=3002 jest --watch --verbose",
 		"lint": "eslint . --ext .js,.jsx --quiet",
 		"format": "prettier --write '**/*.{js,jsx}'",
-		"precommit": "lint-staged"
+		"precommit": "lint-staged",
+		"heroku-postbuild":
+			"cd ./_client && yarn --production=false && yarn build --production=false"
 	},
 	"dependencies": {
 		"axios": "^0.17.1",
