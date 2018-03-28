@@ -15,8 +15,7 @@
 		"lint": "eslint . --ext .js,.jsx --quiet",
 		"format": "prettier --write '**/*.{js,jsx}'",
 		"precommit": "lint-staged",
-		"heroku-postbuild":
-			"cd ./_client && yarn --production=false && yarn build --production=false"
+		"heroku-postbuild": "cd ./_client && yarn && yarn build"
 	},
 	"dependencies": {
 		"axios": "^0.17.1",
