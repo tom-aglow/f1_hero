@@ -30,7 +30,7 @@ const start = async () => {
 		process.env.NODE_ENV === 'production' ||
 		process.env.NODE_ENV === 'server'
 	) {
-		app.use(express.static('client/build'));
+		app.use('/assets', express.static('./_client/public/assets'));
 		app.use('/images', express.static('./_client/public/assets/images'));
 	}
 
