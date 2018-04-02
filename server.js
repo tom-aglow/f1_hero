@@ -1,4 +1,5 @@
 const express = require('express');
+const path = require('path');
 
 const setupMongoose = require('./config/setupMongoose');
 const setupModels = require('./config/setupModels');
@@ -23,15 +24,15 @@ const start = async () => {
 
 	//	CLIENT CONFIG
 
-	app.use('/assets', express.static('./_client/public/assets'));
-
 	// Express only serves static assets in production
-	if (
-		process.env.NODE_ENV === 'production' ||
-		process.env.NODE_ENV === 'server'
-	) {
-		app.use('/assets', express.static('./_client/public/assets'));
-		app.use('/images', express.static('./_client/public/assets/images'));
+	if (process.env.NODE_ENV === 'production') {
+		//	Express will serve up assets files (main.css, main.js)
+		app.use(express.static('_client/public'));
+
+		//	Express will serve up the index.html file if it doesn't recognize the route
+		app.get('*', (req, res) => {
+			res.sendFile(path.resolve(__dirname, '_client', 'public', 'index.html'));
+		});
 	}
 
 	//	SERVER START
