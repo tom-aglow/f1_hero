@@ -33,6 +33,16 @@ test('admin can create fake users', async () => {
 	expect(users).toHaveLength(num + 1);
 });
 
+test("admin can create one fake user if he doesn't specify number of new users", async () => {
+	h.signIn();
+
+	await h.admin.get(`/users/seed`);
+	const User = mongoose.model('user');
+	const users = await User.find();
+
+	expect(users).toHaveLength(2);
+});
+
 test('not admin cannot add new users', async () => {
 	const user = await f.create('user');
 	h.setUser(user);
