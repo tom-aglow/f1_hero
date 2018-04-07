@@ -22,15 +22,20 @@ afterEach(async done => {
 	done();
 });
 
-test('admin can create fake users', async () => {
+test('admin can create picks for fake users', async () => {
 	h.signIn();
 
-	const num = 5;
-	await h.admin.get(`/users/seed/${num}`);
-	const User = mongoose.model('user');
-	const users = await User.find();
+	const usersNum = 5;
+	const round = 1;
 
-	expect(users).toHaveLength(num + 1);
+	const _race = await f.create('race', { round });
+	await h.admin.get(`/users/seed/${usersNum}`);
+	await h.admin.get(`/picks/seed/${round}`);
+
+	const Pick = mongoose.model('pick');
+	const picks = await Pick.find({ _race });
+
+	expect(picks).toHaveLength(usersNum);
 });
 
 test('not admin cannot add new users', async () => {
@@ -38,7 +43,7 @@ test('not admin cannot add new users', async () => {
 	h.setUser(user);
 	h.signIn();
 
-	const error = await h.admin.get('/users/seed/5').catch(err => err.response);
+	const error = await h.admin.get('/picks/seed/1').catch(err => err.response);
 
 	expect(error.status).toBe(401);
 });
