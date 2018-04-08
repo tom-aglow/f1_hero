@@ -4,31 +4,33 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import { getCurrentUser } from 'App/data/users/actions';
 
-export default function(ComposedComponent) {
-	class Authentication extends Component {
-		async componentWillMount() {
-			if (!this.props.user.username) {
-				try {
-					await this.props.getCurrentUser();
-					if (this.props.location.pathname === '/login') {
-						this.props.history.push('/');
-					}
-				} catch (e) {
-					this.props.history.push('/login');
+export class Auth extends Component {
+	async componentDidMount() {
+		if (!this.props.user.username) {
+			try {
+				await this.props.getCurrentUser();
+				if (this.props.location.pathname === '/login') {
+					this.props.history.push('/');
+					console.log(this.props.history.push());
 				}
+			} catch (e) {
+				this.props.history.push('/login');
 			}
 		}
-
-		render() {
-			return <ComposedComponent {...this.props} />;
-		}
 	}
 
+	render() {
+		const ComposedComponent = this.props.composedComponent;
+		return <ComposedComponent {...this.props} />;
+	}
+}
+
+export default function(composedComponent) {
 	function mapStateToProps(state) {
-		return { user: state.data.users.current };
+		return {
+			user: state.data.users.current,
+			composedComponent
+		};
 	}
-
-	return withRouter(
-		connect(mapStateToProps, { getCurrentUser })(Authentication)
-	);
+	return withRouter(connect(mapStateToProps, { getCurrentUser })(Auth));
 }
