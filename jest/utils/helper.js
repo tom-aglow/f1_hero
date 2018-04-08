@@ -1,5 +1,6 @@
 /* eslint-disable one-var */
 const axios = require('axios');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const passportStub = require('passport-stub-es6');
 
 const startServer = require('../../server');

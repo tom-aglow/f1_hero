@@ -1,5 +1,4 @@
 const mongoose = require('mongoose');
-const f = require('./factories');
 const { clearCollection } = require('./functions');
 const h = require('./helper');
 
