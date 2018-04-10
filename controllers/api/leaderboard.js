@@ -10,6 +10,7 @@ exports.index = async (req, res) => {
 
 	Promise.all(
 		//  for every user fetch all pick with 'calculated' status
+		//	todo change map function to forEach
 		users.map(async user => {
 			const picks = await Pick.find({
 				_user: user._id,
@@ -20,11 +21,10 @@ exports.index = async (req, res) => {
 		})
 	).then(results => {
 		//  get top-5 element of scores array and calculate their sum
+		const sum = (acc, value) => acc + value;
+
 		const formattedResults = results.map(({ user, scores }) => {
-			const total = getMaxFiveElements(scores).reduce(
-				(sum, value) => sum + value,
-				0
-			);
+			const total = getMaxFiveElements(scores).reduce(sum, 0);
 			return { user, total };
 		});
 

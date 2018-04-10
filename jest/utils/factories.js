@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 const mongoose = require('mongoose');
+// eslint-disable-next-line import/no-extraneous-dependencies
 const faker = require('faker');
 
 const { capitalizeFirstLetter } = require('../../utils/functions');

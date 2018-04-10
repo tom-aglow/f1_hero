@@ -1,5 +1,6 @@
 /* eslint-disable no-use-before-define */
 import React from 'react';
+// eslint-disable-next-line import/no-extraneous-dependencies
 import { mount, shallow } from 'enzyme';
 import { StaticRouter } from 'react-router-dom';
 import { Provider } from 'react-redux';

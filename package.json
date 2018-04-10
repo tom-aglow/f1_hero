@@ -90,6 +90,7 @@
 			"!coverage/**",
 			"!config/**",
 			"!server.js",
+			"!startClient.js",
 			"!jest/mocks/**",
 			"!_client/public/**",
 			"!_client/webpack.config.js",

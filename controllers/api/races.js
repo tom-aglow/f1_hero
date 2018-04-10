@@ -13,17 +13,17 @@ exports.index = async (req, res) => {
 		_user: req.user._id
 	}).select('_race score');
 
-	races.map(race => {
+	const mappedRaces = races.map(race => {
 		const pick = picks.filter(
 			item => String(item._race) === String(race._id)
 		)[0];
-		if (pick && pick.score > 0) {
-			race.score = pick.score;
-		}
-		race.hasPick = !!pick;
-		return race;
+
+		const score = pick && pick.score > 0 ? pick.score : undefined;
+		const hasPick = !!pick;
+
+		return Object.assign({}, race, { score, hasPick });
 	});
 
-	res.send({ races });
-	// setTimeout(() => res.send({ races }), 500);
+	res.send({ races: mappedRaces });
+	// setTimeout(() => res.send({ races: mappedRaces }), 500);
 };

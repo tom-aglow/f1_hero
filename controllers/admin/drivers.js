@@ -24,5 +24,5 @@ exports.fetchAndStore = async (req, res) => {
 		}
 	);
 
-	res.status(200).send({ drivers: validDrivers });
+	res.status(200).send({ drivers: validDrivers, status: 'done' });
 };
