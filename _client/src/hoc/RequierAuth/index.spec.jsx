@@ -2,7 +2,7 @@ import r from 'Root/jest/utils/renderer';
 import MockComponent from 'Root/jest/mocks/component';
 import usersSample from 'JestClient/samples/users';
 
-import { Auth } from './requireAuth';
+import { Auth } from './index';
 
 const defaultProps = {
 	composedComponent: MockComponent,
