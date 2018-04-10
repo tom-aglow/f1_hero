@@ -5,7 +5,7 @@ import { Provider } from 'react-redux';
 import store from './store';
 import Content from './Content';
 import Login from './scenes/Login';
-import requireAuth from './hoc/requireAuth';
+import requireAuth from './hoc/RequierAuth';
 
 //	css styles
 import './styles/layout.scss';

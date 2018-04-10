@@ -28,6 +28,7 @@ test('user can fetch all races in the season', async () => {
 	const response = await h.api.get('/races').then(res => res.data.races);
 
 	expect(response).toHaveLength(2);
+	// todo check if response contains picks
 });
 
 test('unauthenticated user cannot get races info', async () => {
