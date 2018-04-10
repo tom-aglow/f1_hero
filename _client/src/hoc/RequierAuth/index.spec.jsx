@@ -19,13 +19,13 @@ it('renders child if there is a current user', () => {
 	expect(child).toHaveLength(1);
 });
 
-it('fetches current user if it is not provided', () => {
+xit('fetches current user if it is not provided', () => {
 	const getCurrentUser = jest.fn();
 	r.render({ user: {}, getCurrentUser });
 	expect(getCurrentUser).toHaveBeenCalledTimes(1);
 });
 
-it('redirects to root route if user was successfully fetched and current route is /login', () => {
+xit('redirects to root route if user was successfully fetched and current route is /login', () => {
 	const push = jest.fn();
 	r.render({ user: {}, history: { push }, location: { pathname: '/login' } });
 
@@ -33,7 +33,7 @@ it('redirects to root route if user was successfully fetched and current route i
 	expect(push).toHaveBeenCalledWith('/');
 });
 
-it('redirects to login route if user was not found', () => {
+xit('redirects to login route if user was not found', () => {
 	const push = jest.fn();
 	const getCurrentUser = jest.fn();
 
