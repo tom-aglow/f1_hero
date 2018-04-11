@@ -10,7 +10,6 @@ exports.index = async (req, res) => {
 
 	Promise.all(
 		//  for every user fetch all pick with 'calculated' status
-		//	todo change map function to forEach
 		users.map(async user => {
 			const picks = await Pick.find({
 				_user: user._id,
