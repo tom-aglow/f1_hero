@@ -64,7 +64,7 @@ describe('GET /admin/races/:round/score', () => {
 
 		h.signIn();
 		const _user = await f.create('user');
-		let _race = await f.create('race', { round });
+		const _race = await Race.findOne({ round });
 		const driverOne = await f.create('driver', { number: 5 });
 		const driverTwo = await f.create('driver', { number: 44 });
 		const driverThree = await f.create('driver', { number: 99 });
@@ -82,7 +82,6 @@ describe('GET /admin/races/:round/score', () => {
 			.then(res => res.data);
 		expect(response.status).toBe('done');
 
-		_race = await Race.findOne({ round });
 		expect(_race.isPassed).toBe(true);
 
 		const pick = await Pick.findOne({ _race, _user });
