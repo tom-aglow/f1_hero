@@ -2,6 +2,7 @@ const moxios = require('moxios');
 const mongoose = require('mongoose');
 const h = require('../../jest/utils/helper');
 const f = require('../../jest/utils/factories');
+const { clearCollection } = require('../../jest/utils/functions');
 
 beforeAll(async done => {
 	await h.beforeAll();
@@ -64,6 +65,7 @@ describe('GET /admin/races/:round/score', () => {
 
 		h.signIn();
 		const _user = await f.create('user');
+		await clearCollection('race');
 		let _race = await f.create('race', { round });
 		const driverOne = await f.create('driver', { number: 5 });
 		const driverTwo = await f.create('driver', { number: 44 });
