@@ -57,7 +57,7 @@ describe('GET /admin/races', () => {
 });
 
 describe('GET /admin/races/:round/score', () => {
-	test("admin can calculate user's scores", async () => {
+	xtest("admin can calculate user's scores", async () => {
 		const round = 1;
 		const Race = mongoose.model('race');
 		const Pick = mongoose.model('pick');
