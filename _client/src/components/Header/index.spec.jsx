@@ -11,6 +11,6 @@ const defaultProps = {
 r.init(Header, defaultProps);
 
 it('renders correctly', () => {
-	const wrapper = r.render(null, true);
+	const wrapper = r.render();
 	expect(wrapper).toMatchSnapshot();
 });

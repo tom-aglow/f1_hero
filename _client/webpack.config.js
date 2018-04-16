@@ -70,6 +70,10 @@ const config = {
 			'/api/*': {
 				target: 'http://localhost:3001',
 				secure: false
+			},
+			'/admin/*': {
+				target: 'http://localhost:3001',
+				secure: false
 			}
 		},
 		publicPath: '/assets/',

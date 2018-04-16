@@ -11,7 +11,6 @@ export class Auth extends Component {
 				await this.props.getCurrentUser();
 				if (this.props.location.pathname === '/login') {
 					this.props.history.push('/');
-					console.log(this.props.history.push());
 				}
 			} catch (e) {
 				this.props.history.push('/login');

@@ -10,7 +10,7 @@ const defaultProps = {
 r.init(SearchBar, defaultProps);
 
 it('renders correctly', () => {
-	const wrapper = r.render(null, true);
+	const wrapper = r.render();
 	expect(wrapper).toMatchSnapshot();
 });
 

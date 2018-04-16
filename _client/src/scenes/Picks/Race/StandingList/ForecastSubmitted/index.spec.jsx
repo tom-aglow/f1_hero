@@ -11,12 +11,12 @@ const defaultProps = {
 r.init(ForecastSubmitted, defaultProps);
 
 it('renders correctly', () => {
-	const wrapper = r.render(null, true);
+	const wrapper = r.render();
 	expect(wrapper).toMatchSnapshot();
 });
 
 it('renders correct amount of list items', () => {
-	const wrapper = r.render(null, true);
+	const wrapper = r.render();
 	const items = wrapper.find(Item);
 
 	expect(items).toHaveLength(defaultProps.items.length);
