@@ -14,6 +14,11 @@ describe('"isObjectEmpty" function', () => {
 		const obj = { foo: 'bar' };
 		expect(isObjectEmpty(obj)).toBe(false);
 	});
+
+	it('knows when given object has only null property', () => {
+		const obj = { foo: null };
+		expect(isObjectEmpty(obj)).toBe(false);
+	});
 });
 
 describe('"getNodePadding" function', () => {

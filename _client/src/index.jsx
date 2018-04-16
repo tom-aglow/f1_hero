@@ -5,17 +5,6 @@ import { BrowserRouter } from 'react-router-dom';
 import App from './App';
 
 const renderApp = async () => {
-	// let content;
-	// const user = (await axios.get('/auth/current-user')).data;
-	//
-	// if (user) {
-	// 	content = <App user={user} />;
-	// } else if (window.location.pathname !== '/login') {
-	// 	window.location.replace('/login');
-	// } else {
-	// 	content = <Login />;
-	// }
-
 	render(
 		<BrowserRouter>
 			<App />

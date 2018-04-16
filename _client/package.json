@@ -17,6 +17,9 @@
 		},
 		"/api/*": {
 			"target": "http://localhost:3001"
+		},
+		"/admin/*": {
+			"target": "http://localhost:3001"
 		}
 	},
 	"dependencies": {
